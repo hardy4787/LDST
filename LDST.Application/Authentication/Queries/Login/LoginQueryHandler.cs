@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ErrorOr;
 using LDST.Application.Common.Interfaces;
 using LDST.Application.Common.Interfaces.Persistance;
-using LDST.Domain.Entities;
 using MediatR;
 using LDST.Domain.Common.Errors;
 using LDST.Application.Authentication.Common;
+using LDST.Domain.User;
 
 namespace LDST.Application.Authentication.Queries.Login
 {

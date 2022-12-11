@@ -1,5 +1,5 @@
 ﻿using LDST.Application.Common.Interfaces.Persistance;
-using LDST.Domain.Entities;
+using LDST.Domain.User;
 
 namespace LDST.Infrastructure.Persistance;
 

@@ -11,7 +11,6 @@ namespace LDST.Api.Controllers
     [Route("[controller]")]
     public class DinnerController : Controller
     {
-
         [HttpGet]
         public IActionResult Index()
         {

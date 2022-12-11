@@ -1,3 +1,5 @@
+// using FluentValidation;
+
 using FluentValidation;
 
 namespace LDST.Application.Authentication.Queries.Login
