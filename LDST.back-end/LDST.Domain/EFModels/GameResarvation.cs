@@ -10,5 +10,5 @@ public class GameReservation
     public Bill? Bill { get; set; }
     public Guest Guest { get; set; } = null!;
     public GameTimeslot GameTimeslot { get; set; } = null!;
-    public Guid GameTimeslotId { get; set; }
+    public int GameTimeslotId { get; set; }
 }

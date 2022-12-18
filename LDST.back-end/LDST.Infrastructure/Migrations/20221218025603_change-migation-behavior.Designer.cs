@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LDST.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221218014209_initial")]
-    partial class initial
+    [Migration("20221218025603_change-migation-behavior")]
+    partial class changemigationbehavior
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,7 +50,61 @@ namespace LDST.Infrastructure.Migrations
 
                     b.HasIndex("GuestId");
 
-                    b.ToTable("Bills");
+                    b.ToTable("Bills", (string)null);
+                });
+
+            modelBuilder.Entity("LDST.Domain.EFModels.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CountryId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("Cities", (string)null);
+                });
+
+            modelBuilder.Entity("LDST.Domain.EFModels.CitySport", b =>
+                {
+                    b.Property<int>("CityId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SportId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("CityId", "SportId");
+
+                    b.HasIndex("SportId");
+
+                    b.ToTable("CitySports", (string)null);
+                });
+
+            modelBuilder.Entity("LDST.Domain.EFModels.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.GameReservation", b =>
@@ -61,8 +115,8 @@ namespace LDST.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<Guid>("GameTimeslotId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("GameTimeslotId")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("GuestId")
                         .HasColumnType("uuid");
@@ -72,9 +126,12 @@ namespace LDST.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GameTimeslotId")
+                        .IsUnique();
+
                     b.HasIndex("GuestId");
 
-                    b.ToTable("GameReservations");
+                    b.ToTable("GameResarvations", (string)null);
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.GameTimeslot", b =>
@@ -99,12 +156,9 @@ namespace LDST.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GameReservationId")
-                        .IsUnique();
-
                     b.HasIndex("PlaygroundId");
 
-                    b.ToTable("GameTimeslots");
+                    b.ToTable("GameTimeslots", (string)null);
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.Guest", b =>
@@ -124,7 +178,7 @@ namespace LDST.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Guests");
+                    b.ToTable("Guests", (string)null);
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.Host", b =>
@@ -144,7 +198,7 @@ namespace LDST.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Hosts");
+                    b.ToTable("Hosts", (string)null);
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.Playground", b =>
@@ -166,13 +220,8 @@ namespace LDST.Infrastructure.Migrations
                     b.Property<decimal>("AverageRating")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("CityId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -189,9 +238,8 @@ namespace LDST.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text[]");
 
-                    b.Property<string>("Sport")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("SportId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("State")
                         .IsRequired()
@@ -206,9 +254,13 @@ namespace LDST.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CityId");
+
                     b.HasIndex("HostId");
 
-                    b.ToTable("Playgrounds");
+                    b.HasIndex("SportId");
+
+                    b.ToTable("Playgrounds", (string)null);
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.PlaygroundGuestRating", b =>
@@ -234,7 +286,24 @@ namespace LDST.Infrastructure.Migrations
 
                     b.HasIndex("PlaygroundId");
 
-                    b.ToTable("PlaygroundGuestRating");
+                    b.ToTable("PlaygroundGuestRatings", (string)null);
+                });
+
+            modelBuilder.Entity("LDST.Domain.EFModels.Sport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sports", (string)null);
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.User", b =>
@@ -261,7 +330,7 @@ namespace LDST.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.Bill", b =>
@@ -283,32 +352,58 @@ namespace LDST.Infrastructure.Migrations
                     b.Navigation("Guest");
                 });
 
+            modelBuilder.Entity("LDST.Domain.EFModels.City", b =>
+                {
+                    b.HasOne("LDST.Domain.EFModels.Country", null)
+                        .WithMany("Cities")
+                        .HasForeignKey("CountryId");
+                });
+
+            modelBuilder.Entity("LDST.Domain.EFModels.CitySport", b =>
+                {
+                    b.HasOne("LDST.Domain.EFModels.City", "City")
+                        .WithMany("CitySports")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LDST.Domain.EFModels.Sport", "Sport")
+                        .WithMany("CitySports")
+                        .HasForeignKey("SportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+
+                    b.Navigation("Sport");
+                });
+
             modelBuilder.Entity("LDST.Domain.EFModels.GameReservation", b =>
                 {
+                    b.HasOne("LDST.Domain.EFModels.GameTimeslot", "GameTimeslot")
+                        .WithOne("GameReservation")
+                        .HasForeignKey("LDST.Domain.EFModels.GameReservation", "GameTimeslotId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("LDST.Domain.EFModels.Guest", "Guest")
                         .WithMany("GameReservations")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("GameTimeslot");
+
                     b.Navigation("Guest");
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.GameTimeslot", b =>
                 {
-                    b.HasOne("LDST.Domain.EFModels.GameReservation", "GameReservation")
-                        .WithOne("GameTimeslot")
-                        .HasForeignKey("LDST.Domain.EFModels.GameTimeslot", "GameReservationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("LDST.Domain.EFModels.Playground", "Playground")
                         .WithMany("GameTimeslots")
                         .HasForeignKey("PlaygroundId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("GameReservation");
 
                     b.Navigation("Playground");
                 });
@@ -337,13 +432,29 @@ namespace LDST.Infrastructure.Migrations
 
             modelBuilder.Entity("LDST.Domain.EFModels.Playground", b =>
                 {
+                    b.HasOne("LDST.Domain.EFModels.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("LDST.Domain.EFModels.Host", "Host")
                         .WithMany("Playgrounds")
                         .HasForeignKey("HostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("LDST.Domain.EFModels.Sport", "Sport")
+                        .WithMany()
+                        .HasForeignKey("SportId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
+
                     b.Navigation("Host");
+
+                    b.Navigation("Sport");
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.PlaygroundGuestRating", b =>
@@ -365,12 +476,24 @@ namespace LDST.Infrastructure.Migrations
                     b.Navigation("Playground");
                 });
 
+            modelBuilder.Entity("LDST.Domain.EFModels.City", b =>
+                {
+                    b.Navigation("CitySports");
+                });
+
+            modelBuilder.Entity("LDST.Domain.EFModels.Country", b =>
+                {
+                    b.Navigation("Cities");
+                });
+
             modelBuilder.Entity("LDST.Domain.EFModels.GameReservation", b =>
                 {
                     b.Navigation("Bill");
+                });
 
-                    b.Navigation("GameTimeslot")
-                        .IsRequired();
+            modelBuilder.Entity("LDST.Domain.EFModels.GameTimeslot", b =>
+                {
+                    b.Navigation("GameReservation");
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.Guest", b =>
@@ -392,6 +515,11 @@ namespace LDST.Infrastructure.Migrations
                     b.Navigation("GameTimeslots");
 
                     b.Navigation("PlaygroundGuestRatings");
+                });
+
+            modelBuilder.Entity("LDST.Domain.EFModels.Sport", b =>
+                {
+                    b.Navigation("CitySports");
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.User", b =>

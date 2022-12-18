@@ -1,6 +1,5 @@
 ﻿using ErrorOr;
 using MediatR;
-using PlaygroundAggregate = LDST.Domain.EFModels.Playground;
 
 namespace LDST.Application.Playground.Commands.CreateCommand;
 
@@ -9,11 +8,10 @@ public sealed record CreatePlaygroundCommand(
     Guid HostId, 
     string Name, 
     string Description, 
-    string Sport,
+    int SportId,
     string Address1,
     string Address2,
-    string Country,
-    string City,
+    int CityId,
     string State,
     string ZipCode, 
     string? TitlePhotoPath, 

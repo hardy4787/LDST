@@ -1,4 +1,4 @@
-﻿namespace LDST.Contracts.Authentication;
+﻿namespace LDST.Contracts;
 
 public record AuthenticationResponse(
     Guid Id,

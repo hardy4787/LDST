@@ -10,6 +10,10 @@ internal static class TableNames
     internal const string Bills = nameof(Bills);
     internal const string GameResarvations = nameof(GameResarvations);
     internal const string Hosts = nameof(Hosts);
+    internal const string Countries = nameof(Countries);
+    internal const string Cities = nameof(Cities);
+    internal const string Sports = nameof(Sports);
+    internal const string CitySports = nameof(CitySports);
     internal const string GameTimeslots = nameof(GameTimeslots);
     internal const string PlaygroundGuestRatings = nameof(PlaygroundGuestRatings);
 }

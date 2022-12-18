@@ -1,5 +1,5 @@
 ﻿
-namespace LDST.Contracts.Authentication;
+namespace LDST.Contracts;
 
 public record LoginRequest(
     string Email,

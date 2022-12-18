@@ -1,7 +1,7 @@
 using LDST.Application.Authentication.Commands.Register;
 using LDST.Application.Authentication.Common;
 using LDST.Application.Authentication.Queries.Login;
-using LDST.Contracts.Authentication;
+using LDST.Contracts;
 using Mapster;
 
 namespace LDST.Api.Common.Mapping

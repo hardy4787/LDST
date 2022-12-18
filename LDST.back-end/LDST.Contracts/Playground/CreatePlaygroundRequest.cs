@@ -1,4 +1,4 @@
-﻿namespace LDST.Contracts.Playground;
+﻿namespace LDST.Contracts;
 
 public record CreatePlaygroundRequest(
     string Name, 

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using LDST.Application.Playground.Commands.CreateCommand;
-using LDST.Contracts.Playground;
+using LDST.Contracts;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

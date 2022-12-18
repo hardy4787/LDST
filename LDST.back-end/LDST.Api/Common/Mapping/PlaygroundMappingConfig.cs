@@ -1,7 +1,6 @@
 ﻿using LDST.Application.Authentication.Queries.Login;
 using LDST.Application.Playground.Commands.CreateCommand;
-using LDST.Contracts.Authentication;
-using LDST.Contracts.Playground;
+using LDST.Contracts;
 using Mapster;
 
 namespace LDST.Api.Common.Mapping
