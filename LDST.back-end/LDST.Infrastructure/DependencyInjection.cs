@@ -1,7 +1,4 @@
 ﻿using System.Text;
-using LDST.Application.Common.Interfaces;
-using LDST.Application.Common.Interfaces.Persistance;
-using LDST.Application.Common.Interfaces.Services;
 using LDST.Infrastructure.Authentication;
 using LDST.Infrastructure.Persistance;
 using LDST.Infrastructure.Services;
@@ -11,6 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using LDST.Infrastructure.Persistance.Repositories;
+using LDST.Application.Interfaces.Persistance;
+using LDST.Application.Interfaces.Services;
+using LDST.Application.Interfaces;
+using LDST.Infrastructure.Models;
 
 namespace LDST.Infrastructure;
 
@@ -20,14 +22,21 @@ public static class DependencyInjection
     {
         services.AddAuth(configuration);
         services.AddDatabases(configuration);
+        services.AddFileManager(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IPlaygroundRepository, PlaygroundRepository>();
         return services;
     }
 
-    public static IServiceCollection AddAuth(this IServiceCollection services, ConfigurationManager configuration)
+    private static void AddFileManager(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<BlobStorageOptions>(options => configuration.GetSection("BlobStorageOptions").Bind(options));
+        services.AddScoped<IContainerNameResolver, ContainerNameResolver>();
+        services.AddScoped<IFileManager, FileManager>();
+    }
+
+    private static IServiceCollection AddAuth(this IServiceCollection services, ConfigurationManager configuration)
     {
         var jwtSettings = new JwtSettings();
         configuration.Bind(JwtSettings.SectionName, jwtSettings);
@@ -52,14 +61,15 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddDatabases(this IServiceCollection services, ConfigurationManager configuration)
+    private static IServiceCollection AddDatabases(this IServiceCollection services, ConfigurationManager configuration)
     {
+        services.AddScoped<IAppDbContext>(provider => provider.GetService<AppDbContext>()!);
+
         string? connectionString = configuration.GetConnectionString("LDSTConnection");
 
         services.AddDbContext<AppDbContext>(
             (options) =>
             {
-                //options.UseSqlServer(connectionString);
                 options.UseNpgsql(connectionString);
             }
         );

@@ -1,26 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LDST.Domain.EFModels;
 using LDST.Infrastructure.Persistance.Constants;
 
 namespace LDST.Infrastructure.Persistance.Configurations;
 
-internal sealed class GameReservationConfiguration : IEntityTypeConfiguration<GameReservation>
+internal sealed class GameReservationConfiguration : IEntityTypeConfiguration<GameReservationEntity>
 {
-    public void Configure(EntityTypeBuilder<GameReservation> builder)
+    public void Configure(EntityTypeBuilder<GameReservationEntity> builder)
     {
-        builder.ToTable(TableNames.GameResarvations);
+        builder.ToTable(TableNames.GameReservations);
 
         builder.HasKey(x => x.Id);
 
         builder
             .HasOne(a => a.Bill)
             .WithOne(b => b.GameReservation)
-            .HasForeignKey<Bill>(b => b.GameReservationId);
+            .HasForeignKey<BillEntity>(b => b.GameReservationId);
     }
 }

@@ -1,4 +1,4 @@
-﻿using LDST.Application.Common.Interfaces.Services;
+﻿using LDST.Application.Interfaces.Services;
 
 namespace LDST.Infrastructure.Services;
 

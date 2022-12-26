@@ -1,5 +1,5 @@
-﻿using LDST.Application.Common.Interfaces;
-using LDST.Application.Common.Interfaces.Services;
+﻿using LDST.Application.Interfaces;
+using LDST.Application.Interfaces.Services;
 using LDST.Domain.EFModels;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -20,7 +20,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         _jwtSettings = jwtSettings.Value;
     }
 
-    public string GenerateToken(User user)
+    public string GenerateToken(UserEntity user)
     {
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(

@@ -1,6 +1,8 @@
 using LDST.Api;
+using LDST.Api.Middlewares;
 using LDST.Application;
 using LDST.Infrastructure;
+using Microsoft.AspNetCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -12,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
-    app.UseExceptionHandler("/error");
+    app.UseMiddleware<ValidationExceptionMiddleware>();
     app.UseAuthentication();
     if (app.Environment.IsDevelopment())
     {
@@ -21,6 +23,7 @@ var app = builder.Build();
     }
     // app.UseAuthorization();
     app.UseHttpsRedirection();
+    app.UseCors("AllowAllOrigins");
     app.MapControllers();
     app.Run();
 }

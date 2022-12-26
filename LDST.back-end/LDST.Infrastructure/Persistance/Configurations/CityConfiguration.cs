@@ -2,20 +2,19 @@
 using LDST.Infrastructure.Persistance.Constants;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LDST.Infrastructure.Persistance.Configurations;
 
-internal sealed class CityConfiguration : IEntityTypeConfiguration<City>
+internal sealed class CityConfiguration : IEntityTypeConfiguration<CityEnity>
 {
-    public void Configure(EntityTypeBuilder<City> builder)
+    public void Configure(EntityTypeBuilder<CityEnity> builder)
     {
         builder.ToTable(TableNames.Cities);
-
         builder.HasKey(x => x.Id);
+
+        builder.HasAlternateKey(x => x.Name);
+
+        builder.Property(e => e.Name)
+            .HasMaxLength(50);
     }
 }

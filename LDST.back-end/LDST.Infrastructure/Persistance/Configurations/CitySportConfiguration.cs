@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LDST.Infrastructure.Persistance.Configurations;
 
-internal sealed class CitySportConfiguration : IEntityTypeConfiguration<CitySport>
+internal sealed class CitySportConfiguration : IEntityTypeConfiguration<CitySportEntity>
 {
-    public void Configure(EntityTypeBuilder<CitySport> builder)
+    public void Configure(EntityTypeBuilder<CitySportEntity> builder)
     {
         builder.ToTable(TableNames.CitySports);
 

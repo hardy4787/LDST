@@ -1,6 +1,6 @@
 ﻿namespace LDST.Domain.Enums
 {
-    public enum GameTimeslotStatus
+    public enum GameTimeSlotStatus
     {
         Free = 0,
         Reserved = 1,
