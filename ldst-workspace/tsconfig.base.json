@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@ldst-workspace/playground-search": [
+        "libs/playground-search/src/index.ts"
+      ],
       "@ldst-workspace/shared-ui": ["libs/shared-ui/src/index.ts"]
     }
   },
