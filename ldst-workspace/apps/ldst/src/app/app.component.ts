@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { exampleProducts } from '@ldst-workspace/playground-search';
 
 @Component({
   selector: 'ldst-workspace-root',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'ldst';
+  products = exampleProducts;
 }

@@ -1,1 +1,6 @@
-<ldst-workspace-nx-welcome></ldst-workspace-nx-welcome>
+<ldst-banner title="Welcome to the store!"> </ldst-banner>
+<ul>
+  <li *ngFor="let product of products">
+    <strong>{{ product.name }}</strong> Price: {{ product.price }}
+  </li>
+</ul>
