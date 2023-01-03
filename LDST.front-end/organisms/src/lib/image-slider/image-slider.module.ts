@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedUiModule } from '@ldst/shared/ui';
+import { SharedModule } from '@ldst/shared';
 import { ImageSliderComponent } from './image-slider.component';
 
 @NgModule({
-  imports: [CommonModule, SharedUiModule],
+  imports: [CommonModule, SharedModule],
   exports: [ImageSliderComponent],
   declarations: [ImageSliderComponent],
 })

@@ -18,12 +18,13 @@
         "inlineStyleLanguage": "scss",
         "assets": ["./src/favicon.ico", "./src/assets"],
         "stylePreprocessorOptions": {
-          "includePaths": ["./shared/ui/src/lib/styles"]
+          "includePaths": ["./shared/src/lib/styles"]
         },
         "styles": [
           "@angular/material/prebuilt-themes/indigo-pink.css",
           "./node_modules/keen-slider/keen-slider.min.css",
-          "./src/styles.scss"
+          "./src/styles.scss",
+          "./node_modules/ngx-toastr/toastr.css"
         ],
         "scripts": []
       },

@@ -6,12 +6,14 @@ import { ComponentStore } from '@ngrx/component-store';
 export interface PlaygroundState {
   playgroundInfo: CreatePlayground;
   titleImage: File | null;
+  playgroundImages: File[] | null;
   timeSlots: CreateTimeSlot[];
   isTimeSlotsGenerated: boolean;
 }
 
 const initialState: PlaygroundState = {
   playgroundInfo: {} as CreatePlayground,
+  playgroundImages: [] as File[],
   titleImage: {} as File,
   timeSlots: [] as CreateTimeSlot[],
   isTimeSlotsGenerated: false,
@@ -25,6 +27,7 @@ export class PlaygroundStore extends ComponentStore<PlaygroundState> {
 
   readonly playgroundInfo$ = this.select((state) => state.playgroundInfo);
   readonly titleImage$ = this.select((state) => state.titleImage);
+  readonly playgroundImages$ = this.select((state) => state.playgroundImages);
   readonly timeSlots$ = this.select((state) => state.timeSlots);
   readonly isTimeSlotsGenerated$ = this.select(
     (state) => state.isTimeSlotsGenerated

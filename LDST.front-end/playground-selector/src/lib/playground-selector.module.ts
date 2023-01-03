@@ -7,12 +7,12 @@ import { ImageSliderModule } from '@ldst/organisms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { PlaygroundsDayComponent } from './components/playgrounds-day/playgrounds-day.component';
 import { PlaygroundSlotsComponent } from './components/playground-slots/playground-slots.component';
-import { SharedUiModule } from '@ldst/shared/ui';
+import { SharedModule } from '@ldst/shared';
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedUiModule,
+    SharedModule,
     RouterModule.forChild([
       {
         path: '',

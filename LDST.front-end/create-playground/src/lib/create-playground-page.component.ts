@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, forkJoin, switchMap, take } from 'rxjs';
 import { City } from './models/city.model';
@@ -8,7 +8,7 @@ import { CreatePlaygroundService } from './services/create-playground.service';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { PlaygroundStore } from './services/playground.store';
 import { TimeSlotsValidators } from './services/time-slots.validators';
-import { TitleImageValidators } from './services/title-image.validators';
+import { ImageValidators } from './services/image.validators';
 import { MatStepper } from '@angular/material/stepper';
 import { FormControlUtils } from '@ldst/utils';
 import { PlaygroundTitleImage } from './models/playground-title-image.model';
@@ -38,6 +38,9 @@ export class CreatePlaygroundPageComponent implements OnInit {
   get titleImageControl(): FormControl {
     return this.form.controls['titleImage'] as FormControl;
   }
+  get playgroundImagesControl(): FormArray {
+    return this.form.controls['playgroundImages'] as FormArray;
+  }
   get timeSlotsConfigurationControl(): FormGroup {
     return this.form.controls['timeSlotsConfiguration'] as FormGroup;
   }
@@ -46,7 +49,7 @@ export class CreatePlaygroundPageComponent implements OnInit {
     private readonly createPlaygroundService: CreatePlaygroundService,
     private readonly playgroundStore: PlaygroundStore,
     private readonly timeSlotsValidators: TimeSlotsValidators,
-    private readonly titleImageValidators: TitleImageValidators,
+    private readonly imageValidators: ImageValidators,
     private readonly snackBar: MatSnackBar
   ) {
     this.form = new FormGroup({
@@ -62,10 +65,12 @@ export class CreatePlaygroundPageComponent implements OnInit {
       }),
       titleImage: new FormControl('', {
         validators: [
-          this.titleImageValidators.checkSize(),
-          this.titleImageValidators.checkFormat(),
+          this.imageValidators.checkSize(),
+          this.imageValidators.checkFormat(),
+          Validators.required,
         ],
       }),
+      playgroundImages: new FormArray([]),
       timeSlotsConfiguration: new FormGroup({
         price: new FormControl('', Validators.required),
         gameTime: new FormControl('', Validators.required),

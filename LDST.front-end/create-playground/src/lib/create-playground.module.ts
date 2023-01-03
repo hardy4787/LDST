@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
-import { SharedUiModule } from '@ldst/shared/ui';
+import { SharedModule } from '@ldst/shared';
 import { CreatePlaygroundStepComponent } from './components/create-playground-step/create-playground-step.component';
 import { UploadPhotoStepComponent } from './components/upload-photo-step/upload-photo-step.component';
 import { CreateTimeSlotsStepComponent } from './components/create-time-slots-step/create-time-slots-step.component';
@@ -22,16 +22,17 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TimeSlotsValidators } from './services/time-slots.validators';
 import { PlaygroundStore } from './services/playground.store';
-import { TitleImageValidators } from './services/title-image.validators';
+import { ImageValidators } from './services/image.validators';
 import {
   MatSnackBarModule,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
+import { PictureCardComponent } from './components/picture-card/picture-card.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    SharedUiModule,
+    SharedModule,
     RouterModule.forChild([
       {
         path: '',
@@ -58,11 +59,12 @@ import {
     UploadPhotoStepComponent,
     DragAndDropDirective,
     CreateTimeSlotsStepComponent,
+    PictureCardComponent,
   ],
   providers: [
     CreatePlaygroundService,
     TimeSlotsValidators,
-    TitleImageValidators,
+    ImageValidators,
     PlaygroundStore,
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,

@@ -19,7 +19,7 @@
       "@ldst/organisms": ["organisms/src/index.ts"],
       "@ldst/playground-search": ["playground-search/src/index.ts"],
       "@ldst/playground-selector": ["playground-selector/src/index.ts"],
-      "@ldst/shared/ui": ["shared/ui/src/index.ts"],
+      "@ldst/shared": ["shared/src/index.ts"],
       "@ldst/utils": ["utils/src/index.ts"]
     }
   },

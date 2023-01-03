@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PlaygroundSearchPageComponent } from './playground-search-page.component';
-import { SharedUiModule } from '@ldst/shared/ui';
+import { SharedModule } from '@ldst/shared';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PlaygroundSearchCardComponent } from './components/playground-search-card/playground-search-card.component';
@@ -17,7 +17,7 @@ import { ImageSliderModule } from '@ldst/organisms';
 @NgModule({
   imports: [
     CommonModule,
-    SharedUiModule,
+    SharedModule,
     HttpClientModule,
     RouterModule.forChild([
       {

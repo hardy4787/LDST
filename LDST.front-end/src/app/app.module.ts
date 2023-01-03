@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { SharedUiModule } from '@ldst/shared/ui';
+import { SharedModule } from '@ldst/shared';
 import { RouterModule } from '@angular/router';
 import { ToolbarModule } from '@ldst/organisms';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    SharedUiModule,
+    SharedModule,
     RouterModule.forRoot([
       {
         path: 'playground-selector',

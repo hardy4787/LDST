@@ -22,4 +22,26 @@ export class FormControlUtils {
       }
     });
   };
+
+  static markAllAsDirty = (
+    formGroup: FormGroup | FormArray | FormControl,
+    invalidOnly: boolean = true
+  ): void => {
+    if (formGroup instanceof FormControl) {
+      if (!invalidOnly || (invalidOnly && formGroup.invalid))
+        formGroup.markAsDirty({ onlySelf: true });
+      return;
+    }
+
+    Object.keys(formGroup.controls).forEach((field) => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        if (!invalidOnly || (invalidOnly && control.invalid)) {
+          control.markAsDirty({ onlySelf: true });
+        }
+      } else if (control instanceof FormArray || control instanceof FormGroup) {
+        FormControlUtils.markAllAsDirty(control, invalidOnly);
+      }
+    });
+  };
 }

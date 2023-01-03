@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormArray, FormControl } from '@angular/forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
+import { ImageInfo } from '../../models/image-info.model';
 import { PlaygroundStore } from '../../services/playground.store';
 
 @UntilDestroy()
@@ -10,10 +11,12 @@ import { PlaygroundStore } from '../../services/playground.store';
   styleUrls: ['./upload-photo-step.component.scss'],
 })
 export class UploadPhotoStepComponent {
-  file!: File | null;
-  fileURL?: string | ArrayBuffer | null;
+  titlePhoto!: File | null;
+  titlePhotoURL?: string | ArrayBuffer | null;
+  galleryPhotos: ImageInfo[] = [{ id: '-1', fileUrl: null }];
 
   @Input() form!: FormControl;
+  @Input() playgroundImagesForm!: FormArray;
   @ViewChild('fileDropRef', { static: false }) fileDropRef!: ElementRef;
 
   constructor(private readonly playgroundStore: PlaygroundStore) {}
@@ -34,7 +37,7 @@ export class UploadPhotoStepComponent {
 
   onDeletePhoto(): void {
     this.form.setValue(null);
-    this.fileURL = '';
+    this.titlePhotoURL = '';
     this.playgroundStore.clearTitleImage();
   }
 
@@ -50,9 +53,20 @@ export class UploadPhotoStepComponent {
   private setViewImageFromDataUrl(file: File): void {
     const fr = new FileReader();
     fr.onload = () => {
-      this.fileURL = fr.result;
+      this.titlePhotoURL = fr.result;
     };
 
     fr.readAsDataURL(file);
+  }
+
+  onAddAdditionalPhoto(): void {
+    this.galleryPhotos.push({
+      id: '-1',
+      fileUrl: null,
+    });
+  }
+
+  onDeleteAdditionalPhoto(id: string): void {
+    this.galleryPhotos = this.galleryPhotos.filter((f) => f.id !== id);
   }
 }
