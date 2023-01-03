@@ -1,0 +1,184 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>One game price</mat-label>
+    <input required formControlName="price" matInput />
+    <mat-error *ngIf="priceControl!.hasError('required')">
+      <mat-icon>error</mat-icon>
+      <span class="error-message">Required.</span>
+    </mat-error>
+  </mat-form-field>
+  <div class="form-group">
+    <div class="form-subgroup">
+      <div>
+        <div class="field-label-container">
+          <span class="field-label required">Choose slot time</span>
+        </div>
+        <mat-button-toggle-group required formControlName="gameTime">
+          <mat-button-toggle [value]="30">30 min</mat-button-toggle>
+          <mat-button-toggle [value]="60">60 min</mat-button-toggle>
+          <mat-button-toggle [value]="90">90 min</mat-button-toggle>
+        </mat-button-toggle-group>
+        <div class="error-wrapper">
+          <mat-error
+            *ngIf="
+              gameTimeControl!.touched && gameTimeControl!.hasError('required')
+            "
+          >
+            <mat-icon>error</mat-icon>
+            <span class="error-message">Required.</span>
+          </mat-error>
+        </div>
+      </div>
+      <div>
+        <div class="field-label-container">
+          <span class="field-label required"
+            >Choose how many next days you want to set</span
+          >
+        </div>
+        <div>
+          <mat-button-toggle-group formControlName="daysCount">
+            <mat-button-toggle [value]="1">day</mat-button-toggle>
+            <mat-button-toggle [value]="7">week</mat-button-toggle>
+            <mat-button-toggle [value]="30">30 days</mat-button-toggle>
+            <mat-button-toggle [value]="90">90 days</mat-button-toggle>
+          </mat-button-toggle-group>
+          <div class="error-wrapper">
+            <mat-error
+              *ngIf="
+                daysCountControl!.touched &&
+                daysCountControl!.hasError('required')
+              "
+            >
+              <mat-icon>error</mat-icon>
+              <span class="error-message">Required.</span>
+            </mat-error>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="field-label-container">
+    <span class="field-label required">Choose opening time</span>
+  </div>
+  <div class="time-slot-button-group">
+    <mat-button-toggle-group formControlName="openPlaygroundTime">
+      <mat-button-toggle [value]="0">6:00</mat-button-toggle>
+      <mat-button-toggle [value]="30">6:30</mat-button-toggle>
+      <mat-button-toggle [value]="60">7:00</mat-button-toggle>
+      <mat-button-toggle [value]="90">7:30</mat-button-toggle>
+      <mat-button-toggle [value]="120">8:00</mat-button-toggle>
+      <mat-button-toggle [value]="150">8:30</mat-button-toggle>
+      <mat-button-toggle [value]="180">9:00</mat-button-toggle>
+      <mat-button-toggle [value]="210">9:30</mat-button-toggle>
+      <mat-button-toggle [value]="240">10:00</mat-button-toggle>
+      <mat-button-toggle [value]="270">10:30</mat-button-toggle>
+      <mat-button-toggle [value]="300">11:00</mat-button-toggle>
+      <mat-button-toggle [value]="330">11:30</mat-button-toggle>
+      <mat-button-toggle [value]="360">12:00</mat-button-toggle>
+      <mat-button-toggle [value]="390">12:30</mat-button-toggle>
+      <mat-button-toggle [value]="420">13:00</mat-button-toggle>
+      <mat-button-toggle [value]="450">13:30</mat-button-toggle>
+      <mat-button-toggle [value]="480">14:00</mat-button-toggle>
+      <mat-button-toggle [value]="510">14:30</mat-button-toggle>
+      <mat-button-toggle [value]="540">15:00</mat-button-toggle>
+      <mat-button-toggle [value]="570">15:30</mat-button-toggle>
+      <mat-button-toggle [value]="610">16:00</mat-button-toggle>
+      <mat-button-toggle [value]="640">16:30</mat-button-toggle>
+      <mat-button-toggle [value]="670">17:00</mat-button-toggle>
+      <mat-button-toggle [value]="700">17:30</mat-button-toggle>
+      <mat-button-toggle [value]="730">18:00</mat-button-toggle>
+      <mat-button-toggle [value]="760">18:30</mat-button-toggle>
+      <mat-button-toggle [value]="790">19:00</mat-button-toggle>
+      <mat-button-toggle [value]="810">19:30</mat-button-toggle>
+      <mat-button-toggle [value]="840">20:00</mat-button-toggle>
+      <mat-button-toggle [value]="870">20:30</mat-button-toggle>
+      <mat-button-toggle [value]="900">21:00</mat-button-toggle>
+      <mat-button-toggle [value]="930">21:30</mat-button-toggle>
+      <mat-button-toggle [value]="960">22:00</mat-button-toggle>
+      <mat-button-toggle [value]="990">22:30</mat-button-toggle>
+      <mat-button-toggle [value]="1020">23:00</mat-button-toggle>
+      <mat-button-toggle [value]="1050">23:00</mat-button-toggle>
+      <mat-button-toggle [value]="1080">24:00</mat-button-toggle>
+    </mat-button-toggle-group>
+    <div class="error-wrapper">
+      <mat-error
+        *ngIf="
+          openPlaygroundTimeControl!.touched &&
+          openPlaygroundTimeControl!.hasError('required')
+        "
+      >
+        <mat-icon>error</mat-icon>
+        <span class="error-message">Required.</span>
+      </mat-error>
+    </div>
+  </div>
+  <div class="field-label-container">
+    <span class="field-label required">Choose closing time</span>
+  </div>
+  <div class="time-slot-button-group">
+    <mat-button-toggle-group formControlName="closePlaygroundTime">
+      <mat-button-toggle [value]="0">6:00</mat-button-toggle>
+      <mat-button-toggle [value]="30">6:30</mat-button-toggle>
+      <mat-button-toggle [value]="60">7:00</mat-button-toggle>
+      <mat-button-toggle [value]="90">7:30</mat-button-toggle>
+      <mat-button-toggle [value]="120">8:00</mat-button-toggle>
+      <mat-button-toggle [value]="150">8:30</mat-button-toggle>
+      <mat-button-toggle [value]="180">9:00</mat-button-toggle>
+      <mat-button-toggle [value]="210">9:30</mat-button-toggle>
+      <mat-button-toggle [value]="240">10:00</mat-button-toggle>
+      <mat-button-toggle [value]="270">10:30</mat-button-toggle>
+      <mat-button-toggle [value]="300">11:00</mat-button-toggle>
+      <mat-button-toggle [value]="330">11:30</mat-button-toggle>
+      <mat-button-toggle [value]="360">12:00</mat-button-toggle>
+      <mat-button-toggle [value]="390">12:30</mat-button-toggle>
+      <mat-button-toggle [value]="420">13:00</mat-button-toggle>
+      <mat-button-toggle [value]="450">13:30</mat-button-toggle>
+      <mat-button-toggle [value]="480">14:00</mat-button-toggle>
+      <mat-button-toggle [value]="510">14:30</mat-button-toggle>
+      <mat-button-toggle [value]="540">15:00</mat-button-toggle>
+      <mat-button-toggle [value]="570">15:30</mat-button-toggle>
+      <mat-button-toggle [value]="610">16:00</mat-button-toggle>
+      <mat-button-toggle [value]="640">16:30</mat-button-toggle>
+      <mat-button-toggle [value]="670">17:00</mat-button-toggle>
+      <mat-button-toggle [value]="700">17:30</mat-button-toggle>
+      <mat-button-toggle [value]="730">18:00</mat-button-toggle>
+      <mat-button-toggle [value]="760">18:30</mat-button-toggle>
+      <mat-button-toggle [value]="790">19:00</mat-button-toggle>
+      <mat-button-toggle [value]="810">19:30</mat-button-toggle>
+      <mat-button-toggle [value]="840">20:00</mat-button-toggle>
+      <mat-button-toggle [value]="870">20:30</mat-button-toggle>
+      <mat-button-toggle [value]="900">21:00</mat-button-toggle>
+      <mat-button-toggle [value]="930">21:30</mat-button-toggle>
+      <mat-button-toggle [value]="960">22:00</mat-button-toggle>
+      <mat-button-toggle [value]="990">22:30</mat-button-toggle>
+      <mat-button-toggle [value]="1020">23:00</mat-button-toggle>
+      <mat-button-toggle [value]="1050">23:00</mat-button-toggle>
+      <mat-button-toggle [value]="1080">24:00</mat-button-toggle>
+    </mat-button-toggle-group>
+    <div class="error-wrapper">
+      <mat-error
+        *ngIf="
+          closePlaygroundTimeControl!.touched &&
+          closePlaygroundTimeControl!.hasError('required')
+        "
+      >
+        <mat-icon>error</mat-icon>
+        <span class="error-message">Required.</span>
+      </mat-error>
+      <mat-error *ngIf="form.hasError('timeGapIncorrect')">
+        <mat-icon>error</mat-icon>Time gap between opening and closing should be
+        equal or greater then one slot time.
+      </mat-error>
+    </div>
+  </div>
+</form>
+<div class="mb-2 mt-2">
+  <button
+    type="button"
+    mat-stroked-button
+    color="accent"
+    (click)="onGenerate()"
+  >
+    Generate
+  </button>
+</div>

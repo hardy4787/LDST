@@ -1,0 +1,137 @@
+.add-picture-container {
+  cursor: pointer;
+  background-color: #eeeeee;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50vh;
+  min-height: 200px;
+  max-height: 370px;
+  text-align: center;
+  position: relative;
+  margin: 0 auto;
+
+  &.no-image {
+    border: 4px dashed #b3b3b3;
+    border-radius: 4px;
+  }
+
+  @media (min-width: 600px) {
+    .delete-photo {
+      opacity: 0;
+    }
+
+    &:hover .delete-photo {
+      opacity: 1;
+    }
+  }
+}
+
+.positioning-container {
+  height: 100%;
+  position: relative;
+
+  .picture {
+    background: #b3b3b3;
+    max-height: 100%;
+    max-width: 100%;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+  }
+}
+
+.delete-photo {
+  font-size: 32px;
+  line-height: 32px !important;
+  height: 32px;
+  width: 32px;
+
+  background-color: rgba(#fff, 0.5);
+  color: rgba(#000, 0.6);
+  font-size: 32px - 10px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  transition: all 100ms linear;
+  z-index: 1;
+}
+
+.dragdrop-message {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  user-select: none;
+
+  .mat-icon {
+    font-size: 36px;
+    line-height: 36px !important;
+    height: 36px;
+    width: 36px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+}
+.button-center {
+  text-align: center;
+}
+
+.message-wrapper {
+  min-height: 18px;
+  padding: 5px 0;
+}
+
+.file-over {
+  animation: shake 1s;
+  animation-iteration-count: infinite;
+}
+
+/* Shake animation */
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+
+  20% {
+    transform: translate(-3px, 0) rotate(1deg);
+  }
+
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}

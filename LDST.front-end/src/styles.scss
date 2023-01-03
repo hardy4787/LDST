@@ -1,0 +1,170 @@
+@import 'mixins';
+@import 'variables';
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-content {
+  &-center {
+    justify-content: center;
+  }
+
+  &-space-between {
+    justify-content: space-between;
+  }
+
+  &-flex-end {
+    justify-content: flex-end;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.self-center {
+  align-items: center;
+}
+
+.flex-direction {
+  &-column {
+    flex-direction: column;
+  }
+}
+
+.p-05 {
+  padding: 5px;
+}
+
+.p-1 {
+  padding: 10px;
+}
+
+.m-2 {
+  margin: 20px;
+}
+
+.mr-2 {
+  margin-right: 20px;
+}
+
+.mb-2 {
+  margin-bottom: 20px;
+}
+
+.ml-2 {
+  margin-left: 20px;
+}
+
+.mt-05 {
+  margin-top: 5px;
+}
+
+.mt-1 {
+  margin-top: 10px;
+}
+
+.mt-2 {
+  margin-top: 20px;
+}
+
+.mat-mdc-form-field-error-wrapper {
+  padding: 0 !important;
+}
+
+mat-error,
+.mat-mdc-form-field-error-wrapper mat-error {
+  padding-top: 5px;
+  height: 24px;
+  line-height: 24px;
+  .mat-icon,
+  .error-icon {
+    height: 16px;
+    width: 18px;
+    font-size: 12px;
+    vertical-align: middle;
+  }
+
+  .error-message {
+    font-size: 14px;
+  }
+}
+
+.required::after {
+  content: '*';
+  padding-left: 1px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.field-label {
+  font-size: 14px;
+  padding-bottom: 10px;
+}
+
+.field-label-container {
+  margin-top: 5px;
+  padding-bottom: 5px;
+}
+
+.mat-mdc-form-field-subscript-wrapper,
+.error-wrapper {
+  height: 29px;
+}
+
+.form-group {
+  display: flex;
+  flex-flow: row wrap;
+
+  & > * {
+    flex: 1 100%;
+  }
+
+  .form-subgroup {
+    display: flex;
+
+    & > * {
+      margin-left: 10px;
+      margin-right: 10px;
+      width: 100%;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+@include tablet-and-mobile {
+  .form-subgroup {
+    flex-direction: column;
+
+    & > * {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}

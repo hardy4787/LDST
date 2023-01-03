@@ -24,9 +24,14 @@ public class PlaygroundsController : ApiController
     [HttpPost("title-photo")]
     public async Task<IActionResult> UploadTitleImage([FromForm] UploadTitleImageCommand request) =>
         GetHandledResult(await _mediator.Send(request));
+    //[HttpPost("title-photo")]
+    //public async Task<IActionResult> UploadTitleImage([FromForm] TestUploadTitleImageCommand request) =>
+    //    GetHandledResult(await _mediator.Send(request));
+
+    
 
     [HttpGet("cities/{cityId}/sports/{sportId}")]
-    public async Task<IActionResult> GetPlaygroundsByCity([FromQuery] GetPlaygroundsByCityQuery request) =>
+    public async Task<IActionResult> GetPlaygroundsByCity([FromQuery] GetPlaygroundsForNext7DaysQuery request) =>
         GetHandledResult(await _mediator.Send(request));
 
     [HttpPost("{playgroundId}/timeslots")]

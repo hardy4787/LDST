@@ -21,7 +21,7 @@ var app = builder.Build();
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-    // app.UseAuthorization();
+    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     app.UseHttpsRedirection();
     app.UseCors("AllowAllOrigins");
     app.MapControllers();

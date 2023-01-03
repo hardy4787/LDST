@@ -1,0 +1,24 @@
+.playground-title-image {
+  height: 150px;
+  width: 100%;
+}
+
+.playground-day {
+  max-width: 200px;
+  text-align: center;
+}
+
+.time-slot-wrapper {
+  background-color: rgb(247, 247, 247);
+  margin-bottom: 5px;
+  padding: 5px;
+  transition: 0.5s;
+
+  &:hover {
+    box-shadow: rgb(0 0 0 / 18%) 0 5px 11px 0, rgb(0 0 0 / 14.9%) 0 4px 15px 0;
+  }
+}
+
+.price {
+  color: green;
+}

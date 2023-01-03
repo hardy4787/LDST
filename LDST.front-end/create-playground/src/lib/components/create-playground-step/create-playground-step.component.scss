@@ -1,0 +1,14 @@
+@import 'mixins';
+@import 'variables';
+
+@include tablet-and-mobile {
+  .form-subgroup {
+    flex-direction: column;
+
+    & > * {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}

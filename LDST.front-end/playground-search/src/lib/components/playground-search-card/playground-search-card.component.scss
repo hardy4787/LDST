@@ -1,0 +1,24 @@
+@import 'mixins';
+@import 'variables';
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.playground-search-card {
+  margin-top: 20px;
+  padding: 20px 10px;
+  max-width: 500px;
+  // max-height: 180px;
+  mat-form-field {
+    padding: 0 10px;
+  }
+}
+
+@include mobile-only {
+  .form-group {
+    flex-direction: column;
+  }
+}

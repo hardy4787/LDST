@@ -1,0 +1,8 @@
+<ldst-image-slider></ldst-image-slider>
+<div class="page-header text-center">
+  <h1>Choose your city and sport</h1>
+</div>
+<ldst-playground-search-card
+  (searchParamsChanged)="onNavigateToPlaygrounds($event)"
+  [citySports]="citySports"
+></ldst-playground-search-card>

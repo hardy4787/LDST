@@ -1,0 +1,59 @@
+<div
+  class="add-picture-container"
+  [ngClass]="{ 'no-image': !fileURL }"
+  ldstDragAndDrop
+  (click)="onBrowseFile()"
+  (fileDropped)="onFileDropped($event)"
+>
+  <div class="positioning-container">
+    <img class="picture" [src]="fileURL" *ngIf="fileURL" alt="" />
+
+    <div class="dragdrop-message" *ngIf="!fileURL">
+      <mat-icon>photo_size_select_actual</mat-icon>
+      <div class="message-label">Drag photo file here</div>
+    </div>
+
+    <button
+      type="button"
+      *ngIf="fileURL"
+      mat-icon-button
+      class="delete-photo"
+      title="Delete Photo"
+      (click)="onDeletePhoto()"
+    >
+      <mat-icon>image_not_supported</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div class="message-wrapper">
+  <mat-error *ngIf="form.hasError('exceedSize')">
+    <mat-icon>error</mat-icon>File size may not exceed 5 MB.
+  </mat-error>
+  <mat-error *ngIf="form.hasError('zeroSize')">
+    <mat-icon>error</mat-icon>Cannot upload 0KB sized files.
+  </mat-error>
+  <mat-error *ngIf="form.hasError('incorrectType')">
+    <mat-icon>error</mat-icon>Cannot upload this file type.
+  </mat-error>
+</div>
+
+<input
+  hidden
+  type="file"
+  #fileDropRef
+  id="fileDropRef"
+  (change)="onUpload($event.target!)"
+  accept=".jpg,.jpeg,.png,.gif"
+/>
+
+<div class="mb-2">
+  <button
+    type="button"
+    mat-stroked-button
+    color="accent"
+    (click)="fileDropRef.click()"
+  >
+    Browse File
+  </button>
+</div>

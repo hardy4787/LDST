@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2022",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ldst/create-playground": ["create-playground/src/index.ts"],
+      "@ldst/organisms": ["organisms/src/index.ts"],
+      "@ldst/playground-search": ["playground-search/src/index.ts"],
+      "@ldst/playground-selector": ["playground-selector/src/index.ts"],
+      "@ldst/shared/ui": ["shared/ui/src/index.ts"],
+      "@ldst/utils": ["utils/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row class="justify-content-space-between">
+    <a href="/"
+      ><div class="logo-container">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Bike"
+          fontIcon="directions_bike"
+        ></mat-icon>
+        LDST
+      </div></a
+    >
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      #menuTrigger="matMenuTrigger"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <span (mouseleave)="menuTrigger.closeMenu()">
+        <button mat-menu-item>
+          <mat-icon>phone</mat-icon>
+          <span>Contacts</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>people_outline</mat-icon>
+          <span>About</span>
+        </button>
+        <button mat-menu-item (click)="onNavigateToCreatePlayground()">
+          <mat-icon>people_outline</mat-icon>
+          <span>Create playground</span>
+        </button>
+      </span>
+    </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>

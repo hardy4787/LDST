@@ -11,7 +11,7 @@ public class ApiController : ControllerBase
         ErrorOr<TResult> result)
     {
         return result.Match(obj =>
-            new OkObjectResult(result),
+            new OkObjectResult(obj),
             Problem);
     }
 

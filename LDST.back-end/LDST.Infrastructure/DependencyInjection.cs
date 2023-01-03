@@ -72,7 +72,7 @@ public static class DependencyInjection
             {
                 options.UseNpgsql(connectionString);
             }
-        );
+        ); 
 
         return services;
     }

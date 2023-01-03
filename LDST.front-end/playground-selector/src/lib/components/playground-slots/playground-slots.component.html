@@ -1,0 +1,29 @@
+<div class="p-05">
+  <ul class="playground-day">
+    <li>
+      <a href="/">
+        <div>
+          <img
+            class="playground-title-image"
+            [src]="playground.titlePhotoPath"
+            [alt]="playground.name"
+          />
+        </div>
+        <div>{{ playground.name }}</div>
+      </a>
+      <ul>
+        <ng-container *ngFor="let timeSlot of playground.timeSlots">
+          <li class="time-slot-wrapper">
+            <a href="/">
+              <div class="time">
+                {{ timeSlot.startTime | timeFormat }} -
+                {{ timeSlot.endTime | timeFormat }}
+              </div>
+              <div class="price">{{ timeSlot.price }} USD</div>
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </li>
+  </ul>
+</div>

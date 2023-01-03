@@ -1,0 +1,21 @@
+<div class="keen-slider" #sliderRef>
+  <ng-container
+    *ngFor="
+      let imageDetails of SPORT_IMAGES;
+      let index = index;
+      trackBy: imageDetailsTrackBy
+    "
+  >
+    <div class="keen-slider__slide number-slide{{ index }}">
+      <img [src]="imageDetails.path" [alt]="imageDetails.alt" />
+    </div>
+  </ng-container>
+</div>
+<div class="dots">
+  <button
+    #slideDots
+    (click)="onChangeSlide($event.target, i)"
+    *ngFor="let slide of dotHelper; let i = index"
+    class="dot"
+  ></button>
+</div>

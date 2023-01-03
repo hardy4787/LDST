@@ -1,0 +1,24 @@
+@mixin pageHostStretch {
+  :host {
+    min-height: 100%;
+    height: 100%;
+  }
+}
+
+@mixin mobile-xs {
+  @media (max-width: #{$screen-xs - 0.1px}) {
+    @content;
+  }
+}
+
+@mixin mobile-only {
+  @media (max-width: #{$screen-sm - 0.1px}) {
+    @content;
+  }
+}
+
+@mixin tablet-and-mobile {
+  @media (max-width: #{$screen-md - 0.1px}) {
+    @content;
+  }
+}
