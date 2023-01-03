@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   OnDestroy,
@@ -35,7 +36,10 @@ export class ImageSliderComponent implements AfterViewInit, OnDestroy {
   slider!: KeenSliderInstance;
   readonly SPORT_IMAGES = SPORT_IMAGES;
 
-  constructor(private render: Renderer2) {}
+  constructor(
+    private render: Renderer2,
+    private readonly changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   ngAfterViewInit(): void {
     this.slider = new KeenSlider(
@@ -52,8 +56,9 @@ export class ImageSliderComponent implements AfterViewInit, OnDestroy {
         },
         slides: { perView: 1 },
         initial: this.currentSlide,
-        slideChanged: (s) => {
-          console.log(s.track.details.rel);
+        slideChanged: ({ track: { details } }) => {
+          this.currentSlide = details.rel;
+          this.changeDetectorRef.markForCheck();
         },
         optionsChanged: ({ options }) => {
           this.dotHelper = [
@@ -66,38 +71,16 @@ export class ImageSliderComponent implements AfterViewInit, OnDestroy {
         },
       },
       [
-        (slider: any) => {
-          let timeout: any;
+        (slider) => {
+          let timeout: NodeJS.Timeout;
           let mouseOver = false;
           const clearNextTimeout = () => clearTimeout(timeout);
           const nextTimeout = () => {
             clearTimeout(timeout);
             if (mouseOver) return;
             timeout = setTimeout(() => {
-              const previousSlideIndex = this.currentSlide;
-              const previousSlideDotElement = this.slideDots.find(
-                (_, index) => index === previousSlideIndex
-              );
-              this.render.removeClass(
-                previousSlideDotElement?.nativeElement,
-                'active'
-              );
               slider.next();
-              const isPreviousSlideLast =
-                SPORT_IMAGES.length - 1 === previousSlideIndex;
-              const currentSlideIndex = isPreviousSlideLast
-                ? 0
-                : previousSlideIndex + 1;
-              const currentSlideDotElement = this.slideDots.find(
-                (_, index) => index === currentSlideIndex
-              );
-              this.render.addClass(
-                currentSlideDotElement?.nativeElement,
-                'active'
-              );
-              this.currentSlide = currentSlideIndex;
-              console.log('kek');
-            }, 100000);
+            }, 10000);
           };
           slider.on('created', () => {
             slider.container.addEventListener('mouseover', () => {
@@ -125,18 +108,6 @@ export class ImageSliderComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.slider) this.slider.destroy();
-  }
-
-  onChangeSlide(event: any, i: number): void {
-    console.log('lol');
-    const previousSlideIndex = this.currentSlide;
-    const previousSlideDotElement = this.slideDots.find(
-      (_, index) => index === previousSlideIndex
-    );
-    this.render.removeClass(previousSlideDotElement?.nativeElement, 'active');
-    this.slider.moveToIdx(i);
-    this.render.addClass(event, 'active');
-    this.currentSlide = i;
   }
 
   imageDetailsTrackBy = (_: number, details: SportImageDetails): number =>

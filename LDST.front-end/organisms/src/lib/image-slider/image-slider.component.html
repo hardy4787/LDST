@@ -14,8 +14,8 @@
 <div class="dots">
   <button
     #slideDots
-    (click)="onChangeSlide($event.target, i)"
+    (click)="slider.moveToIdx(i)"
     *ngFor="let slide of dotHelper; let i = index"
-    class="dot"
+    [class]="'dot ' + (i === currentSlide ? 'active' : '')"
   ></button>
 </div>
