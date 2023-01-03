@@ -72,13 +72,18 @@ export class CreatePlaygroundPageComponent implements OnInit {
         daysCount: new FormControl('', Validators.required),
         openPlaygroundTime: new FormControl('', Validators.required),
         closePlaygroundTime: new FormControl('', {
-          validators: [
-            Validators.required,
-            this.timeSlotsValidators.checkTimeSlotsGap(),
-          ],
+          validators: [Validators.required],
         }),
       }),
     });
+
+    this.timeSlotsConfigurationControl.addValidators(
+      this.timeSlotsValidators.checkTimeInterval(
+        this.timeSlotsConfigurationControl.controls['openPlaygroundTime'],
+        this.timeSlotsConfigurationControl.controls['closePlaygroundTime'],
+        this.timeSlotsConfigurationControl.controls['gameTime']
+      )
+    );
   }
 
   ngOnInit(): void {

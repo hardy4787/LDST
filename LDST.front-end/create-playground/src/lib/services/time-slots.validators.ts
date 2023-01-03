@@ -1,25 +1,21 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 @Injectable()
 export class TimeSlotsValidators {
-  public checkTimeSlotsGap(): ValidatorFn | any {
-    return (formGroup: FormGroup) => {
-      const openPlaygroundTimeControl = formGroup.get('openPlaygroundTime');
-      const closePlaygroundTimeControl = formGroup.get('closePlaygroundTime');
-      const gameTimeControl = formGroup.get('gameTime');
-
-      if (
-        !openPlaygroundTimeControl ||
-        !closePlaygroundTimeControl ||
-        !gameTimeControl
-      ) {
+  checkTimeInterval = (
+    startTimeControl: AbstractControl,
+    endTimeControl: AbstractControl,
+    intervalControl: AbstractControl
+  ): ValidatorFn => {
+    return (): ValidationErrors | null => {
+      if (!startTimeControl || !endTimeControl || !intervalControl) {
         return null;
       }
 
-      const openPlaygroundTimeValue = openPlaygroundTimeControl.value;
-      const closePlaygroundTimeValue = closePlaygroundTimeControl.value;
-      const gameTimeValue = gameTimeControl.value;
+      const openPlaygroundTimeValue = startTimeControl.value;
+      const closePlaygroundTimeValue = endTimeControl.value;
+      const gameTimeValue = intervalControl.value;
 
       if (
         !openPlaygroundTimeValue ||
@@ -31,10 +27,10 @@ export class TimeSlotsValidators {
 
       const timeGap = closePlaygroundTimeValue - openPlaygroundTimeValue;
       if (timeGap < gameTimeValue) {
-        return { timeGapIncorrect: true }; // This is our error!
+        return { timeGapIncorrect: true };
       }
 
       return null;
     };
-  }
+  };
 }
