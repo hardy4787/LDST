@@ -26,7 +26,7 @@ public class FileManager : IFileManager
         _storageOptions = storageOptions.Value;
     }
 
-    public async Task<IEnumerable<string>> UploadFilesAndGetIds(IEnumerable<FileInfo> files, string containerPrefix)
+    public async Task<IEnumerable<string>> UploadFilesAsync(IEnumerable<FileInfo> files, string containerPrefix)
     {
         var options = new BlobUploadOptions
         {

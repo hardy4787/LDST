@@ -55,7 +55,6 @@ export class CreateTimeSlotsStepComponent implements OnInit {
     let startDay = 0;
     const date = new Date();
     date.setHours(6, 0, 0, 0);
-    console.log(date);
     if (date.getTime() <= Date.now()) {
       startDay = 1;
     }
@@ -68,7 +67,6 @@ export class CreateTimeSlotsStepComponent implements OnInit {
       slots.push(...this.generateTimeSlots(nextDay));
     }
 
-    console.log(slots);
     this.playgroundStore.updateTimeSlots(slots);
     this.playgroundStore.isTimeSlotsGenerated(true);
   }

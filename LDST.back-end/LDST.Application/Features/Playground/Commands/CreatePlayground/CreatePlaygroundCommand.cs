@@ -2,6 +2,7 @@
 using LDST.Application.Abstractions;
 using LDST.Application.Interfaces.Persistance;
 using LDST.Domain.EFModels;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LDST.Application.Features.Playground.Commands.CreatePlayground;

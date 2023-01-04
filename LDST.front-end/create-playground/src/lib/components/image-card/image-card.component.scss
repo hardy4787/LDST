@@ -1,10 +1,10 @@
-.picture-container {
+.picture-wrapper {
   cursor: pointer;
   background-color: #eeeeee;
   box-sizing: border-box;
-  height: 120px;
   text-align: center;
-  width: 170px;
+  height: 100%;
+  width: 100%;
 
   &.no-image {
     border: 4px dashed #b3b3b3;

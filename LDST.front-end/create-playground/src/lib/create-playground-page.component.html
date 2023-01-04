@@ -1,6 +1,6 @@
 <mat-card class="create-playground-card">
   <mat-stepper linear #stepper>
-    <!-- <mat-step [stepControl]="createPlaygroundControl" state="create">
+    <mat-step [stepControl]="createPlaygroundControl" state="create">
       <ldst-create-playground-step
         [form]="createPlaygroundControl"
         [sports]="sports"
@@ -16,12 +16,12 @@
           Next
         </button>
       </div>
-    </mat-step> -->
+    </mat-step>
     <mat-step [stepControl]="titleImageControl" state="photo">
-      <ldst-upload-photo-step
-        [form]="titleImageControl"
-        [playgroundImagesForm]="playgroundImagesControl"
-      ></ldst-upload-photo-step>
+      <ldst-upload-images-step
+        [titleImageForm]="titleImageControl"
+        [galleryImagesForm]="playgroundImagesControl"
+      ></ldst-upload-images-step>
       <div class="flex justify-content-flex-end">
         <button mat-raised-button color="basic" matStepperPrevious class="mr-2">
           Back

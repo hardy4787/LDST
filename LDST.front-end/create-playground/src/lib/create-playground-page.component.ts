@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, forkJoin, switchMap, take } from 'rxjs';
+import { filter, forkJoin, map, of, switchMap, take } from 'rxjs';
 import { City } from './models/city.model';
 import { Sport } from './models/sport.model';
 import { CreatePlaygroundService } from './services/create-playground.service';
@@ -11,7 +11,6 @@ import { TimeSlotsValidators } from './services/time-slots.validators';
 import { ImageValidators } from './services/image.validators';
 import { MatStepper } from '@angular/material/stepper';
 import { FormControlUtils } from '@ldst/utils';
-import { PlaygroundTitleImage } from './models/playground-title-image.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @UntilDestroy()
@@ -122,6 +121,11 @@ export class CreatePlaygroundPageComponent implements OnInit {
         filter((titleImage) => Boolean(titleImage)),
         take(1)
       ),
+      this.playgroundStore.galleryImages$.pipe(
+        filter((galleryImages) => Boolean(galleryImages)),
+        map((galleryImages) => galleryImages.map((i) => i.file as File)),
+        take(1)
+      ),
       this.playgroundStore.timeSlots$.pipe(
         filter((timeSlots) => Boolean(timeSlots)),
         take(1)
@@ -129,22 +133,35 @@ export class CreatePlaygroundPageComponent implements OnInit {
     ])
       .pipe(
         untilDestroyed(this),
-        switchMap(([playgroundInfo, titleImage, timeSlots]) => {
+        switchMap(([playgroundInfo, titleImage, galleryImages, timeSlots]) => {
           return this.createPlaygroundService
             .createPlayground$(hostId, playgroundInfo)
             .pipe(
               switchMap((playgroundId) => {
-                const uploadFile = {
-                  playgroundId,
-                  titleImage: titleImage,
-                } as PlaygroundTitleImage;
-                return forkJoin([
-                  this.createPlaygroundService.uploadTitleImage$(uploadFile),
+                const requests = [];
+                requests.push(
                   this.createPlaygroundService.createTimeSlots$(
                     playgroundId,
                     timeSlots
-                  ),
-                ]);
+                  )
+                );
+                if (titleImage) {
+                  requests.push(
+                    this.createPlaygroundService.uploadTitleImage$(
+                      playgroundId,
+                      titleImage
+                    )
+                  );
+                }
+                if (galleryImages.length) {
+                  requests.push(
+                    this.createPlaygroundService.uploadGalleryImages$(
+                      playgroundId,
+                      galleryImages
+                    )
+                  );
+                }
+                return forkJoin(requests);
               })
             );
         })

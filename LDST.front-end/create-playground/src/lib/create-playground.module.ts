@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { SharedModule } from '@ldst/shared';
 import { CreatePlaygroundStepComponent } from './components/create-playground-step/create-playground-step.component';
-import { UploadPhotoStepComponent } from './components/upload-photo-step/upload-photo-step.component';
+import { UploadImagesStepComponent } from './components/upload-images-step/upload-images-step.component';
 import { CreateTimeSlotsStepComponent } from './components/create-time-slots-step/create-time-slots-step.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -27,7 +27,7 @@ import {
   MatSnackBarModule,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
-import { PictureCardComponent } from './components/picture-card/picture-card.component';
+import { ImageCardComponent } from './components/image-card/image-card.component';
 
 @NgModule({
   imports: [
@@ -56,10 +56,10 @@ import { PictureCardComponent } from './components/picture-card/picture-card.com
   declarations: [
     CreatePlaygroundPageComponent,
     CreatePlaygroundStepComponent,
-    UploadPhotoStepComponent,
+    UploadImagesStepComponent,
     DragAndDropDirective,
     CreateTimeSlotsStepComponent,
-    PictureCardComponent,
+    ImageCardComponent,
   ],
   providers: [
     CreatePlaygroundService,

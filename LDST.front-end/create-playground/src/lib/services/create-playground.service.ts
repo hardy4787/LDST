@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { City } from '../models/city.model';
 import { CreatePlayground } from '../models/create-playground.model';
 import { CreateTimeSlot } from '../models/create-time-slot.model';
-import { PlaygroundTitleImage } from '../models/playground-title-image.model';
 import { Sport } from '../models/sport.model';
 
 @Injectable()
@@ -31,15 +30,24 @@ export class CreatePlaygroundService {
     );
   }
 
-  uploadTitleImage$({
-    titleImage,
-    playgroundId,
-  }: PlaygroundTitleImage): Observable<void> {
+  uploadTitleImage$(playgroundId: number, titleImage: File): Observable<void> {
     const data = new FormData();
-    data.append('titleImage', titleImage);
     data.append('playgroundId', playgroundId.toString());
+    data.append('titleImage', titleImage);
     return this.httpClient.post<void>(
-      `https://localhost:7286/Playgrounds/title-photo`,
+      `https://localhost:7286/Playgrounds/title-image`,
+      data
+    );
+  }
+
+  uploadGalleryImages$(playgroundId: number, images: File[]): Observable<void> {
+    const data = new FormData();
+    data.append('playgroundId', playgroundId.toString());
+    for (let i = 0; i < images.length; i++) {
+      data.append('galleryImages', images[i]);
+    }
+    return this.httpClient.post<void>(
+      `https://localhost:7286/Playgrounds/gallery-images`,
       data
     );
   }

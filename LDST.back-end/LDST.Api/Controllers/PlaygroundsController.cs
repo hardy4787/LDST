@@ -1,6 +1,7 @@
 using LDST.Api.Abstractions;
 using LDST.Application.Features.Playground.Commands.CreatePlayground;
 using LDST.Application.Features.Playground.Commands.CreateTimeSlots;
+using LDST.Application.Features.Playground.Commands.UploadGalleryImages;
 using LDST.Application.Features.Playground.Commands.UploadTitleImage;
 using LDST.Application.Features.Playground.Queries.GetPlaygroundsByCity;
 using MediatR;
@@ -21,14 +22,13 @@ public class PlaygroundsController : ApiController
     public async Task<IActionResult> CreatePlayground([FromQuery] CreatePlaygroundCommand request) =>
         GetHandledResult(await _mediator.Send(request));
 
-    [HttpPost("title-photo")]
+    [HttpPost("gallery-images")]
+    public async Task<IActionResult> UploadGalleryImages([FromForm] UploadGalleryImagesCommand request) =>
+        GetHandledResult(await _mediator.Send(request));
+
+    [HttpPost("title-image")]
     public async Task<IActionResult> UploadTitleImage([FromForm] UploadTitleImageCommand request) =>
         GetHandledResult(await _mediator.Send(request));
-    //[HttpPost("title-photo")]
-    //public async Task<IActionResult> UploadTitleImage([FromForm] TestUploadTitleImageCommand request) =>
-    //    GetHandledResult(await _mediator.Send(request));
-
-    
 
     [HttpGet("cities/{cityId}/sports/{sportId}")]
     public async Task<IActionResult> GetPlaygroundsByCity([FromQuery] GetPlaygroundsForNext7DaysQuery request) =>
