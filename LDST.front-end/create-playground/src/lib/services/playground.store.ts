@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
-import { CreatePlayground } from '../models/create-playground.model';
+import { PlaygroundInfo } from '../models/create-playground.model';
 import { CreateTimeSlot } from '../models/create-time-slot.model';
 import { ComponentStore } from '@ngrx/component-store';
 import { ImageInfo } from '../models/image-info.model';
-
+import { DaySchedule } from '@ldst/shared';
 export interface PlaygroundState {
-  playgroundInfo: CreatePlayground;
+  playgroundInfo: PlaygroundInfo;
   titleImage: File | null;
   galleryImages: ImageInfo[];
   timeSlots: CreateTimeSlot[];
+  weekSchedule: DaySchedule[];
   isTimeSlotsGenerated: boolean;
 }
 
 const initialState: PlaygroundState = {
-  playgroundInfo: {} as CreatePlayground,
+  playgroundInfo: {} as PlaygroundInfo,
   galleryImages: [],
   titleImage: {} as File,
   timeSlots: [] as CreateTimeSlot[],
+  weekSchedule: [] as DaySchedule[],
   isTimeSlotsGenerated: false,
 };
 
@@ -26,6 +28,7 @@ export class PlaygroundStore extends ComponentStore<PlaygroundState> {
     super(initialState);
   }
 
+  readonly weekSchedule$ = this.select((state) => state.weekSchedule);
   readonly playgroundInfo$ = this.select((state) => state.playgroundInfo);
   readonly titleImage$ = this.select((state) => state.titleImage);
   readonly galleryImages$ = this.select((state) => state.galleryImages);
@@ -35,7 +38,7 @@ export class PlaygroundStore extends ComponentStore<PlaygroundState> {
   );
 
   readonly updatePlaygroundInfo = this.updater(
-    (state, playgroundInfo: CreatePlayground) => ({
+    (state, playgroundInfo: PlaygroundInfo) => ({
       ...state,
       playgroundInfo,
     })
@@ -55,6 +58,13 @@ export class PlaygroundStore extends ComponentStore<PlaygroundState> {
     (state, timeSlots: CreateTimeSlot[]) => ({
       ...state,
       timeSlots,
+    })
+  );
+
+  readonly updateWeekSchedule = this.updater(
+    (state, weekSchedule: DaySchedule[]) => ({
+      ...state,
+      weekSchedule,
     })
   );
 

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CreatePlaygroundPageComponent } from './create-playground-page.component';
 import { CreatePlaygroundService } from './services/create-playground.service';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,16 +18,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DragAndDropDirective } from './directives/drag-and-drop.directive';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { TimeSlotsValidators } from './services/time-slots.validators';
 import { PlaygroundStore } from './services/playground.store';
 import { ImageValidators } from './services/image.validators';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import {
   MatSnackBarModule,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
 import { ImageCardComponent } from './components/image-card/image-card.component';
+import { DayScheduleComponent } from './components/day-schedule/day-schedule.component';
 
 @NgModule({
   imports: [
@@ -49,9 +50,9 @@ import { ImageCardComponent } from './components/image-card/image-card.component
     MatStepperModule,
     MatProgressBarModule,
     MatToolbarModule,
-    MatDatepickerModule,
     MatButtonToggleModule,
     MatSnackBarModule,
+    MatCheckboxModule,
   ],
   declarations: [
     CreatePlaygroundPageComponent,
@@ -60,6 +61,7 @@ import { ImageCardComponent } from './components/image-card/image-card.component
     DragAndDropDirective,
     CreateTimeSlotsStepComponent,
     ImageCardComponent,
+    DayScheduleComponent,
   ],
   providers: [
     CreatePlaygroundService,

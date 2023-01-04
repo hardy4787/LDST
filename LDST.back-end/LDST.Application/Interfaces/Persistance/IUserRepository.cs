@@ -4,6 +4,6 @@ namespace LDST.Application.Interfaces.Persistance;
 
 public interface IUserRepository
 {
-    UserEntity? GetUserByEmail(string email);
-    Task AddAsync(UserEntity user);
+    Task<UserEntity?> GetUserByEmailAsync(string email, CancellationToken cancellationToken);
+    Task AddAsync(UserEntity user, CancellationToken cancellationToken);
 }

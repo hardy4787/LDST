@@ -3,6 +3,7 @@ using LDST.Application.Features.Playground.Commands.CreatePlayground;
 using LDST.Application.Features.Playground.Commands.CreateTimeSlots;
 using LDST.Application.Features.Playground.Commands.UploadGalleryImages;
 using LDST.Application.Features.Playground.Commands.UploadTitleImage;
+using LDST.Application.Features.Playground.Queries.GetPlaygroundOverview;
 using LDST.Application.Features.Playground.Queries.GetPlaygroundsByCity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,10 @@ public class PlaygroundsController : ApiController
 
     [HttpPost("title-image")]
     public async Task<IActionResult> UploadTitleImage([FromForm] UploadTitleImageCommand request) =>
+        GetHandledResult(await _mediator.Send(request));
+
+    [HttpGet("{playgroundId}")]
+    public async Task<IActionResult> GetPlaygroundOverview([FromQuery] GetPlaygroundOverviewQuery request) =>
         GetHandledResult(await _mediator.Send(request));
 
     [HttpGet("cities/{cityId}/sports/{sportId}")]

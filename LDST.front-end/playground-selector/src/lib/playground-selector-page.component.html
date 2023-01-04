@@ -4,6 +4,7 @@
     <mat-tab [label]="playgroundsView.dayOfWeek">
       <ldst-playgrounds-day
         [playgrounds]="playgroundsView.playgrounds"
+        (playgroundOverviewSelected)="onNavigateToPlaygroundOverview($event)"
       ></ldst-playgrounds-day>
     </mat-tab>
   </ng-container>

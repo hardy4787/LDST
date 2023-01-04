@@ -2,6 +2,8 @@
 
 internal static class TableNames
 {
+    internal const string WeekSchedules = nameof(WeekSchedules);
+    internal const string DaySchedules = nameof(DaySchedules);
     internal const string Users = nameof(Users);
     internal const string Playgrounds = nameof(Playgrounds);
     internal const string Guests = nameof(Guests);

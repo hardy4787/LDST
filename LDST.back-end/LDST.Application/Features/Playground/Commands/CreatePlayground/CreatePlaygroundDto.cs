@@ -1,4 +1,7 @@
-﻿namespace LDST.Application.Features.Playground.Commands.CreatePlayground;
+﻿using LDST.Application.Features.Playground.Shared.Models;
+using LDST.Domain.EFModels;
+
+namespace LDST.Application.Features.Playground.Commands.CreatePlayground;
 
 public sealed record CreatePlaygroundDto(
     string Name,
@@ -9,4 +12,5 @@ public sealed record CreatePlaygroundDto(
     int CityId,
     string State,
     string ZipCode,
+    WeekSchedule WeekSchedule,
     List<string>? PhotoPaths);

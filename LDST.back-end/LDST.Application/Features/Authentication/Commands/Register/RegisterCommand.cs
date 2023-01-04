@@ -27,14 +27,14 @@ public class RegisterCommand : ICommand<AuthenticationResult>
 
         public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
         {
-            if (_userRepository.GetUserByEmail(command.Email) is not null)
+            if ((await _userRepository.GetUserByEmailAsync(command.Email, cancellationToken)) is not null)
             {
                 return DomainErrors.User.DuplicateEmail;
             }
 
             var user = new UserEntity { FirstName = command.FirstName, LastName = command.LastName, Email = command.Email, Password = command.Password };
 
-            await _userRepository.AddAsync(user);
+            await _userRepository.AddAsync(user, cancellationToken);
 
             var token = _jwtTokenGenerator.GenerateToken(user);
 

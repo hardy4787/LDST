@@ -25,9 +25,7 @@ public class LoginQuery : IQuery<AuthenticationResult>
 
         public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
         {
-            await Task.CompletedTask;
-
-            if (_userRepository.GetUserByEmail(query.Email) is not UserEntity user)
+            if ((await _userRepository.GetUserByEmailAsync(query.Email, cancellationToken)) is not UserEntity user)
             {
                 return DomainErrors.Authentication.InvalidCredentials;
             }

@@ -1,6 +1,7 @@
 ﻿using ErrorOr;
 using LDST.Application.Abstractions;
 using LDST.Application.Extensions;
+using LDST.Application.Features.Playground.Shared.Models;
 using LDST.Application.Interfaces.Persistance;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,7 @@ public sealed class GetPlaygroundsForNext7DaysQuery : IQuery<List<WeekDayPlaygro
 
             return (await _context.Playgrounds
                             .Include(p => p.GameTimeSlots)
+                            .Include(p => p.WeekSchedule)
                             .AsNoTracking()
                             .ToListAsync(cancellationToken))
                             .Select(p => new PlaygroundDto(
@@ -57,16 +59,6 @@ public sealed class GetPlaygroundsForNext7DaysQuery : IQuery<List<WeekDayPlaygro
                                         )
                                     )
                             );
-        }
-
-        private static DayOfWeek[] GetWeekDaysAccordingToCurrentDay(DateTime currentDay)
-        {
-            DayOfWeek[] dayOfWeeks = new DayOfWeek[7];
-            for (int i = 0; i < 7; i++)
-            {
-                dayOfWeeks[i] = currentDay.AddDays(i).DayOfWeek;
-            }
-            return dayOfWeeks;
         }
 
         private static List<WeekDayPlaygroundsDto> GroupPlaygroundsByWeekDay(DateTime currentDay, IEnumerable<PlaygroundDto> playgrounds)
@@ -90,6 +82,16 @@ public sealed class GetPlaygroundsForNext7DaysQuery : IQuery<List<WeekDayPlaygro
                                 )
                             )
                             .ToList();
+        }
+
+        private static DayOfWeek[] GetWeekDaysAccordingToCurrentDay(DateTime currentDay)
+        {
+            DayOfWeek[] dayOfWeeks = new DayOfWeek[7];
+            for (int i = 0; i < 7; i++)
+            {
+                dayOfWeeks[i] = currentDay.AddDays(i).DayOfWeek;
+            }
+            return dayOfWeeks;
         }
     }
 }

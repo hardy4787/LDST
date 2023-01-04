@@ -40,6 +40,9 @@ export class CreatePlaygroundPageComponent implements OnInit {
   get playgroundImagesControl(): FormArray {
     return this.form.controls['playgroundImages'] as FormArray;
   }
+  get weekScheduleControl(): FormArray {
+    return this.form.controls['weekSchedule'] as FormArray;
+  }
   get timeSlotsConfigurationControl(): FormGroup {
     return this.form.controls['timeSlotsConfiguration'] as FormGroup;
   }
@@ -47,7 +50,6 @@ export class CreatePlaygroundPageComponent implements OnInit {
   constructor(
     private readonly createPlaygroundService: CreatePlaygroundService,
     private readonly playgroundStore: PlaygroundStore,
-    private readonly timeSlotsValidators: TimeSlotsValidators,
     private readonly imageValidators: ImageValidators,
     private readonly snackBar: MatSnackBar
   ) {
@@ -74,20 +76,39 @@ export class CreatePlaygroundPageComponent implements OnInit {
         price: new FormControl('', Validators.required),
         gameTime: new FormControl('', Validators.required),
         daysCount: new FormControl('', Validators.required),
-        openPlaygroundTime: new FormControl('', Validators.required),
-        closePlaygroundTime: new FormControl('', {
-          validators: [Validators.required],
-        }),
       }),
+      weekSchedule: new FormArray([
+        new FormGroup({
+          dayOfWeek: new FormControl('Sunday'),
+        }),
+        new FormGroup({
+          dayOfWeek: new FormControl('Monday'),
+        }),
+        new FormGroup({
+          dayOfWeek: new FormControl('Tuesday'),
+        }),
+        new FormGroup({
+          dayOfWeek: new FormControl('Wednesday'),
+        }),
+        new FormGroup({
+          dayOfWeek: new FormControl('Thursday'),
+        }),
+        new FormGroup({
+          dayOfWeek: new FormControl('Friday'),
+        }),
+        new FormGroup({
+          dayOfWeek: new FormControl('Saturday'),
+        }),
+      ]),
     });
 
-    this.timeSlotsConfigurationControl.addValidators(
-      this.timeSlotsValidators.checkTimeInterval(
-        this.timeSlotsConfigurationControl.controls['openPlaygroundTime'],
-        this.timeSlotsConfigurationControl.controls['closePlaygroundTime'],
-        this.timeSlotsConfigurationControl.controls['gameTime']
-      )
-    );
+    // this.timeSlotsConfigurationControl.addValidators(
+    //   this.timeSlotsValidators.checkTimeInterval(
+    //     this.timeSlotsConfigurationControl.controls['openPlaygroundTime'],
+    //     this.timeSlotsConfigurationControl.controls['closePlaygroundTime'],
+    //     this.timeSlotsConfigurationControl.controls['gameTime']
+    //   )
+    // );
   }
 
   ngOnInit(): void {
@@ -130,41 +151,62 @@ export class CreatePlaygroundPageComponent implements OnInit {
         filter((timeSlots) => Boolean(timeSlots)),
         take(1)
       ),
+      this.playgroundStore.weekSchedule$.pipe(
+        filter((weekSchedule) => Boolean(weekSchedule)),
+        take(1)
+      ),
     ])
       .pipe(
         untilDestroyed(this),
-        switchMap(([playgroundInfo, titleImage, galleryImages, timeSlots]) => {
-          return this.createPlaygroundService
-            .createPlayground$(hostId, playgroundInfo)
-            .pipe(
-              switchMap((playgroundId) => {
-                const requests = [];
-                requests.push(
-                  this.createPlaygroundService.createTimeSlots$(
-                    playgroundId,
-                    timeSlots
-                  )
-                );
-                if (titleImage) {
-                  requests.push(
-                    this.createPlaygroundService.uploadTitleImage$(
-                      playgroundId,
-                      titleImage
-                    )
-                  );
-                }
-                if (galleryImages.length) {
-                  requests.push(
-                    this.createPlaygroundService.uploadGalleryImages$(
-                      playgroundId,
-                      galleryImages
-                    )
-                  );
-                }
-                return forkJoin(requests);
+        switchMap(
+          ([
+            playgroundInfo,
+            titleImage,
+            galleryImages,
+            timeSlots,
+            weekSchedule,
+          ]) => {
+            return this.createPlaygroundService
+              .createPlayground$(hostId, {
+                ...playgroundInfo,
+                weekSchedule: {
+                  days: weekSchedule.map((ws) => ({
+                    ...ws,
+                    openingTime: ws.openingTime ? ws.openingTime + ':00' : null,
+                    closingTime: ws.openingTime ? ws.closingTime + ':00' : null,
+                  })),
+                },
               })
-            );
-        })
+              .pipe(
+                switchMap((playgroundId) => {
+                  const requests = [];
+                  requests.push(
+                    this.createPlaygroundService.createTimeSlots$(
+                      playgroundId,
+                      timeSlots
+                    )
+                  );
+                  if (titleImage) {
+                    requests.push(
+                      this.createPlaygroundService.uploadTitleImage$(
+                        playgroundId,
+                        titleImage
+                      )
+                    );
+                  }
+                  if (galleryImages.length) {
+                    requests.push(
+                      this.createPlaygroundService.uploadGalleryImages$(
+                        playgroundId,
+                        galleryImages
+                      )
+                    );
+                  }
+                  return forkJoin(requests);
+                })
+              );
+          }
+        )
       )
       .subscribe(() => {
         this.snackBar.open('Playground saved.');

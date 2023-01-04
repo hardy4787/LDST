@@ -1,5 +1,13 @@
-<div class="flex">
-  <ng-container *ngFor="let playground of playgrounds">
-    <ldst-playground-slots [playground]="playground"></ldst-playground-slots>
+<div class="flex playgrounds-day-container">
+  <div class="text-center playgrounds-day-wrapper" *ngIf="!playgrounds.length">
+    Available playgrounds are absent today.
+  </div>
+  <ng-container
+    *ngFor="let playground of playgrounds; trackBy: playgroundsTrackBy"
+  >
+    <ldst-playground-slots
+      [playground]="playground"
+      (playgroundOverviewSelected)="onSelectPlaygroundOverview($event)"
+    ></ldst-playground-slots>
   </ng-container>
 </div>

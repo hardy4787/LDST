@@ -1,16 +1,22 @@
-<div class="p-05">
+<div class="p-05 playground-day-container">
   <ul class="playground-day">
     <li>
-      <a href="/">
-        <div>
+      <div>
+        <div
+          class="playground-title-image-wrapper"
+          (click)="onSelectPlaygroundOverview()"
+        >
           <img
             class="playground-title-image"
             [src]="playground.titlePhotoPath"
             [alt]="playground.name"
           />
+          <span class="title-image-tooltip"
+            ><mat-icon>arrow_forward</mat-icon> More</span
+          >
         </div>
-        <div>{{ playground.name }}</div>
-      </a>
+      </div>
+      <div>{{ playground.name }}</div>
       <ul>
         <ng-container *ngFor="let timeSlot of playground.timeSlots">
           <li class="time-slot-wrapper">

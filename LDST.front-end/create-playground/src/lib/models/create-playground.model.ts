@@ -1,4 +1,6 @@
-export interface CreatePlayground {
+import { WeekSchedule } from '@ldst/shared';
+
+export interface PlaygroundInfo {
   name: string;
   descriptions: string;
   sportId: number;
@@ -7,4 +9,8 @@ export interface CreatePlayground {
   cityId: number;
   state: string;
   zipPhoto: string;
+}
+
+export interface CreatePlayground extends PlaygroundInfo {
+  weekSchedule: WeekSchedule;
 }

@@ -6,6 +6,7 @@ body {
   height: 100%;
 }
 body {
+  background-color: #f7f7f7;
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
@@ -41,7 +42,7 @@ a {
   text-align: center;
 }
 
-.self-center {
+.align-items-center {
   align-items: center;
 }
 
@@ -109,10 +110,18 @@ mat-error,
   }
 }
 
+.mat-icon {
+  vertical-align: middle;
+}
+
 .required::after {
   content: '*';
   padding-left: 1px;
   color: rgba(0, 0, 0, 0.6);
+}
+
+.self-center {
+  align-self: center;
 }
 
 .field-label {
@@ -235,21 +244,5 @@ mat-error,
     height: 36px;
     width: 36px;
     color: rgba(0, 0, 0, 0.54);
-  }
-}
-
-.delete-photo {
-  height: 32px;
-  width: 32px;
-
-  background-color: rgba(#fff, 0.5);
-  color: rgba(#000, 0.6);
-  top: 8px;
-  right: 8px;
-  transition: all 100ms linear;
-
-  .mat-icon {
-    top: 4px;
-    left: 4px;
   }
 }

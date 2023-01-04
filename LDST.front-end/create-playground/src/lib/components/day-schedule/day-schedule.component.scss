@@ -1,0 +1,78 @@
+:host {
+  margin-bottom: 15px;
+}
+
+.ldst-mat-time-picker-container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  height: 57px;
+  background: whitesmoke;
+  border-bottom: 1px solid gray;
+  padding-left: 15px;
+  transition: all 150ms linear;
+
+  &.invalid {
+    .ldst-mat-time-picker-label-text {
+      color: red;
+    }
+
+    border-color: red;
+
+    &:focus-within {
+      border-color: red;
+    }
+  }
+
+  &:hover {
+    background-color: rgb(236, 236, 236);
+  }
+
+  &:focus-within {
+    border-color: blue;
+    border-bottom: 2px solid blue;
+    background-color: rgb(220, 220, 220);
+
+    .label-text {
+      color: rgb(39, 39, 237);
+    }
+  }
+
+  .ldst-mat-time-picker-wrapper {
+    padding-right: 10px;
+  }
+
+  .label-container {
+    position: relative;
+    width: 100%;
+    height: 20px;
+
+    .ldst-mat-time-picker-label-text {
+      position: absolute;
+      bottom: 0;
+      opacity: 0.6;
+      line-height: 12px;
+      font-size: 12px;
+    }
+  }
+
+  .ldst-mat-time-picker {
+    width: 100%;
+    font-weight: 400;
+    border: none;
+    font-size: 16px;
+    font-family: Roboto, sans-serif;
+    letter-spacing: inherit;
+    text-decoration: inherit;
+    text-transform: inherit;
+    background: none;
+    outline: none !important;
+    border-radius: 5px 5px 0 0;
+
+    &::-webkit-calendar-picker-indicator {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

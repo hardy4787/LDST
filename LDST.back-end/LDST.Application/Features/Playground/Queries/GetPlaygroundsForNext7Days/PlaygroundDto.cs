@@ -1,3 +1,5 @@
+using LDST.Application.Features.Playground.Shared.Models;
+
 namespace LDST.Application.Features.Playground.Queries.GetPlaygroundsByCity;
 
 public record PlaygroundDto(

@@ -1,5 +1,6 @@
 ﻿using LDST.Application.Interfaces.Persistance;
 using LDST.Domain.EFModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace LDST.Infrastructure.Persistance.Repositories;
 
@@ -10,15 +11,15 @@ public class UserRepository : IUserRepository
     public UserRepository(AppDbContext context) =>
         _context = context;
 
-    public async Task AddAsync(UserEntity user)
+    public async Task AddAsync(UserEntity user, CancellationToken cancellationToken)
     {
         _context.Users.Add(user);
 
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public UserEntity? GetUserByEmail(string email)
+    public async Task<UserEntity?> GetUserByEmailAsync(string email, CancellationToken cancellationToken)
     {
-        return _context.Users.SingleOrDefault(u => u.Email == email);
+        return await _context.Users.SingleOrDefaultAsync(u => u.Email == email, cancellationToken);
     }
 }

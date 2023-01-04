@@ -17,6 +17,7 @@
     "paths": {
       "@ldst/create-playground": ["create-playground/src/index.ts"],
       "@ldst/organisms": ["organisms/src/index.ts"],
+      "@ldst/playground-overview": ["playground-overview/src/index.ts"],
       "@ldst/playground-search": ["playground-search/src/index.ts"],
       "@ldst/playground-selector": ["playground-selector/src/index.ts"],
       "@ldst/shared": ["shared/src/index.ts"],

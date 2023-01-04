@@ -15,6 +15,13 @@ import { HttpClientModule } from '@angular/common/http';
     SharedModule,
     RouterModule.forRoot([
       {
+        path: 'playground-overview',
+        loadChildren: () =>
+          import('@ldst/playground-overview').then(
+            (m) => m.PlaygroundOverviewModule
+          ),
+      },
+      {
         path: 'playground-selector',
         loadChildren: () =>
           import('@ldst/playground-selector').then(
@@ -26,6 +33,13 @@ import { HttpClientModule } from '@angular/common/http';
         loadChildren: () =>
           import('@ldst/create-playground').then(
             (m) => m.CreatePlaygroundModule
+          ),
+      },
+      {
+        path: 'playground-search',
+        loadChildren: () =>
+          import('@ldst/playground-search').then(
+            (m) => m.PlaygroundSearchModule
           ),
       },
       {

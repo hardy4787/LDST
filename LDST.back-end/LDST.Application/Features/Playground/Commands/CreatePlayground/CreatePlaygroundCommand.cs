@@ -38,6 +38,16 @@ public sealed class CreatePlaygroundCommand : ICommand<int>
                 CityId = request.Playground.CityId,
                 State = request.Playground.State,
                 ZipCode = request.Playground.ZipCode,
+                WeekSchedule = new WeekScheduleEntity
+                {
+                    Days = request.Playground.WeekSchedule.Days.Select(d => new DayScheduleEntity
+                    {
+                        IsClosed = d.IsClosed,
+                        OpeningTime= d.OpeningTime,
+                        ClosingTime= d.ClosingTime,
+                        DayOfWeek = d.DayOfWeek
+                    }).ToList(),
+                },
                 AverageRating = 0
             };
 

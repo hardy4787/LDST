@@ -14,6 +14,7 @@ public class PlaygroundEntity
     public string ZipCode { get; set; } = null!;
     public bool Reviewed { get; set; }
 
+    public WeekScheduleEntity WeekSchedule { get; set; } = null!;
     public int SportId { get; set; }
     public SportEntity Sport { get; set; } = null!;
     public Guid HostId { get; set; }

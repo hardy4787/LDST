@@ -108,6 +108,36 @@ namespace LDST.Infrastructure.Migrations
                     b.ToTable("Countries", (string)null);
                 });
 
+            modelBuilder.Entity("LDST.Domain.EFModels.DayScheduleEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<TimeSpan?>("ClosingTime")
+                        .HasColumnType("time");
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsClosed")
+                        .HasColumnType("boolean");
+
+                    b.Property<TimeSpan?>("OpeningTime")
+                        .HasColumnType("time");
+
+                    b.Property<int>("WeekScheduleId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WeekScheduleId");
+
+                    b.ToTable("DaySchedules", (string)null);
+                });
+
             modelBuilder.Entity("LDST.Domain.EFModels.GameReservationEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -346,6 +376,25 @@ namespace LDST.Infrastructure.Migrations
                     b.ToTable("Users", (string)null);
                 });
 
+            modelBuilder.Entity("LDST.Domain.EFModels.WeekScheduleEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PlaygroundId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlaygroundId")
+                        .IsUnique();
+
+                    b.ToTable("WeekSchedules", (string)null);
+                });
+
             modelBuilder.Entity("LDST.Domain.EFModels.BillEntity", b =>
                 {
                     b.HasOne("LDST.Domain.EFModels.GameReservationEntity", "GameReservation")
@@ -393,6 +442,17 @@ namespace LDST.Infrastructure.Migrations
                     b.Navigation("City");
 
                     b.Navigation("Sport");
+                });
+
+            modelBuilder.Entity("LDST.Domain.EFModels.DayScheduleEntity", b =>
+                {
+                    b.HasOne("LDST.Domain.EFModels.WeekScheduleEntity", "WeekSchedule")
+                        .WithMany("Days")
+                        .HasForeignKey("WeekScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WeekSchedule");
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.GameReservationEntity", b =>
@@ -493,6 +553,17 @@ namespace LDST.Infrastructure.Migrations
                     b.Navigation("Playground");
                 });
 
+            modelBuilder.Entity("LDST.Domain.EFModels.WeekScheduleEntity", b =>
+                {
+                    b.HasOne("LDST.Domain.EFModels.PlaygroundEntity", "Playground")
+                        .WithOne("WeekSchedule")
+                        .HasForeignKey("LDST.Domain.EFModels.WeekScheduleEntity", "PlaygroundId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Playground");
+                });
+
             modelBuilder.Entity("LDST.Domain.EFModels.CityEnity", b =>
                 {
                     b.Navigation("CitySports");
@@ -532,6 +603,9 @@ namespace LDST.Infrastructure.Migrations
                     b.Navigation("GameTimeSlots");
 
                     b.Navigation("PlaygroundGuestRatings");
+
+                    b.Navigation("WeekSchedule")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("LDST.Domain.EFModels.SportEntity", b =>
@@ -544,6 +618,11 @@ namespace LDST.Infrastructure.Migrations
                     b.Navigation("Guest");
 
                     b.Navigation("Host");
+                });
+
+            modelBuilder.Entity("LDST.Domain.EFModels.WeekScheduleEntity", b =>
+                {
+                    b.Navigation("Days");
                 });
 #pragma warning restore 612, 618
         }
