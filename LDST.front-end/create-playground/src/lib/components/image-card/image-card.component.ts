@@ -17,7 +17,7 @@ import { ImageValidators } from '../../services/image.validators';
   styleUrls: ['./image-card.component.scss'],
 })
 export class ImageCardComponent {
-  @Input() fileInfo: ImageInfo = { id: '-1', fileUrl: null, file: null };
+  @Input() fileInfo: ImageInfo = new ImageInfo();
   @Input() imageForm!: FormArray | FormControl;
 
   @Output() photoDeleted = new EventEmitter<ImageInfo>();
@@ -57,13 +57,13 @@ export class ImageCardComponent {
           id: new FormControl(id),
         })
       );
-      this.imageForm.markAsDirty();
     }
 
     if (this.imageForm instanceof FormControl) {
       this.imageForm.setValue(file);
-      this.imageForm.markAsDirty();
     }
+
+    this.imageForm.markAsDirty();
 
     if (this.imageForm.valid) {
       this.setViewImageFromDataUrl(file);

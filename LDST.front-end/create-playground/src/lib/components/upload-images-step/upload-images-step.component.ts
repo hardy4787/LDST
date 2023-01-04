@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { ToastrService } from 'ngx-toastr';
@@ -12,8 +12,8 @@ import { PlaygroundStore } from '../../services/playground.store';
   styleUrls: ['./upload-images-step.component.scss'],
 })
 export class UploadImagesStepComponent {
-  titleImage: ImageInfo = { id: '-1', fileUrl: null, file: null };
-  galleryImages: ImageInfo[] = [{ id: '-1', fileUrl: null, file: null }];
+  titleImage: ImageInfo = new ImageInfo();
+  galleryImages: ImageInfo[] = [new ImageInfo()];
 
   @Input() titleImageForm!: FormControl;
   @Input() galleryImagesForm!: FormArray;
@@ -24,9 +24,8 @@ export class UploadImagesStepComponent {
   ) {}
 
   onDeleteTitleImage(): void {
-    const noFile = null;
-    this.titleImage = { id: '-1', fileUrl: null, file: noFile };
-    this.titleImageForm.setValue(noFile);
+    this.titleImage = new ImageInfo();
+    this.titleImageForm.setValue(null);
     this.playgroundStore.resetTitleImage();
   }
 
@@ -53,11 +52,7 @@ export class UploadImagesStepComponent {
   }
 
   private addImageContainer(): void {
-    this.galleryImages.push({
-      id: '-1',
-      fileUrl: null,
-      file: null,
-    });
+    this.galleryImages.push(new ImageInfo());
   }
 
   private getErrorMessage(): string {

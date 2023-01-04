@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, forkJoin, map, of, switchMap, take } from 'rxjs';
+import { filter, forkJoin, map, switchMap, take } from 'rxjs';
 import { City } from './models/city.model';
 import { Sport } from './models/sport.model';
 import { CreatePlaygroundService } from './services/create-playground.service';

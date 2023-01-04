@@ -1,5 +1,5 @@
-export interface ImageInfo {
-  id: string;
-  fileUrl: string | null | ArrayBuffer;
-  file: File | null;
+export class ImageInfo {
+  id = '-1';
+  fileUrl: string | null | ArrayBuffer = null;
+  file?: File | null;
 }
