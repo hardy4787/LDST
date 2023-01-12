@@ -1,19 +1,31 @@
 @import 'mixins';
 @import 'variables';
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
 html,
 body {
   height: 100%;
 }
+
 body {
   background-color: #f7f7f7;
-  margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.stretch-page {
+  overflow: auto;
+  box-sizing: border-box;
+  min-height: calc(100% - $toolbar-height - $footer-height);
+  width: 100%;
 }
 
 ul {
   list-style: none;
-  padding: 0;
 }
 
 a {
@@ -22,6 +34,10 @@ a {
 
 .flex {
   display: flex;
+}
+
+.green-snackbar {
+  background-color: green;
 }
 
 .justify-content {
@@ -94,6 +110,7 @@ a {
 
 mat-error,
 .mat-mdc-form-field-error-wrapper mat-error {
+  font-size: 14px;
   padding-top: 5px;
   height: 24px;
   line-height: 24px;
@@ -104,14 +121,6 @@ mat-error,
     font-size: 12px;
     vertical-align: middle;
   }
-
-  .error-message {
-    font-size: 14px;
-  }
-}
-
-.mat-icon {
-  vertical-align: middle;
 }
 
 .required::after {
@@ -120,10 +129,15 @@ mat-error,
   color: rgba(0, 0, 0, 0.6);
 }
 
-.self-center {
-  align-self: center;
-}
+.align-self {
+  &-center {
+    align-self: center;
+  }
 
+  &-end {
+    align-self: flex-end;
+  }
+}
 .field-label {
   font-size: 14px;
   padding-bottom: 10px;
@@ -244,5 +258,11 @@ mat-error,
     height: 36px;
     width: 36px;
     color: rgba(0, 0, 0, 0.54);
+  }
+}
+
+.mdc-card {
+  .mat-mdc-card-content {
+    padding: 16px 16px 0;
   }
 }

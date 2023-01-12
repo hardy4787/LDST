@@ -10,7 +10,7 @@ import { FormControlUtils } from '@ldst/utils';
 import { CreateTimeSlot } from '../../models/create-time-slot.model';
 import { PlaygroundStore } from '../../services/playground.store';
 import { DayScheduleView } from '../../models/day-schedule-view.model';
-import { DaySchedule } from '@ldst/shared';
+import { DaySchedule, ValidationConstants } from '@ldst/shared';
 
 @UntilDestroy()
 @Component({
@@ -20,6 +20,7 @@ import { DaySchedule } from '@ldst/shared';
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateTimeSlotsStepComponent implements OnInit {
+  readonly validationConstants = ValidationConstants;
   @Input() timeSlotsConfigurationControl!: FormGroup;
   @Input() weekScheduleControl!: FormArray;
 

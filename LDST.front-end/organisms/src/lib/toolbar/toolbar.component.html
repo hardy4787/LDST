@@ -11,27 +11,47 @@
       </div></a
     >
     <button
-      mat-icon-button
-      [matMenuTriggerFor]="menu"
-      #menuTrigger="matMenuTrigger"
+      *ngIf="isUserAuthenticated"
+      mat-button
+      (click)="onNavigateToPrivacyPage()"
     >
-      <mat-icon>menu</mat-icon>
+      Privacy
     </button>
-    <mat-menu #menu="matMenu" [overlapTrigger]="false">
-      <span (mouseleave)="menuTrigger.closeMenu()">
-        <button mat-menu-item>
-          <mat-icon>phone</mat-icon>
-          <span>Contacts</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>people_outline</mat-icon>
-          <span>About</span>
-        </button>
-        <button mat-menu-item (click)="onNavigateToCreatePlayground()">
-          <mat-icon>people_outline</mat-icon>
-          <span>Create playground</span>
-        </button>
-      </span>
-    </mat-menu>
+    <div>
+      <button mat-icon-button (click)="onNavigateToProfilePage()">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        #menuTrigger="matMenuTrigger"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" [overlapTrigger]="false">
+        <span (mouseleave)="menuTrigger.closeMenu()">
+          <button mat-menu-item>
+            <mat-icon>phone</mat-icon>
+            <span>Contacts</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>people_outline</mat-icon>
+            <span>About</span>
+          </button>
+          <button mat-menu-item (click)="onNavigateToCreatePlayground()">
+            <mat-icon>people_outline</mat-icon>
+            <span>Create playground</span>
+          </button>
+          <button
+            *ngIf="isUserAuthenticated"
+            mat-menu-item
+            (click)="onLogout()"
+          >
+            <mat-icon>logout</mat-icon>
+            <span>Logout</span>
+          </button>
+        </span>
+      </mat-menu>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>

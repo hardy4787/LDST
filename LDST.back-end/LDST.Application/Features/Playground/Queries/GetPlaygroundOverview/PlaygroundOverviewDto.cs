@@ -1,12 +1,7 @@
 ﻿using LDST.Application.Features.Playground.Shared.Models;
-using LDST.Domain.EFModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LDST.Application.Features.Playground.Queries.GetPlaygroundOverview;
+
 public class PlaygroundOverviewDto
 {
     public int Id { get; set; }

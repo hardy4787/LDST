@@ -1,6 +1,6 @@
 <mat-card class="create-playground-card">
   <mat-stepper linear #stepper>
-    <!-- <mat-step [stepControl]="createPlaygroundControl" state="create">
+    <mat-step [stepControl]="createPlaygroundControl" state="create">
       <ldst-create-playground-step
         [form]="createPlaygroundControl"
         [sports]="sports"
@@ -16,7 +16,7 @@
           Next
         </button>
       </div>
-    </mat-step> -->
+    </mat-step>
     <mat-step [stepControl]="titleImageControl" state="photo">
       <ldst-upload-images-step
         [titleImageForm]="titleImageControl"

@@ -3,58 +3,43 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { SharedModule } from '@ldst/shared';
-import { RouterModule } from '@angular/router';
+import { ErrorHandlerService, getAppConfigProvider } from '@ldst/shared';
 import { ToolbarModule } from '@ldst/organisms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
+import { AppRoutingModule } from './app-routing.module';
+import { JwtModule } from '@auth0/angular-jwt';
+import { environment } from '../environments/environment';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    SharedModule,
-    RouterModule.forRoot([
-      {
-        path: 'playground-overview',
-        loadChildren: () =>
-          import('@ldst/playground-overview').then(
-            (m) => m.PlaygroundOverviewModule
-          ),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    AppRoutingModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost:7286'],
       },
-      {
-        path: 'playground-selector',
-        loadChildren: () =>
-          import('@ldst/playground-selector').then(
-            (m) => m.PlaygroundSelectorModule
-          ),
-      },
-      {
-        path: 'create-playground',
-        loadChildren: () =>
-          import('@ldst/create-playground').then(
-            (m) => m.CreatePlaygroundModule
-          ),
-      },
-      {
-        path: 'playground-search',
-        loadChildren: () =>
-          import('@ldst/playground-search').then(
-            (m) => m.PlaygroundSearchModule
-          ),
-      },
-      {
-        path: '**',
-        loadChildren: () =>
-          import('@ldst/playground-search').then(
-            (m) => m.PlaygroundSearchModule
-          ),
-      },
-    ]),
+    }),
     HttpClientModule,
     BrowserAnimationsModule,
     ToolbarModule,
   ],
-  providers: [],
+  providers: [
+    getAppConfigProvider(environment),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

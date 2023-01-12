@@ -4,7 +4,7 @@ using LDST.Application.Features.Playground.Commands.CreateTimeSlots;
 using LDST.Application.Features.Playground.Commands.UploadGalleryImages;
 using LDST.Application.Features.Playground.Commands.UploadTitleImage;
 using LDST.Application.Features.Playground.Queries.GetPlaygroundOverview;
-using LDST.Application.Features.Playground.Queries.GetPlaygroundsByCity;
+using LDST.Application.Features.Playground.Queries.GetPlaygroundsForNext7Days;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

@@ -5,11 +5,11 @@ using MediatR;
 
 namespace LDST.Application.Features.Location.AddCountry;
 
-public class AddCountryCommand : ICommand<Unit>
+public sealed class AddCountryCommand : ICommand<Unit>
 {
     public string Name { get; set; } = null!;
 
-    public sealed class Handler : ICommandHandler<AddCountryCommand, Unit>
+    internal class Handler : ICommandHandler<AddCountryCommand, Unit>
     {
         private readonly IAppDbContext _context;
         public Handler(IAppDbContext context)

@@ -1,12 +1,11 @@
 ﻿using ErrorOr;
 using LDST.Application.Abstractions;
 using LDST.Application.Extensions;
-using LDST.Application.Features.Playground.Shared.Models;
 using LDST.Application.Interfaces.Persistance;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace LDST.Application.Features.Playground.Queries.GetPlaygroundsByCity;
+namespace LDST.Application.Features.Playground.Queries.GetPlaygroundsForNext7Days;
 
 public sealed class GetPlaygroundsForNext7DaysQuery : IQuery<List<WeekDayPlaygroundsDto>>
 {
@@ -16,7 +15,7 @@ public sealed class GetPlaygroundsForNext7DaysQuery : IQuery<List<WeekDayPlaygro
     [FromRoute(Name = "cityId")]
     public int CityId { get; set; }
 
-    public sealed class Handler : IQueryHandler<GetPlaygroundsForNext7DaysQuery, List<WeekDayPlaygroundsDto>>
+    internal class Handler : IQueryHandler<GetPlaygroundsForNext7DaysQuery, List<WeekDayPlaygroundsDto>>
     {
         private readonly IAppDbContext _context;
         public Handler(IAppDbContext context)

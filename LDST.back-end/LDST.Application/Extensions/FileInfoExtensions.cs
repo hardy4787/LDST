@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using FileInfo = LDST.Application.Models.FileInfo;
+using FileInfo = LDST.Domain.FileInfo;
 
 namespace LDST.Application.Extensions;
 

@@ -11,8 +11,6 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<UserEntity>
     {
         builder.ToTable(TableNames.Users);
 
-        builder.HasKey(x => x.Id);
-
         builder.Property(e => e.FirstName)
             .HasMaxLength(50);
 
@@ -20,13 +18,19 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<UserEntity>
             .HasMaxLength(50);
 
         builder
-            .HasOne(a => a.Guest)
-            .WithOne(b => b.User)
-            .HasForeignKey<GuestEntity>(b => b.UserId);
+            .HasMany(c => c.Bills)
+            .WithOne(e => e.Guest);
 
         builder
-            .HasOne(a => a.Host)
-            .WithOne(b => b.User)
-            .HasForeignKey<HostEntity>(b => b.UserId);
+            .HasMany(x => x.PlaygroundGuestRatings)
+            .WithOne(x => x.Guest);
+
+        builder
+            .HasMany(x => x.GameReservations)
+            .WithOne(x => x.Guest);
+
+        builder
+            .HasMany(a => a.Playgrounds)
+            .WithOne(b => b.Host);
     }
 }

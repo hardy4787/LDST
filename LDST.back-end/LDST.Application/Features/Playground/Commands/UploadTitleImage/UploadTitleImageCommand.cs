@@ -12,7 +12,6 @@ namespace LDST.Application.Features.Playground.Commands.UploadTitleImage;
 public sealed class UploadTitleImageCommand : ICommand<Unit>
 {
     public string PlaygroundId { get; set; } = null!;
-
     public IFormFile TitleImage { get; set; } = null!;
 
     public sealed class Handler : ICommandHandler<UploadTitleImageCommand, Unit>

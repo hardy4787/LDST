@@ -9,7 +9,7 @@ namespace LDST.Application.Features.Sports.Queries.GetSupportedSports;
 
 public sealed class GetSupportedSportsQuery : IQuery<List<SportDto>>
 {
-    public sealed class Handler : IQueryHandler<GetSupportedSportsQuery, List<SportDto>>
+    internal class Handler : IQueryHandler<GetSupportedSportsQuery, List<SportDto>>
     {
         private readonly IAppDbContext _context;
         public Handler(IAppDbContext context)

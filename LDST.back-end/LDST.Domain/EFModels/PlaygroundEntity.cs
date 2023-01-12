@@ -17,8 +17,8 @@ public class PlaygroundEntity
     public WeekScheduleEntity WeekSchedule { get; set; } = null!;
     public int SportId { get; set; }
     public SportEntity Sport { get; set; } = null!;
-    public Guid HostId { get; set; }
-    public HostEntity Host { get; set; } = null!;
+    public string HostId { get; set; } = null!;
+    public UserEntity Host { get; set; } = null!;
     public int CityId { get; set; }
     public CityEnity City { get; set; } = null!;
     public List<GameTimeSlotEntity> GameTimeSlots { get; set; } = new();

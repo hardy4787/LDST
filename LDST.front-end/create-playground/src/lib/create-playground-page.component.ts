@@ -7,7 +7,6 @@ import { Sport } from './models/sport.model';
 import { CreatePlaygroundService } from './services/create-playground.service';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { PlaygroundStore } from './services/playground.store';
-import { TimeSlotsValidators } from './services/time-slots.validators';
 import { ImageValidators } from './services/image.validators';
 import { MatStepper } from '@angular/material/stepper';
 import { FormControlUtils } from '@ldst/utils';
@@ -101,14 +100,6 @@ export class CreatePlaygroundPageComponent implements OnInit {
         }),
       ]),
     });
-
-    // this.timeSlotsConfigurationControl.addValidators(
-    //   this.timeSlotsValidators.checkTimeInterval(
-    //     this.timeSlotsConfigurationControl.controls['openPlaygroundTime'],
-    //     this.timeSlotsConfigurationControl.controls['closePlaygroundTime'],
-    //     this.timeSlotsConfigurationControl.controls['gameTime']
-    //   )
-    // );
   }
 
   ngOnInit(): void {

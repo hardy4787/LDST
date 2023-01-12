@@ -1,4 +1,7 @@
+@import 'variables';
+
 .mat-toolbar-row {
+  height: $toolbar-height;
   a {
     color: white;
   }

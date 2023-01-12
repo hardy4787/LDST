@@ -17,7 +17,7 @@
   <mat-error
     *ngIf="titleImageForm.touched && titleImageForm.hasError('required')"
   >
-    <mat-icon>error</mat-icon>Required.
+    <mat-icon>error</mat-icon>{{ validationConstants.REQUIRED_MESSAGE }}
   </mat-error>
   <mat-error *ngIf="titleImageForm.hasError('incorrectType')">
     <mat-icon>error</mat-icon>Cannot upload this file type.

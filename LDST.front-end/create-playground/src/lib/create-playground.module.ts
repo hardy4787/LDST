@@ -3,30 +3,14 @@ import { CommonModule } from '@angular/common';
 import { CreatePlaygroundPageComponent } from './create-playground-page.component';
 import { CreatePlaygroundService } from './services/create-playground.service';
 import { RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
-import { MatStepperModule } from '@angular/material/stepper';
 import { SharedModule } from '@ldst/shared';
 import { CreatePlaygroundStepComponent } from './components/create-playground-step/create-playground-step.component';
 import { UploadImagesStepComponent } from './components/upload-images-step/upload-images-step.component';
 import { CreateTimeSlotsStepComponent } from './components/create-time-slots-step/create-time-slots-step.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { DragAndDropDirective } from './directives/drag-and-drop.directive';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { TimeSlotsValidators } from './services/time-slots.validators';
 import { PlaygroundStore } from './services/playground.store';
 import { ImageValidators } from './services/image.validators';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import {
-  MatSnackBarModule,
-  MAT_SNACK_BAR_DEFAULT_OPTIONS,
-} from '@angular/material/snack-bar';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { ImageCardComponent } from './components/image-card/image-card.component';
 import { DayScheduleComponent } from './components/day-schedule/day-schedule.component';
 
@@ -40,19 +24,6 @@ import { DayScheduleComponent } from './components/day-schedule/day-schedule.com
         component: CreatePlaygroundPageComponent,
       },
     ]),
-    ReactiveFormsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule,
-    MatIconModule,
-    MatStepperModule,
-    MatProgressBarModule,
-    MatToolbarModule,
-    MatButtonToggleModule,
-    MatSnackBarModule,
-    MatCheckboxModule,
   ],
   declarations: [
     CreatePlaygroundPageComponent,
@@ -63,18 +34,6 @@ import { DayScheduleComponent } from './components/day-schedule/day-schedule.com
     ImageCardComponent,
     DayScheduleComponent,
   ],
-  providers: [
-    CreatePlaygroundService,
-    TimeSlotsValidators,
-    ImageValidators,
-    PlaygroundStore,
-    {
-      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: {
-        duration: 5000,
-        panelClass: ['gray-snackbar'],
-      },
-    },
-  ],
+  providers: [CreatePlaygroundService, ImageValidators, PlaygroundStore],
 })
 export class CreatePlaygroundModule {}

@@ -8,12 +8,12 @@ using LDST.Application.Abstractions;
 
 namespace LDST.Application.Features.Sports.Queries.GetCitySports;
 
-public class GetCitySportsQuery : IQuery<List<CitySportDto>>
+public sealed class GetCitySportsQuery : IQuery<List<CitySportDto>>
 {
     [FromRoute(Name = "countryId")]
     public int CountryId { get; set; }
 
-    internal sealed class Handler : IQueryHandler<GetCitySportsQuery, List<CitySportDto>>
+    internal class Handler : IQueryHandler<GetCitySportsQuery, List<CitySportDto>>
     {
         private readonly IAppDbContext _context;
 

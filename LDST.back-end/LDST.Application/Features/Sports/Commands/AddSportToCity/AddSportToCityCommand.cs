@@ -15,7 +15,7 @@ public sealed class AddSportToCityCommand : ICommand<Unit>
     [FromRoute(Name = "cityId")]
     public int CityId { get; set; }
 
-    public sealed class Handler : ICommandHandler<AddSportToCityCommand, Unit>
+    internal class Handler : ICommandHandler<AddSportToCityCommand, Unit>
     {
         private readonly IAppDbContext _context;
         public Handler(IAppDbContext context)

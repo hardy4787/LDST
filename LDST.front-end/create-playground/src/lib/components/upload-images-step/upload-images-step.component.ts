@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
+import { ValidationConstants } from '@ldst/shared';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { ToastrService } from 'ngx-toastr';
 import { ImageInfo } from '../../models/image-info.model';
@@ -12,6 +13,7 @@ import { PlaygroundStore } from '../../services/playground.store';
   styleUrls: ['./upload-images-step.component.scss'],
 })
 export class UploadImagesStepComponent {
+  readonly validationConstants = ValidationConstants;
   titleImage: ImageInfo = new ImageInfo();
   galleryImages: ImageInfo[] = [new ImageInfo()];
 

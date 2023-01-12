@@ -4,11 +4,9 @@ import { PlaygroundSelectorPageComponent } from './playground-selector-page.comp
 import { RouterModule } from '@angular/router';
 import { PlaygroundSelectorService } from './services/playground-selector.service';
 import { ImageSliderModule } from '@ldst/organisms';
-import { MatTabsModule } from '@angular/material/tabs';
 import { PlaygroundsDayComponent } from './components/playgrounds-day/playgrounds-day.component';
 import { PlaygroundSlotsComponent } from './components/playground-slots/playground-slots.component';
 import { SharedModule } from '@ldst/shared';
-import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -21,8 +19,6 @@ import { MatIconModule } from '@angular/material/icon';
       },
     ]),
     ImageSliderModule,
-    MatTabsModule,
-    MatIconModule,
   ],
   providers: [PlaygroundSelectorService],
   declarations: [

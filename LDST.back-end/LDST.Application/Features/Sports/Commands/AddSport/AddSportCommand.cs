@@ -6,11 +6,11 @@ using MediatR;
 
 namespace LDST.Application.Features.Sports.Commands.AddSport;
 
-public class AddSportCommand : ICommand<Unit>
+public sealed class AddSportCommand : ICommand<Unit>
 {
     public string Name { get; set; } = null!;
 
-    public sealed class Handler : ICommandHandler<AddSportCommand, Unit>
+    internal class Handler : ICommandHandler<AddSportCommand, Unit>
     {
         private readonly IAppDbContext _context;
         public Handler(IAppDbContext context)

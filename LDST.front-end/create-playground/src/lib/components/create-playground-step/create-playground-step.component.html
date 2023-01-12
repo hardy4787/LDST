@@ -5,7 +5,7 @@
       <input formControlName="name" required matInput />
       <mat-error *ngIf="form.get('name')!.hasError('required')">
         <mat-icon>error</mat-icon>
-        <span class="error-message">Required.</span>
+        {{ validationConstants.REQUIRED_MESSAGE }}
       </mat-error>
     </mat-form-field>
     <mat-form-field>
@@ -17,7 +17,7 @@
       </mat-select>
       <mat-error *ngIf="form.get('sportId')!.hasError('required')">
         <mat-icon>error</mat-icon>
-        <span class="error-message">Required.</span>
+        {{ validationConstants.REQUIRED_MESSAGE }}
       </mat-error>
     </mat-form-field>
     <mat-form-field>
@@ -29,17 +29,16 @@
       </mat-select>
       <mat-error *ngIf="form.get('cityId')!.hasError('required')">
         <mat-icon>error</mat-icon>
-        <span class="error-message">Required.</span>
+        {{ validationConstants.REQUIRED_MESSAGE }}
       </mat-error>
     </mat-form-field>
   </div>
-
   <mat-form-field>
     <mat-label>Description</mat-label>
     <textarea formControlName="description" required matInput></textarea>
     <mat-error *ngIf="form.get('description')!.hasError('required')">
       <mat-icon>error</mat-icon>
-      <span class="error-message">Required.</span>
+      {{ validationConstants.REQUIRED_MESSAGE }}
     </mat-error>
   </mat-form-field>
   <div class="form-subgroup">
@@ -48,7 +47,7 @@
       <input formControlName="address1" required matInput />
       <mat-error *ngIf="form.get('address1')!.hasError('required')">
         <mat-icon>error</mat-icon>
-        <span class="error-message">Required.</span>
+        {{ validationConstants.REQUIRED_MESSAGE }}
       </mat-error>
     </mat-form-field>
     <mat-form-field>
@@ -66,7 +65,7 @@
       <input formControlName="zipCode" required matInput />
       <mat-error *ngIf="form.get('zipCode')!.hasError('required')">
         <mat-icon>error</mat-icon>
-        <span class="error-message">Required.</span>
+        {{ validationConstants.REQUIRED_MESSAGE }}
       </mat-error>
     </mat-form-field>
   </div>

@@ -6,7 +6,6 @@ using LDST.Domain.Errors;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using FileInfo = LDST.Application.Models.FileInfo;
 
 namespace LDST.Application.Features.Playground.Commands.UploadGalleryImages;
 
@@ -16,7 +15,7 @@ public sealed class UploadGalleryImagesCommand : ICommand<Unit>
 
     public IFormFile[] GalleryImages { get; set; } = null!;
 
-    public sealed class Handler : ICommandHandler<UploadGalleryImagesCommand, Unit>
+    internal class Handler : ICommandHandler<UploadGalleryImagesCommand, Unit>
     {
         private readonly IFileManager _fileManager;
         private readonly IAppDbContext _context;

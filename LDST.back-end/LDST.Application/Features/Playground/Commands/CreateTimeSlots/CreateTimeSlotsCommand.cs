@@ -12,9 +12,9 @@ public sealed record CreateTimeSlotsCommand : ICommand<Unit>
     public int PlaygroundId { get; set; }
 
     [FromBody]
-    public List<CreateTimeSlotDto> TimeSlots { get; set; } = new();
+    public List<CreateTimeSlotDto> TimeSlots { get; set; } = null!;
 
-    public sealed class Handler : ICommandHandler<CreateTimeSlotsCommand, Unit>
+    internal class Handler : ICommandHandler<CreateTimeSlotsCommand, Unit>
     {
         private readonly IAppDbContext _context;
         public Handler(IAppDbContext context)

@@ -2,7 +2,7 @@
 using Azure.Storage;
 using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Options;
-using FileInfo = LDST.Application.Models.FileInfo;
+using FileInfo = LDST.Domain.FileInfo;
 using LDST.Infrastructure.Models;
 using LDST.Application.Interfaces.Persistance;
 using System.ComponentModel;

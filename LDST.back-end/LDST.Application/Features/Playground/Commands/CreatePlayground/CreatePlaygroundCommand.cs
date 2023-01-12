@@ -10,12 +10,12 @@ namespace LDST.Application.Features.Playground.Commands.CreatePlayground;
 public sealed class CreatePlaygroundCommand : ICommand<int>
 {
     [FromRoute(Name = "hostId")]
-    public Guid HostId { get; set; }
+    public string HostId { get; set; } = null!;
 
     [FromBody]
     public CreatePlaygroundDto Playground { get; set; } = null!;
 
-    public sealed class Handler : ICommandHandler<CreatePlaygroundCommand, int>
+    internal class Handler : ICommandHandler<CreatePlaygroundCommand, int>
     {
         private readonly IAppDbContext _context;
 

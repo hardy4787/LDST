@@ -11,7 +11,7 @@ public sealed class GetSupportedCitiesQuery : IQuery<List<CityDto>>
     [FromRoute(Name = "countryId")]
     public int CountryId { get; set; }
 
-    public sealed class Handler : IQueryHandler<GetSupportedCitiesQuery, List<CityDto>>
+    internal class Handler : IQueryHandler<GetSupportedCitiesQuery, List<CityDto>>
     {
         private readonly IAppDbContext _context;
         public Handler(IAppDbContext context)

@@ -1,4 +1,4 @@
-﻿namespace LDST.Application.Features.Playground.Queries.GetPlaygroundsByCity;
+﻿namespace LDST.Application.Features.Playground.Queries.GetPlaygroundsForNext7Days;
 
 public enum GameTimeSlotStatus
 {

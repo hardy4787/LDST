@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { AppConfig, APP_CONFIG } from '@ldst/shared';
 import { Observable } from 'rxjs';
 import { City } from '../models/city.model';
 import { CreatePlayground } from '../models/create-playground.model';
@@ -8,14 +9,17 @@ import { Sport } from '../models/sport.model';
 
 @Injectable()
 export class CreatePlaygroundService {
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(
+    @Inject(APP_CONFIG) private readonly appConfig: AppConfig,
+    private readonly httpClient: HttpClient
+  ) {}
 
   createPlayground$(
     hostId: string,
     body: CreatePlayground
   ): Observable<number> {
     return this.httpClient.post<number>(
-      `https://localhost:7286/Playgrounds/hosts/${hostId}`,
+      `${this.appConfig.baseURL}/Playgrounds/hosts/${hostId}`,
       body
     );
   }
@@ -25,7 +29,7 @@ export class CreatePlaygroundService {
     body: CreateTimeSlot[]
   ): Observable<number> {
     return this.httpClient.post<number>(
-      `https://localhost:7286/Playgrounds/${playgroundId}/timeslots`,
+      `${this.appConfig.baseURL}/Playgrounds/${playgroundId}/timeslots`,
       body
     );
   }
@@ -35,7 +39,7 @@ export class CreatePlaygroundService {
     data.append('playgroundId', playgroundId.toString());
     data.append('titleImage', titleImage);
     return this.httpClient.post<void>(
-      `https://localhost:7286/Playgrounds/title-image`,
+      `${this.appConfig.baseURL}/Playgrounds/title-image`,
       data
     );
   }
@@ -47,16 +51,16 @@ export class CreatePlaygroundService {
       data.append('galleryImages', images[i]);
     }
     return this.httpClient.post<void>(
-      `https://localhost:7286/Playgrounds/gallery-images`,
+      `${this.appConfig.baseURL}/Playgrounds/gallery-images`,
       data
     );
   }
 
   getSports$(): Observable<Sport[]> {
-    return this.httpClient.get<Sport[]>('https://localhost:7286/sports');
+    return this.httpClient.get<Sport[]>(`${this.appConfig.baseURL}/sports`);
   }
 
   getCities$(): Observable<City[]> {
-    return this.httpClient.get<City[]>('https://localhost:7286/locations/1');
+    return this.httpClient.get<City[]>(`${this.appConfig.baseURL}/locations/1`);
   }
 }

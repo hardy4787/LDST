@@ -47,10 +47,10 @@ export class ImageSliderComponent implements AfterViewInit, OnDestroy {
       {
         loop: true,
         breakpoints: {
-          '(min-width: 1000px)': {
+          '(min-width: 700px)': {
             slides: { perView: 2 },
           },
-          '(min-width: 1500px)': {
+          '(min-width: 1000px)': {
             slides: { perView: 3 },
           },
         },

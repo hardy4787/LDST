@@ -2,7 +2,6 @@ using LDST.Api;
 using LDST.Api.Middlewares;
 using LDST.Application;
 using LDST.Infrastructure;
-using Microsoft.AspNetCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -15,7 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 {
     app.UseMiddleware<ValidationExceptionMiddleware>();
+    app.UseCors("AllowAllOrigins");
     app.UseAuthentication();
+    app.UseAuthorization();
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
@@ -23,7 +24,6 @@ var app = builder.Build();
     }
     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
     app.UseHttpsRedirection();
-    app.UseCors("AllowAllOrigins");
     app.MapControllers();
     app.Run();
 }

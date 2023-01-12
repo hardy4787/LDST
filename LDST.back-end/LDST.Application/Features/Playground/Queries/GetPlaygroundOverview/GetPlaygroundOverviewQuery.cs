@@ -13,7 +13,7 @@ public sealed class GetPlaygroundOverviewQuery : IQuery<PlaygroundOverviewDto>
     [FromRoute(Name = "playgroundId")]
     public int PlaygroundId { get; set; }
 
-    public sealed class Handler : IQueryHandler<GetPlaygroundOverviewQuery, PlaygroundOverviewDto>
+    internal class Handler : IQueryHandler<GetPlaygroundOverviewQuery, PlaygroundOverviewDto>
     {
         private readonly IAppDbContext _context;
         public Handler(IAppDbContext context)

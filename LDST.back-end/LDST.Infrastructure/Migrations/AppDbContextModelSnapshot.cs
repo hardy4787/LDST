@@ -37,8 +37,9 @@ namespace LDST.Infrastructure.Migrations
                     b.Property<int>("GameReservationId")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("GuestId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("GuestId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -149,8 +150,9 @@ namespace LDST.Infrastructure.Migrations
                     b.Property<int>("GameTimeSlotId")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("GuestId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("GuestId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
@@ -198,46 +200,6 @@ namespace LDST.Infrastructure.Migrations
                     b.ToTable("GameTimeSlots", (string)null);
                 });
 
-            modelBuilder.Entity("LDST.Domain.EFModels.GuestEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ProfileImagePath")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Guests", (string)null);
-                });
-
-            modelBuilder.Entity("LDST.Domain.EFModels.HostEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ProfileImagePath")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Hosts", (string)null);
-                });
-
             modelBuilder.Entity("LDST.Domain.EFModels.PlaygroundEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -264,8 +226,9 @@ namespace LDST.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("HostId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("HostId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -311,8 +274,9 @@ namespace LDST.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<Guid>("GuestId")
-                        .HasColumnType("uuid");
+                    b.Property<string>("GuestId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("PlaygroundId")
                         .HasColumnType("integer");
@@ -348,34 +312,6 @@ namespace LDST.Infrastructure.Migrations
                     b.ToTable("Sports", (string)null);
                 });
 
-            modelBuilder.Entity("LDST.Domain.EFModels.UserEntity", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users", (string)null);
-                });
-
             modelBuilder.Entity("LDST.Domain.EFModels.WeekScheduleEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -395,6 +331,240 @@ namespace LDST.Infrastructure.Migrations
                     b.ToTable("WeekSchedules", (string)null);
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "10884d21-1f59-44cb-bf62-27be3b645638",
+                            Name = "Guest",
+                            NormalizedName = "GUEST"
+                        },
+                        new
+                        {
+                            Id = "7ca9f562-e715-473c-acf5-47d068bfd495",
+                            Name = "Host",
+                            NormalizedName = "HOST"
+                        },
+                        new
+                        {
+                            Id = "1ee418c3-7260-4f1e-8727-0550ff31de23",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+
+                    b.UseTptMappingStrategy();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("LDST.Domain.EFModels.UserEntity", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.ToTable("Users", (string)null);
+                });
+
             modelBuilder.Entity("LDST.Domain.EFModels.BillEntity", b =>
                 {
                     b.HasOne("LDST.Domain.EFModels.GameReservationEntity", "GameReservation")
@@ -403,7 +573,7 @@ namespace LDST.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LDST.Domain.EFModels.GuestEntity", "Guest")
+                    b.HasOne("LDST.Domain.EFModels.UserEntity", "Guest")
                         .WithMany("Bills")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -463,7 +633,7 @@ namespace LDST.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LDST.Domain.EFModels.GuestEntity", "Guest")
+                    b.HasOne("LDST.Domain.EFModels.UserEntity", "Guest")
                         .WithMany("GameReservations")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -485,28 +655,6 @@ namespace LDST.Infrastructure.Migrations
                     b.Navigation("Playground");
                 });
 
-            modelBuilder.Entity("LDST.Domain.EFModels.GuestEntity", b =>
-                {
-                    b.HasOne("LDST.Domain.EFModels.UserEntity", "User")
-                        .WithOne("Guest")
-                        .HasForeignKey("LDST.Domain.EFModels.GuestEntity", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("LDST.Domain.EFModels.HostEntity", b =>
-                {
-                    b.HasOne("LDST.Domain.EFModels.UserEntity", "User")
-                        .WithOne("Host")
-                        .HasForeignKey("LDST.Domain.EFModels.HostEntity", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("LDST.Domain.EFModels.PlaygroundEntity", b =>
                 {
                     b.HasOne("LDST.Domain.EFModels.CityEnity", "City")
@@ -515,7 +663,7 @@ namespace LDST.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LDST.Domain.EFModels.HostEntity", "Host")
+                    b.HasOne("LDST.Domain.EFModels.UserEntity", "Host")
                         .WithMany("Playgrounds")
                         .HasForeignKey("HostId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -536,7 +684,7 @@ namespace LDST.Infrastructure.Migrations
 
             modelBuilder.Entity("LDST.Domain.EFModels.PlaygroundGuestRatingEntity", b =>
                 {
-                    b.HasOne("LDST.Domain.EFModels.GuestEntity", "Guest")
+                    b.HasOne("LDST.Domain.EFModels.UserEntity", "Guest")
                         .WithMany("PlaygroundGuestRatings")
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -564,6 +712,66 @@ namespace LDST.Infrastructure.Migrations
                     b.Navigation("Playground");
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("LDST.Domain.EFModels.UserEntity", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithOne()
+                        .HasForeignKey("LDST.Domain.EFModels.UserEntity", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("LDST.Domain.EFModels.CityEnity", b =>
                 {
                     b.Navigation("CitySports");
@@ -584,20 +792,6 @@ namespace LDST.Infrastructure.Migrations
                     b.Navigation("GameReservation");
                 });
 
-            modelBuilder.Entity("LDST.Domain.EFModels.GuestEntity", b =>
-                {
-                    b.Navigation("Bills");
-
-                    b.Navigation("GameReservations");
-
-                    b.Navigation("PlaygroundGuestRatings");
-                });
-
-            modelBuilder.Entity("LDST.Domain.EFModels.HostEntity", b =>
-                {
-                    b.Navigation("Playgrounds");
-                });
-
             modelBuilder.Entity("LDST.Domain.EFModels.PlaygroundEntity", b =>
                 {
                     b.Navigation("GameTimeSlots");
@@ -613,16 +807,20 @@ namespace LDST.Infrastructure.Migrations
                     b.Navigation("CitySports");
                 });
 
-            modelBuilder.Entity("LDST.Domain.EFModels.UserEntity", b =>
-                {
-                    b.Navigation("Guest");
-
-                    b.Navigation("Host");
-                });
-
             modelBuilder.Entity("LDST.Domain.EFModels.WeekScheduleEntity", b =>
                 {
                     b.Navigation("Days");
+                });
+
+            modelBuilder.Entity("LDST.Domain.EFModels.UserEntity", b =>
+                {
+                    b.Navigation("Bills");
+
+                    b.Navigation("GameReservations");
+
+                    b.Navigation("PlaygroundGuestRatings");
+
+                    b.Navigation("Playgrounds");
                 });
 #pragma warning restore 612, 618
         }

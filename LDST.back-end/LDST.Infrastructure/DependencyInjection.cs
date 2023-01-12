@@ -8,11 +8,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using LDST.Infrastructure.Persistance.Repositories;
 using LDST.Application.Interfaces.Persistance;
 using LDST.Application.Interfaces.Services;
 using LDST.Application.Interfaces;
 using LDST.Infrastructure.Models;
+using Microsoft.AspNetCore.Identity;
+using LDST.Domain.EFModels;
 
 namespace LDST.Infrastructure;
 
@@ -20,13 +21,21 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, ConfigurationManager configuration)
     {
-        services.AddAuth(configuration);
         services.AddDatabases(configuration);
+        services.AddAuth(configuration);
         services.AddFileManager(configuration);
+        services.AddEmailConfiguration(configuration);
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-
-        services.AddScoped<IUserRepository, UserRepository>();
         return services;
+    }
+
+    private static void AddEmailConfiguration(this IServiceCollection services, IConfiguration configuration)
+    {
+        var emailConfig = configuration
+            .GetSection("EmailConfiguration")
+            .Get<EmailConfiguration>();
+        services.AddSingleton(emailConfig!);
+        services.AddScoped<IEmailSender, EmailSender>();
     }
 
     private static void AddFileManager(this IServiceCollection services, IConfiguration configuration)
@@ -44,19 +53,23 @@ public static class DependencyInjection
         services.AddSingleton(Options.Create(jwtSettings));
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
-        services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = jwtSettings.Issuer,
-                    ValidAudience = jwtSettings.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(jwtSettings.Secret)
-                    ),
-                });
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings.Issuer,
+            ValidAudience = jwtSettings.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtSettings.Secret)
+            ),
+        });
 
         return services;
     }
@@ -72,7 +85,26 @@ public static class DependencyInjection
             {
                 options.UseNpgsql(connectionString);
             }
-        ); 
+        );
+
+        services.AddIdentity<UserEntity, IdentityRole>((options) =>
+        {
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequiredLength = 4;
+            options.User.RequireUniqueEmail = true;
+
+            options.Lockout.AllowedForNewUsers = true;
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(2);
+            options.Lockout.MaxFailedAccessAttempts = 3;
+        })
+        .AddEntityFrameworkStores<AppDbContext>()
+        .AddDefaultTokenProviders();
+
+        services.Configure<DataProtectionTokenProviderOptions>(opt =>
+            opt.TokenLifespan = TimeSpan.FromHours(2));
 
         return services;
     }

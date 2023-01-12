@@ -15,6 +15,10 @@ public static class DomainErrors
         public static Error InvalidCredentials => Error.Validation(
             description: "Invalid credentials."
         );
+
+        public static Error EmailIsNotConfirmed => Error.Validation(
+            description: "Email is not confirmed."
+        );
     }
     public static class City
     {

@@ -1,49 +1,62 @@
 using LDST.Domain.EFModels;
-using LDST.Application.Interfaces.Persistance;
-using LDST.Application.Interfaces;
-using LDST.Application.Features.Authentication.Shared.Models;
 using LDST.Application.Abstractions;
 using ErrorOr;
-using LDST.Domain.Errors;
+using Microsoft.AspNetCore.Identity;
+using MediatR;
+using LDST.Application.Interfaces.Services;
+using LDST.Domain.Mail;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace LDST.Application.Features.Authentication.Commands.Register;
 
-public class RegisterCommand : ICommand<AuthenticationResult>
+public sealed class RegisterCommand : ICommand<Unit>
 {
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string Password { get; set; } = null!;
+    public string ConfirmPassword { get; set; } = null!;
+    public string ClientURI { get; set; } = null!;
 
-    public sealed class Handler : ICommandHandler<RegisterCommand, AuthenticationResult>
+    internal class Handler : ICommandHandler<RegisterCommand, Unit>
     {
-        private readonly IJwtTokenGenerator _jwtTokenGenerator;
-        private readonly IUserRepository _userRepository;
-        public Handler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
+        private readonly UserManager<UserEntity> _userManager;
+        private readonly IEmailSender _emailSender;
+
+        public Handler(UserManager<UserEntity> userManager, IEmailSender emailSender)
         {
-            _jwtTokenGenerator = jwtTokenGenerator;
-            _userRepository = userRepository;
+            _userManager = userManager;
+            _emailSender = emailSender;
         }
 
-        public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
+        public async Task<ErrorOr<Unit>> Handle(RegisterCommand command, CancellationToken cancellationToken)
         {
-            if ((await _userRepository.GetUserByEmailAsync(command.Email, cancellationToken)) is not null)
+            var user = new UserEntity { FirstName = command.FirstName, LastName = command.LastName, UserName = command.Email, Email = command.Email };
+
+            var result = await _userManager.CreateAsync(user, command.Password);
+            if (!result.Succeeded)
             {
-                return DomainErrors.User.DuplicateEmail;
+                return result.Errors.Select(e => Error.Validation(description: e.Description)).ToArray();
             }
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var param = new Dictionary<string, string?>
+            {
+                {"token", token },
+                {"email", user.Email }
+            };
+            var callback = QueryHelpers.AddQueryString(command.ClientURI, param);
+            var message = new Message
+            {
+                To = new string[] { user.Email },
+                Subject = "Email Confirmation token",
+                Content = callback,
+                Attachments = null
+            };
+            await _emailSender.SendEmailAsync(message);
 
-            var user = new UserEntity { FirstName = command.FirstName, LastName = command.LastName, Email = command.Email, Password = command.Password };
+            await _userManager.AddToRoleAsync(user, "Guest");
 
-            await _userRepository.AddAsync(user, cancellationToken);
-
-            var token = _jwtTokenGenerator.GenerateToken(user);
-
-            return new AuthenticationResult(
-                user.Id,
-                user.FirstName, 
-                user.LastName,
-                user.Email,
-                token);
+            return Unit.Value;
         }
     }
 }

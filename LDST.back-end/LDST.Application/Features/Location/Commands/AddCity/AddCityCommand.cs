@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LDST.Application.Features.Location.Commands.AddCity;
 
-public record AddCityCommand : ICommand<Unit>
+public sealed class AddCityCommand : ICommand<Unit>
 {
     public string Name { get; set; } = null!;
 
-    public sealed class Handler : ICommandHandler<AddCityCommand, Unit>
+    internal class Handler : ICommandHandler<AddCityCommand, Unit>
     {
         private readonly IAppDbContext _context;
         public Handler(IAppDbContext context)
