@@ -6,3 +6,4 @@ export * from './lib/services';
 export * from './lib/guards';
 export * from './lib/app-config.token';
 export * from './lib/app.config';
+export * from './lib/validators';

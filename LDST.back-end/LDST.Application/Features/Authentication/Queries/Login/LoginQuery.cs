@@ -32,7 +32,7 @@ public class LoginQuery : IQuery<AuthenticationResult>
 
         public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
         {
-            if ((await _userManager.FindByNameAsync(query.Email)) is not UserEntity user)
+            if ((await _userManager.FindByEmailAsync(query.Email)) is not UserEntity user)
             {
                 return DomainErrors.Authentication.InvalidCredentials;
             }
@@ -56,7 +56,7 @@ public class LoginQuery : IQuery<AuthenticationResult>
             var token = _jwtTokenGenerator.GenerateToken(user, roles);
 
             return new AuthenticationResult(
-                token);
+                Token: token, UserName: user.UserName!);
         }
 
         private async Task<ErrorOr<AuthenticationResult>> GenerateOTPFor2StepVerification(UserEntity user)
@@ -77,7 +77,7 @@ public class LoginQuery : IQuery<AuthenticationResult>
 
             await _emailSender.SendEmailAsync(message);
 
-            return new AuthenticationResult(Token: token, Is2StepVerificationRequired: true, Provider: "Email");
+            return new AuthenticationResult(Token: token, UserName: user.UserName!, Is2StepVerificationRequired: true, Provider: "Email");
         }
     }
 }

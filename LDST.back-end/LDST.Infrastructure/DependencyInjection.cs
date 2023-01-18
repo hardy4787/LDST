@@ -25,7 +25,6 @@ public static class DependencyInjection
         services.AddAuth(configuration);
         services.AddFileManager(configuration);
         services.AddEmailConfiguration(configuration);
-        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         return services;
     }
 

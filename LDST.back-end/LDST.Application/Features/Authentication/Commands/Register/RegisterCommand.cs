@@ -6,6 +6,9 @@ using MediatR;
 using LDST.Application.Interfaces.Services;
 using LDST.Domain.Mail;
 using Microsoft.AspNetCore.WebUtilities;
+using LDST.Domain.Errors;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using LDST.Application.Extensions;
 
 namespace LDST.Application.Features.Authentication.Commands.Register;
 
@@ -31,8 +34,14 @@ public sealed class RegisterCommand : ICommand<Unit>
 
         public async Task<ErrorOr<Unit>> Handle(RegisterCommand command, CancellationToken cancellationToken)
         {
-            var user = new UserEntity { FirstName = command.FirstName, LastName = command.LastName, UserName = command.Email, Email = command.Email };
+            var user = new UserEntity { FirstName = command.FirstName, LastName = command.LastName, Email = command.Email };
 
+            user.UserName = $"{user.FirstName}-{user.LastName}".ToLower();
+
+            if ((await _userManager.FindByNameAsync(user.UserName)) is not null)
+            {
+                user.UserName += DateTime.Now.GetUniqueId();
+            }
             var result = await _userManager.CreateAsync(user, command.Password);
             if (!result.Succeeded)
             {
@@ -57,6 +66,13 @@ public sealed class RegisterCommand : ICommand<Unit>
             await _userManager.AddToRoleAsync(user, "Guest");
 
             return Unit.Value;
+        }
+
+        private static string GetUniqueId()
+        {
+            var ticks = new DateTime(2016, 1, 1).Ticks;
+            var ans = DateTime.Now.Ticks - ticks;
+            return ans.ToString("x");
         }
     }
 }

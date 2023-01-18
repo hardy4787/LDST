@@ -29,7 +29,7 @@ public sealed class TwoFactorLoginQuery : IQuery<AuthenticationResult>
 
         public async Task<ErrorOr<AuthenticationResult>> Handle(TwoFactorLoginQuery query, CancellationToken cancellationToken)
         {
-            if (await _userManager.FindByNameAsync(query.Email) is not UserEntity user)
+            if (await _userManager.FindByEmailAsync(query.Email) is not UserEntity user)
             {
                 return DomainErrors.Authentication.InvalidCredentials;
             }
@@ -43,7 +43,7 @@ public sealed class TwoFactorLoginQuery : IQuery<AuthenticationResult>
             var token = _jwtTokenGenerator.GenerateToken(user, roles);
 
             return new AuthenticationResult(
-                token);
+                Token: token, UserName: user.UserName!);
         }
     }
 }

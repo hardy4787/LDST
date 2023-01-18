@@ -9,10 +9,8 @@ import { UploadImagesStepComponent } from './components/upload-images-step/uploa
 import { CreateTimeSlotsStepComponent } from './components/create-time-slots-step/create-time-slots-step.component';
 import { DragAndDropDirective } from './directives/drag-and-drop.directive';
 import { PlaygroundStore } from './services/playground.store';
-import { ImageValidators } from './services/image.validators';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { ImageCardComponent } from './components/image-card/image-card.component';
 import { DayScheduleComponent } from './components/day-schedule/day-schedule.component';
+import { ImageCardComponent } from '@ldst/organisms';
 
 @NgModule({
   imports: [
@@ -24,6 +22,7 @@ import { DayScheduleComponent } from './components/day-schedule/day-schedule.com
         component: CreatePlaygroundPageComponent,
       },
     ]),
+    ImageCardComponent,
   ],
   declarations: [
     CreatePlaygroundPageComponent,
@@ -31,9 +30,8 @@ import { DayScheduleComponent } from './components/day-schedule/day-schedule.com
     UploadImagesStepComponent,
     DragAndDropDirective,
     CreateTimeSlotsStepComponent,
-    ImageCardComponent,
     DayScheduleComponent,
   ],
-  providers: [CreatePlaygroundService, ImageValidators, PlaygroundStore],
+  providers: [CreatePlaygroundService, PlaygroundStore],
 })
 export class CreatePlaygroundModule {}

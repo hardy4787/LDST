@@ -54,21 +54,24 @@ export class LoginUserComponent implements OnInit {
     };
     this.authService
       .loginUser$(userForAuth)
-      .subscribe(({ token, is2StepVerificationRequired, provider }) => {
-        if (is2StepVerificationRequired) {
-          this.notify.open('Verification code was sent to your email.');
-          this.router.navigate(['/authentication/two-step-verification'], {
-            queryParams: {
-              returnUrl: this.returnUrl,
-              provider: provider,
-              email: userForAuth.email,
-            },
-          });
-        } else {
-          localStorage.setItem('token', token);
-          this.authStatusService.sendAuthStateChangeNotification(true);
-          this.router.navigate([this.returnUrl]);
+      .subscribe(
+        ({ token, userName, is2StepVerificationRequired, provider }) => {
+          if (is2StepVerificationRequired) {
+            this.notify.open('Verification code was sent to your email.');
+            this.router.navigate(['/authentication/two-step-verification'], {
+              queryParams: {
+                returnUrl: this.returnUrl,
+                provider: provider,
+                email: userForAuth.email,
+              },
+            });
+          } else {
+            localStorage.setItem('token', token);
+            localStorage.setItem('userName', userName);
+            this.authStatusService.sendAuthStateChangeNotification(true);
+            this.router.navigate([this.returnUrl]);
+          }
         }
-      });
+      );
   }
 }

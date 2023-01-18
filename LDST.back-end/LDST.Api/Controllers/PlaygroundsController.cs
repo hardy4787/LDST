@@ -1,4 +1,5 @@
 using LDST.Api.Abstractions;
+using LDST.Api.Filters;
 using LDST.Application.Features.Playground.Commands.CreatePlayground;
 using LDST.Application.Features.Playground.Commands.CreateTimeSlots;
 using LDST.Application.Features.Playground.Commands.UploadGalleryImages;
@@ -35,6 +36,7 @@ public class PlaygroundsController : ApiController
     public async Task<IActionResult> GetPlaygroundOverview([FromQuery] GetPlaygroundOverviewQuery request) =>
         GetHandledResult(await _mediator.Send(request));
 
+    [AccessActionFilter]
     [HttpGet("cities/{cityId}/sports/{sportId}")]
     public async Task<IActionResult> GetPlaygroundsByCity([FromQuery] GetPlaygroundsForNext7DaysQuery request) =>
         GetHandledResult(await _mediator.Send(request));

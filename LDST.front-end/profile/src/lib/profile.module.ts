@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfilePageComponent } from './profile-page.component';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from '@ldst/shared';
+import { ImageValidators, SharedModule } from '@ldst/shared';
+import { ProfileService } from './services/profile.service';
+import { ImageCardComponent } from '@ldst/organisms';
 
 @NgModule({
   imports: [
@@ -10,11 +12,13 @@ import { SharedModule } from '@ldst/shared';
     SharedModule,
     RouterModule.forChild([
       {
-        path: '',
+        path: ':userName',
         component: ProfilePageComponent,
       },
     ]),
+    ImageCardComponent,
   ],
   declarations: [ProfilePageComponent],
+  providers: [ProfileService, ImageValidators],
 })
 export class ProfileModule {}

@@ -44,7 +44,11 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['/privacy']);
   }
 
+  onNavigateToLoginPage(): void {
+    this.router.navigate(['/authentication/login']);
+  }
+
   onNavigateToProfilePage(): void {
-    this.router.navigate(['/profile']);
+    this.router.navigate([`/profile/${localStorage.getItem('userName')}`]);
   }
 }

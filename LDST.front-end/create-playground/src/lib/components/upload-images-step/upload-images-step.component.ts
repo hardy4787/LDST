@@ -1,9 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
-import { ValidationConstants } from '@ldst/shared';
+import { ImageInfo, ValidationConstants } from '@ldst/shared';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { ToastrService } from 'ngx-toastr';
-import { ImageInfo } from '../../models/image-info.model';
 import { PlaygroundStore } from '../../services/playground.store';
 
 @UntilDestroy()

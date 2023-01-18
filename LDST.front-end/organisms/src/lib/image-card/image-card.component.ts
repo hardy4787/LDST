@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -7,11 +8,13 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { ImageInfo } from '../../models/image-info.model';
+import { ImageInfo, ImageValidators, SharedModule } from '@ldst/shared';
 import { v4 as uuidv4 } from 'uuid';
-import { ImageValidators } from '../../services/image.validators';
 
 @Component({
+  imports: [CommonModule, SharedModule],
+  providers: [ImageValidators],
+  standalone: true,
   selector: 'ldst-image-card',
   templateUrl: './image-card.component.html',
   styleUrls: ['./image-card.component.scss'],
@@ -42,7 +45,7 @@ export class ImageCardComponent {
     this.fileDropRef.nativeElement.value = '';
   }
 
-  onFileDropped(file: File): void {
+  onFileDropped(file: File | any): void {
     const id = uuidv4();
 
     if (this.imageForm instanceof FormArray) {

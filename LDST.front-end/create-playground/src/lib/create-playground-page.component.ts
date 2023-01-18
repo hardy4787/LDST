@@ -7,10 +7,10 @@ import { Sport } from './models/sport.model';
 import { CreatePlaygroundService } from './services/create-playground.service';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { PlaygroundStore } from './services/playground.store';
-import { ImageValidators } from './services/image.validators';
 import { MatStepper } from '@angular/material/stepper';
 import { FormControlUtils } from '@ldst/utils';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ImageValidators } from '@ldst/shared';
 
 @UntilDestroy()
 @Component({

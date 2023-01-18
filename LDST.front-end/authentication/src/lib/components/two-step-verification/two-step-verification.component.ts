@@ -47,8 +47,9 @@ export class TwoStepVerificationComponent implements OnInit {
     };
     this.authService
       .twoFactorLogin$(params)
-      .subscribe((res: SignInResponse) => {
-        localStorage.setItem('token', res.token);
+      .subscribe(({ token, userName }) => {
+        localStorage.setItem('token', token);
+        localStorage.setItem('userName', userName);
         this.authStatusService.sendAuthStateChangeNotification(true);
         this.router.navigate([this.returnUrl]);
       });

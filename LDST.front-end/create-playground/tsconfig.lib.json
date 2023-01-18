@@ -13,5 +13,10 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts", "../shared/src/lib/models/day-schedule.model.ts"]
+  "include": [
+    "src/**/*.ts",
+    "../shared/src/lib/models/day-schedule.model.ts",
+    "../shared/src/lib/validators/image.validators.ts",
+    "../shared/src/lib/models/image-info.model.ts"
+  ]
 }

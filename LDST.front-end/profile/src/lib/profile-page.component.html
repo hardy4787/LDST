@@ -1,1 +1,45 @@
-<p>profile-page works!</p>
+<div class="profile-card stretch-page">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Profile</mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="form" autocomplete="off">
+      <mat-card-content>
+        <div>{{ savingStatus }}</div>
+        <div class="form-group">
+          <div class="title-picture">
+            <ldst-image-card
+              [fileInfo]="titleImage"
+              [imageForm]="titleImageControl"
+              (photoDeleted)="onDeleteTitleImage()"
+            ></ldst-image-card>
+          </div>
+          <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input formControlName="firstName" required matInput />
+            <mat-error *ngIf="firstNameControl.hasError('required')">
+              <mat-icon>error</mat-icon>
+              {{ validationConstants.REQUIRED_MESSAGE }}
+            </mat-error>
+            <mat-error *ngIf="firstNameControl.hasError('maxlength')">
+              <mat-icon>error</mat-icon>
+              {{ validationConstants.maxCharLimitMessage(firstNameTextLimit) }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input formControlName="lastName" required matInput />
+            <mat-error *ngIf="lastNameControl.hasError('required')">
+              <mat-icon>error</mat-icon>
+              {{ validationConstants.REQUIRED_MESSAGE }}
+            </mat-error>
+            <mat-error *ngIf="lastNameControl.hasError('maxlength')">
+              <mat-icon>error</mat-icon>
+              {{ validationConstants.maxCharLimitMessage(lastNameTextLimit) }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </form>
+  </mat-card>
+</div>

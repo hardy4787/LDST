@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { PlaygroundInfo } from '../models/create-playground.model';
 import { CreateTimeSlot } from '../models/create-time-slot.model';
 import { ComponentStore } from '@ngrx/component-store';
-import { ImageInfo } from '../models/image-info.model';
+import { ImageInfo } from '../../../../shared/src/lib/models/image-info.model';
 import { DaySchedule } from '@ldst/shared';
 export interface PlaygroundState {
   playgroundInfo: PlaygroundInfo;

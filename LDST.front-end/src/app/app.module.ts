@@ -3,7 +3,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { ErrorHandlerService, getAppConfigProvider } from '@ldst/shared';
+import {
+  AuthInterceptorService,
+  getAppConfigProvider,
+  HttpErrorInterceptor,
+} from '@ldst/shared';
 import { ToolbarModule } from '@ldst/organisms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
@@ -36,7 +40,12 @@ export function tokenGetter() {
     getAppConfigProvider(environment),
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: ErrorHandlerService,
+      useClass: HttpErrorInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
       multi: true,
     },
   ],

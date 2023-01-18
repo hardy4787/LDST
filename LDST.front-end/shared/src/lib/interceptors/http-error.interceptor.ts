@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root',
 })
-export class ErrorHandlerService implements HttpInterceptor {
+export class HttpErrorInterceptor implements HttpInterceptor {
   constructor(private router: Router, private readonly toastr: ToastrService) {}
   intercept(
     req: HttpRequest<any>,
@@ -38,7 +38,7 @@ export class ErrorHandlerService implements HttpInterceptor {
     }
     return this.handleBadRequest(error);
   };
-  
+
   private handleForbidden = (error: HttpErrorResponse) => {
     this.router.navigate(['/forbidden'], {
       queryParams: { returnUrl: this.router.url },

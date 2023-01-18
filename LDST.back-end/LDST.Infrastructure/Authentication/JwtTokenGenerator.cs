@@ -14,11 +14,9 @@ namespace LDST.Infrastructure.Authentication;
 public class JwtTokenGenerator : IJwtTokenGenerator
 {
     private readonly JwtSettings _jwtSettings;
-    private readonly IDateTimeProvider _dateTimeProvider;
 
-    public JwtTokenGenerator(IDateTimeProvider dateTimeProvider, IOptions<JwtSettings> jwtSettings)
+    public JwtTokenGenerator(IOptions<JwtSettings> jwtSettings)
     {
-        _dateTimeProvider = dateTimeProvider;
         _jwtSettings = jwtSettings.Value;
     }
 
@@ -32,7 +30,8 @@ public class JwtTokenGenerator : IJwtTokenGenerator
         var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            new(JwtRegisteredClaimNames.Email, user.UserName!)
+            new(JwtRegisteredClaimNames.Email, user.Email!),
+            new(JwtRegisteredClaimNames.Name, user.UserName!),
         };
 
         foreach (var role in roles)
@@ -45,7 +44,7 @@ public class JwtTokenGenerator : IJwtTokenGenerator
             _jwtSettings.Audience,
             claims,
             null,
-            _dateTimeProvider.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes),
+            DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryMinutes),
             signingCredentials);
 
         return new JwtSecurityTokenHandler().WriteToken(token);

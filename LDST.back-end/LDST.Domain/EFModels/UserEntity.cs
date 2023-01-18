@@ -6,6 +6,7 @@ public class UserEntity : IdentityUser
 {
     public string FirstName { get; set; } = null!;
     public string LastName { get; set; } = null!;
+    public string? TitlePhotoPath { get; set; }
 
     public List<BillEntity> Bills { get; set; } = null!;
     public List<GameReservationEntity> GameReservations { get; set; } = new();
