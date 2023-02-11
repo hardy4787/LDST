@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationStatusService, ValidationConstants } from '@ldst/shared';
-import { SignInResponse } from '../../models/sign-in-response.model';
-import { TwoFactorParams } from '../../models/two-factor-params.model';
-import { AuthenticationService } from '../../services/authentication.service';
+import {
+  AuthenticationService,
+  AuthenticationStatusService,
+  TwoFactorParams,
+  ValidationConstants,
+} from '@ldst/shared';
 
 @Component({
   selector: 'ldst-two-step-verification',
   templateUrl: './two-step-verification.component.html',
   styleUrls: ['./two-step-verification.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TwoStepVerificationComponent implements OnInit {
   readonly validationConstants = ValidationConstants;
@@ -21,9 +29,9 @@ export class TwoStepVerificationComponent implements OnInit {
   form!: FormGroup;
 
   constructor(
-    private authService: AuthenticationService,
-    private route: ActivatedRoute,
-    private router: Router,
+    private readonly authService: AuthenticationService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
     private readonly authStatusService: AuthenticationStatusService
   ) {}
 
@@ -47,9 +55,10 @@ export class TwoStepVerificationComponent implements OnInit {
     };
     this.authService
       .twoFactorLogin$(params)
-      .subscribe(({ token, userName }) => {
+      .subscribe(({ token, userName, userId }) => {
         localStorage.setItem('token', token);
         localStorage.setItem('userName', userName);
+        localStorage.setItem('userId', userId);
         this.authStatusService.sendAuthStateChangeNotification(true);
         this.router.navigate([this.returnUrl]);
       });

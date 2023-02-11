@@ -5,11 +5,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ValidationConstants } from '@ldst/shared';
-import { ForgotPasswordParams } from '../../models/forgot-password-params.model';
-import { AuthenticationService } from '../../services/authentication.service';
+import {
+  AuthenticationService,
+  ForgotPasswordParams,
+  ValidationConstants,
+} from '@ldst/shared';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ldst-forgot-password',
@@ -26,7 +28,7 @@ export class ForgotPasswordComponent {
 
   constructor(
     private readonly authService: AuthenticationService,
-    private readonly snackBar: MatSnackBar,
+    private readonly toastr: ToastrService,
     private readonly router: Router
   ) {
     this.form = new FormGroup({
@@ -40,7 +42,7 @@ export class ForgotPasswordComponent {
       clientURI: 'http://localhost:4200/authentication/reset-password',
     } as ForgotPasswordParams;
     this.authService.forgotPassword$(body).subscribe(() => {
-      this.snackBar.open(
+      this.toastr.info(
         'The link has been sent, please check your email to reset your password.'
       );
       this.router.navigate(['/']);

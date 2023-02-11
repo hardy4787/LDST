@@ -42,15 +42,19 @@
       </button>
       <mat-menu #menu="matMenu" [overlapTrigger]="false">
         <span (mouseleave)="menuTrigger.closeMenu()">
-          <button mat-menu-item>
+          <button (click)="onOpenContactsDialog()" mat-menu-item>
             <mat-icon>phone</mat-icon>
             <span>Contacts</span>
           </button>
-          <button mat-menu-item>
+          <button (click)="onOpenAboutDialog()" mat-menu-item>
             <mat-icon>people_outline</mat-icon>
             <span>About</span>
           </button>
-          <button mat-menu-item (click)="onNavigateToCreatePlayground()">
+          <button
+            *ngIf="isUserAuthenticated"
+            mat-menu-item
+            (click)="onNavigateToCreatePlayground()"
+          >
             <mat-icon>people_outline</mat-icon>
             <span>Create playground</span>
           </button>

@@ -26,6 +26,7 @@ export class ImageCardComponent {
   @Output() photoDeleted = new EventEmitter<ImageInfo>();
   @Output() photoAdded = new EventEmitter<ImageInfo>();
   @Output() photoNotAdded = new EventEmitter<void>();
+  @Output() photoUrlChanged = new EventEmitter<void>();
 
   @ViewChild('fileDropRef', { static: false }) fileDropRef!: ElementRef;
 
@@ -87,6 +88,7 @@ export class ImageCardComponent {
     const fr = new FileReader();
     fr.onload = () => {
       this.fileInfo.fileUrl = fr.result;
+      this.photoUrlChanged.emit();
     };
 
     fr.readAsDataURL(file);

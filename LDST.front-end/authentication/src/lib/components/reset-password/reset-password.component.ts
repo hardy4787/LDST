@@ -5,11 +5,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ValidationConstants } from '@ldst/shared';
-import { ResetPasswordParams } from '../../models/reset-password-params.model';
-import { AuthenticationService } from '../../services/authentication.service';
+import {
+  AuthenticationService,
+  ResetPasswordParams,
+  ValidationConstants,
+} from '@ldst/shared';
+import { ToastrService } from 'ngx-toastr';
 import { PasswordValidators } from '../../services/password.validators';
 
 @Component({
@@ -34,7 +36,7 @@ export class ResetPasswordComponent {
     private readonly authService: AuthenticationService,
     private readonly passwordValidators: PasswordValidators,
     private readonly route: ActivatedRoute,
-    private readonly snackBar: MatSnackBar,
+    private readonly toastr: ToastrService,
     private readonly router: Router
   ) {
     this.form = new FormGroup({
@@ -63,7 +65,7 @@ export class ResetPasswordComponent {
     };
 
     this.authService.resetPassword$(body).subscribe(() => {
-      this.snackBar.open('Your password has been reset.');
+      this.toastr.success('Your password has been reset.');
       this.router.navigate(['/authentication/login']);
     });
   }

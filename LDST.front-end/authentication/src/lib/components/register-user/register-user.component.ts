@@ -6,12 +6,14 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { SignUpParams } from '../../models/sign-up-params.model';
-import { AuthenticationService } from '../../services/authentication.service';
-import { ValidationConstants } from '@ldst/shared';
+import {
+  AuthenticationService,
+  SignUpParams,
+  ValidationConstants,
+} from '@ldst/shared';
 import { PasswordValidators } from '../../services/password.validators';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ldst-register-user',
@@ -49,7 +51,7 @@ export class RegisterUserComponent {
     private readonly authService: AuthenticationService,
     private readonly passwordValidators: PasswordValidators,
     private readonly router: Router,
-    private readonly notify: MatSnackBar
+    private readonly toastr: ToastrService
   ) {
     this.registerForm = new FormGroup({
       firstName: new FormControl('', [
@@ -88,11 +90,11 @@ export class RegisterUserComponent {
     };
 
     this.authService.registerUser$(user).subscribe(() => {
-      this.notify.open('User is registered successfully.');
-      this.notify.open(
+      this.toastr.success('User is registered successfully.');
+      this.toastr.info(
         'You should confirm your email. Check your email please.'
       );
-      this.router.navigate(['/authentication/login']);
+      this.router.navigate(['/']);
     });
   }
 }

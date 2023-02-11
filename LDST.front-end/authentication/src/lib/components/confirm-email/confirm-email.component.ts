@@ -1,8 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ConfirmEmailParams } from '../../models/email-confirm-params.model';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService, ConfirmEmailParams } from '@ldst/shared';
 
 @Component({
   selector: 'ldst-confirm-email',

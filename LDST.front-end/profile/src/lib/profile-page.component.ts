@@ -1,70 +1,85 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ImageInfo, ValidationConstants } from '@ldst/shared';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ImageValidators } from '@ldst/shared';
-import { concatMap, debounceTime, of, Subject, switchMap } from 'rxjs';
+import { filter, of, switchMap } from 'rxjs';
 import { ProfileService } from './services/profile.service';
-import { UpdateProfileParams } from './models/update-profile-params.model';
+import { ProfileInfoParams } from './models/profile-info-params';
+import { Profile } from './models/profile.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent, ConfirmDialogParams } from '@ldst/organisms';
+import {
+  AuthenticationService,
+  AuthenticationStatusService,
+} from '@ldst/shared';
+import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 
 @UntilDestroy()
 @Component({
-  selector: 'ldst-profile-page',
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss'],
 })
 export class ProfilePageComponent implements OnInit {
   isCurrentUser = false;
-  titleImage: ImageInfo = new ImageInfo();
-  titleImageControl!: FormControl;
-  savingStatus = '';
+  titleImageChanged = false;
   userName!: string;
-
-  readonly firstNameTextLimit = 50;
-  readonly lastNameTextLimit = 50;
-
-  readonly validationConstants = ValidationConstants;
-
-  form!: FormGroup;
-
-  get firstNameControl(): AbstractControl {
-    return this.form.get('firstName') as AbstractControl;
-  }
-
-  get lastNameControl(): AbstractControl {
-    return this.form.get('lastName') as AbstractControl;
-  }
+  profile!: Profile;
 
   constructor(
     private readonly profileService: ProfileService,
-    private readonly imageValidators: ImageValidators,
-    private readonly route: ActivatedRoute
-  ) {
-    this.titleImageControl = new FormControl('', {
-      validators: [
-        this.imageValidators.checkSize(),
-        this.imageValidators.checkFormat(),
-        Validators.required,
-      ],
-    });
+    private readonly authenticationService: AuthenticationService,
+    private readonly authStatusService: AuthenticationStatusService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly toastr: ToastrService,
+    private readonly dialog: MatDialog,
+    private readonly location: Location
+  ) {}
 
-    this.form = new FormGroup({
-      firstName: new FormControl('', [
-        Validators.required,
-        Validators.maxLength(this.firstNameTextLimit),
-      ]),
-      lastName: new FormControl('', [
-        Validators.required,
-        Validators.maxLength(this.lastNameTextLimit),
-      ]),
-    });
+  onDeleteUser(): void {
+    this.dialog
+      .open(ConfirmDialogComponent, {
+        data: {
+          message: `Delete the user?`,
+          rejectText: 'Cancel',
+          acceptText: 'Delete',
+        } as ConfirmDialogParams,
+        width: '328px',
+        panelClass: 'mat-dialog-confirm',
+      })
+      .afterClosed()
+      .pipe(
+        untilDestroyed(this),
+        filter((res) => Boolean(res)),
+        switchMap(() => this.authenticationService.deleteUser$(this.userName))
+      )
+      .subscribe(() => {
+        this.toastr.success('User successfully deleted.');
+        this.authStatusService.logout();
+        this.router.navigate(['/']);
+      });
+  }
+
+  onSaveProfileInfo(event: ProfileInfoParams) {
+    const { firstName, lastName, titleImage, isTwoFactorEnabled } = event;
+    this.profileService
+      .updateProfile$({
+        firstName,
+        lastName,
+        userName: this.userName,
+        settings: { isTwoFactorEnabled },
+      })
+      .pipe(
+        untilDestroyed(this),
+        switchMap(({ userName }) => {
+          this.userName = userName;
+          this.location.replaceState(`/profile/${userName}`);
+          return !this.titleImageChanged
+            ? of({})
+            : this.profileService.updateTitleImage$(titleImage, this.userName);
+        })
+      )
+      .subscribe(() => this.toastr.success('Profile info successfully saved.'));
   }
 
   ngOnInit(): void {
@@ -78,38 +93,7 @@ export class ProfilePageComponent implements OnInit {
         })
       )
       .subscribe((profile) => {
-        this.firstNameControl.setValue(profile.firstName, { emitEvent: false });
-        this.lastNameControl.setValue(profile.lastName, { emitEvent: false });
-        this.titleImage.fileUrl = profile.titlePhotoPath;
+        this.profile = profile;
       });
-
-    this.form.valueChanges
-      .pipe(untilDestroyed(this), debounceTime(500))
-      .pipe(
-        concatMap((value) => {
-          this.savingStatus = 'Saving changes...';
-          return this.profileService.updateProfile$({
-            ...value,
-            userName: this.userName,
-          });
-        })
-      )
-      .subscribe(() => {
-        this.savingStatus = 'Saved.';
-      });
-
-    this.titleImageControl.valueChanges
-      .pipe(untilDestroyed(this))
-      .pipe(
-        concatMap((value) => {
-          return this.profileService.updateTitleImage$(value, this.userName);
-        })
-      )
-      .subscribe();
-  }
-
-  onDeleteTitleImage(): void {
-    this.titleImage = new ImageInfo();
-    this.titleImageControl.setValue(null);
   }
 }

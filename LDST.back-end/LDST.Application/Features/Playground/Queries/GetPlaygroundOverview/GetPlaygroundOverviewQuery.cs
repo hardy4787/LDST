@@ -47,7 +47,7 @@ public sealed class GetPlaygroundOverviewQuery : IQuery<PlaygroundOverviewDto>
             };
         }
 
-        private WeekSchedule MapFromWeekScheduleEntity(Domain.EFModels.WeekScheduleEntity entity)
+        private static WeekSchedule MapFromWeekScheduleEntity(Domain.EFModels.WeekScheduleEntity entity)
         {
             var days = entity.Days.Select(d => new DaySchedule
             {

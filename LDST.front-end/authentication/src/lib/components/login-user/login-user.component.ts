@@ -5,11 +5,14 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationStatusService, ValidationConstants } from '@ldst/shared';
-import { SignInParams } from '../../models/sign-in-params.model';
-import { AuthenticationService } from '../../services/authentication.service';
+import {
+  AuthenticationService,
+  AuthenticationStatusService,
+  SignInParams,
+  ValidationConstants,
+} from '@ldst/shared';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ldst-login',
@@ -35,7 +38,7 @@ export class LoginUserComponent implements OnInit {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly authStatusService: AuthenticationStatusService,
-    private readonly notify: MatSnackBar
+    private readonly toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -55,9 +58,15 @@ export class LoginUserComponent implements OnInit {
     this.authService
       .loginUser$(userForAuth)
       .subscribe(
-        ({ token, userName, is2StepVerificationRequired, provider }) => {
+        ({
+          token,
+          userName,
+          userId,
+          is2StepVerificationRequired,
+          provider,
+        }) => {
           if (is2StepVerificationRequired) {
-            this.notify.open('Verification code was sent to your email.');
+            this.toastr.info('Verification code was sent to your email.');
             this.router.navigate(['/authentication/two-step-verification'], {
               queryParams: {
                 returnUrl: this.returnUrl,
@@ -68,6 +77,7 @@ export class LoginUserComponent implements OnInit {
           } else {
             localStorage.setItem('token', token);
             localStorage.setItem('userName', userName);
+            localStorage.setItem('userId', userId);
             this.authStatusService.sendAuthStateChangeNotification(true);
             this.router.navigate([this.returnUrl]);
           }

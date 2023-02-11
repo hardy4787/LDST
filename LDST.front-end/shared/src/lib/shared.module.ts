@@ -8,10 +8,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
-import {
-  MatSnackBarModule,
-  MAT_SNACK_BAR_DEFAULT_OPTIONS,
-} from '@angular/material/snack-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -33,7 +29,6 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatInputModule,
     MatProgressBarModule,
     MatToolbarModule,
-    MatSnackBarModule,
     MatCheckboxModule,
     MatStepperModule,
     MatButtonToggleModule,
@@ -53,24 +48,12 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatInputModule,
     MatProgressBarModule,
     MatToolbarModule,
-    MatSnackBarModule,
     MatCheckboxModule,
     MatStepperModule,
     MatButtonToggleModule,
     MatMenuModule,
     MatDialogModule,
     MatTabsModule,
-  ],
-  providers: [
-    {
-      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: {
-        duration: 5000,
-        panelClass: ['green-snackbar'],
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-      },
-    },
   ],
 })
 export class SharedModule {}

@@ -4,6 +4,7 @@ import { AppConfig, APP_CONFIG } from '@ldst/shared';
 import { Observable, of, tap, timer } from 'rxjs';
 import { Profile } from '../models/profile.model';
 import { UpdateProfileParams } from '../models/update-profile-params.model';
+import { UpdateProfileResponse } from '../models/update-profile-response.model';
 
 @Injectable()
 export class ProfileService {
@@ -18,14 +19,14 @@ export class ProfileService {
     );
   }
 
-  updateProfile$(body: UpdateProfileParams): Observable<void> {
-    return this.httpClient.put<void>(
+  updateProfile$(body: UpdateProfileParams): Observable<UpdateProfileResponse> {
+    return this.httpClient.put<UpdateProfileResponse>(
       `${this.appConfig.baseURL}/Profile/`,
       body
     );
   }
 
-  updateTitleImage$(file: File, userName: string): Observable<void> {
+  updateTitleImage$(file: File | null, userName: string): Observable<void> {
     const data = new FormData();
     data.append('userName', userName);
     if (file) {

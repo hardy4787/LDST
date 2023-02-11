@@ -36,10 +36,6 @@ a {
   display: flex;
 }
 
-.green-snackbar {
-  background-color: green;
-}
-
 .justify-content {
   &-center {
     justify-content: center;
@@ -121,6 +117,12 @@ mat-error,
     font-size: 12px;
     vertical-align: middle;
   }
+}
+
+.dialog-close-button {
+  top: 5px;
+  right: 5px;
+  position: absolute !important;
 }
 
 .required::after {

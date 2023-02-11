@@ -9,8 +9,8 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { PlaygroundStore } from './services/playground.store';
 import { MatStepper } from '@angular/material/stepper';
 import { FormControlUtils } from '@ldst/utils';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ImageValidators } from '@ldst/shared';
+import { ToastrService } from 'ngx-toastr';
 
 @UntilDestroy()
 @Component({
@@ -50,7 +50,7 @@ export class CreatePlaygroundPageComponent implements OnInit {
     private readonly createPlaygroundService: CreatePlaygroundService,
     private readonly playgroundStore: PlaygroundStore,
     private readonly imageValidators: ImageValidators,
-    private readonly snackBar: MatSnackBar
+    private readonly toastr: ToastrService
   ) {
     this.form = new FormGroup({
       createPlayground: new FormGroup({
@@ -200,7 +200,7 @@ export class CreatePlaygroundPageComponent implements OnInit {
         )
       )
       .subscribe(() => {
-        this.snackBar.open('Playground saved.');
+        this.toastr.success('Playground saved.');
       });
   }
 }

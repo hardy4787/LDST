@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ImageValidators, SharedModule } from '@ldst/shared';
 import { ProfileService } from './services/profile.service';
 import { ImageCardComponent } from '@ldst/organisms';
+import { ProfileInfoTabComponent } from './components/profile-info-tab/profile-info-tab.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { ImageCardComponent } from '@ldst/organisms';
     ]),
     ImageCardComponent,
   ],
-  declarations: [ProfilePageComponent],
+  declarations: [ProfilePageComponent, ProfileInfoTabComponent],
   providers: [ProfileService, ImageValidators],
 })
 export class ProfileModule {}

@@ -14,6 +14,7 @@ internal sealed class PlaygroundConfiguration : IEntityTypeConfiguration<Playgro
         builder.ToTable(TableNames.Playgrounds);
 
         builder.HasKey(x => x.Id);
+        builder.HasAlternateKey(x => x.Name);
 
         builder
             .HasOne(a => a.WeekSchedule)

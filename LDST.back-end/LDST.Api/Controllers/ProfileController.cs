@@ -2,7 +2,7 @@
 using LDST.Application.Features.Location.Queries.GetSupportedCities;
 using LDST.Application.Features.Profile.Commands.UpdateProfile;
 using LDST.Application.Features.Profile.Commands.UpdateProfileImage;
-using LDST.Application.Features.Profile.GetUserProfile;
+using LDST.Application.Features.Profile.Queries.GetUserProfile;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

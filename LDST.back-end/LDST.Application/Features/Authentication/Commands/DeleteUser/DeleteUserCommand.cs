@@ -9,8 +9,7 @@ namespace LDST.Application.Features.Authentication.Commands.DeleteUser;
 
 public sealed class DeleteUserCommand : ICommand<Unit>
 {
-    public string Email { get; set; } = null!;
-    public string Password { get; set; } = null!;
+    public string UserName { get; set; } = null!;
 
     internal class Handler : ICommandHandler<DeleteUserCommand, Unit>
     {
@@ -23,12 +22,7 @@ public sealed class DeleteUserCommand : ICommand<Unit>
 
         public async Task<ErrorOr<Unit>> Handle(DeleteUserCommand command, CancellationToken cancellationToken)
         {
-            if ((await _userManager.FindByEmailAsync(command.Email)) is not UserEntity user)
-            {
-                return DomainErrors.Authentication.InvalidCredentials;
-            }
-
-            if (!await _userManager.CheckPasswordAsync(user, command.Password))
+            if ((await _userManager.FindByNameAsync(command.UserName)) is not UserEntity user)
             {
                 return DomainErrors.Authentication.InvalidCredentials;
             }

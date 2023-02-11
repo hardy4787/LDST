@@ -43,7 +43,7 @@ public sealed class TwoFactorLoginQuery : IQuery<AuthenticationResult>
             var token = _jwtTokenGenerator.GenerateToken(user, roles);
 
             return new AuthenticationResult(
-                Token: token, UserName: user.UserName!);
+                Token: token, UserName: user.UserName!, UserId: user.Id);
         }
     }
 }

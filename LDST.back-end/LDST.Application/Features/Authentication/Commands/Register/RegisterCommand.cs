@@ -34,9 +34,13 @@ public sealed class RegisterCommand : ICommand<Unit>
 
         public async Task<ErrorOr<Unit>> Handle(RegisterCommand command, CancellationToken cancellationToken)
         {
-            var user = new UserEntity { FirstName = command.FirstName, LastName = command.LastName, Email = command.Email };
-
-            user.UserName = $"{user.FirstName}-{user.LastName}".ToLower();
+            var user = new UserEntity 
+            { 
+                FirstName = command.FirstName, 
+                LastName = command.LastName,
+                UserName = $"{command.FirstName}-{command.LastName}".ToLower(), 
+                Email = command.Email 
+            };
 
             if ((await _userManager.FindByNameAsync(user.UserName)) is not null)
             {

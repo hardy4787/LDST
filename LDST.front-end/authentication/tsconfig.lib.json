@@ -13,5 +13,8 @@
     "jest.config.ts",
     "src/**/*.test.ts"
   ],
-  "include": ["src/**/*.ts"]
+  "include": [
+    "src/**/*.ts",
+    "../shared/src/lib/services/authentication.service.ts"
+  ]
 }
