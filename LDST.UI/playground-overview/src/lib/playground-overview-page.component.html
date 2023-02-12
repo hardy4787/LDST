@@ -1,0 +1,70 @@
+<div class="page-container" *ngIf="playground">
+  <div class="breadcrumbs">
+    <button
+      class="back-button"
+      type="button"
+      mat-button
+      color="primary"
+      (click)="onNavigateToMainPage()"
+    >
+      <mat-icon>arrow_back</mat-icon>
+      <span>Main Page</span>
+    </button>
+    <span class="breadcrumbs-dash">/</span>
+    <button
+      class="back-button"
+      type="button"
+      mat-button
+      color="primary"
+      (click)="onNavigateToPlaygroundsListPage()"
+    >
+      <mat-icon>arrow_back</mat-icon>
+      <span>All playground</span>
+    </button>
+  </div>
+  <div class="overview-wrapper" *ngIf="playground">
+    <div class="info-wrapper flex flex-direction-column">
+      <div class="page-header">
+        {{ playground.name }}
+      </div>
+      <ul>
+        <li>
+          <mat-icon>location_on</mat-icon>
+          <a [href]="'//maps.google.com/maps?q=' + playground.address1">{{
+            playground.address1
+          }}</a>
+        </li>
+        <li>
+          <p class="address-2">fdsfd</p>
+        </li>
+        <li class="flex">
+          <div>
+            <mat-icon>query_builder</mat-icon>
+          </div>
+          <div>
+            <ul>
+              <li *ngFor="let daySchedule of playground.weekSchedule.days">
+                {{ daySchedule | dayScheduleFormat }}
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+      <button class="align-self-center" mat-flat-button color="primary">
+        Go for booking
+      </button>
+    </div>
+    <div class="gallery-wrapper">
+      <ldst-gallery
+        [imagesPaths]="playground.photoPaths"
+        [titleImagePath]="playground.titlePhotoPath"
+      ></ldst-gallery>
+    </div>
+    <div class="description-wrapper">
+      <p>Additional info</p>
+      <div>
+        {{ playground.description }}
+      </div>
+    </div>
+  </div>
+</div>

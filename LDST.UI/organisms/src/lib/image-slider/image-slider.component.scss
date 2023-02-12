@@ -1,0 +1,40 @@
+@import 'mixins';
+@import 'variables';
+
+.dots {
+  display: flex;
+  justify-content: center;
+  bottom: 20px;
+  padding: 10px 0;
+}
+
+.dot {
+  border: none;
+  width: 25px;
+  height: 8px;
+  background: #ddd8d8;
+  margin: 0 5px;
+  cursor: pointer;
+
+  &:hover {
+    background: #cec2c2;
+  }
+}
+
+.dot:focus {
+  outline: none;
+}
+
+.dot.active {
+  background: rgb(53, 49, 49);
+}
+
+.keen-slider__slide img {
+  width: 100%;
+}
+
+@include tablet-and-mobile {
+  .dots {
+    display: none;
+  }
+}

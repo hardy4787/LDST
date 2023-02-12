@@ -1,0 +1,24 @@
+.pictures-container {
+  margin-top: 5px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-around;
+  margin-bottom: 40px;
+}
+
+.gallery-picture {
+  height: 120px;
+  width: 170px;
+}
+
+.title-picture {
+  height: 200px;
+  width: 100%;
+}
+
+.message-wrapper {
+  min-height: 18px;
+  padding: 5px 0;
+}

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LDST.Gateway", "LDST.Gateway.csproj", "{809C3886-D533-49C3-AEBF-DC01A39D1E43}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{809C3886-D533-49C3-AEBF-DC01A39D1E43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{809C3886-D533-49C3-AEBF-DC01A39D1E43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{809C3886-D533-49C3-AEBF-DC01A39D1E43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{809C3886-D533-49C3-AEBF-DC01A39D1E43}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C1497A78-45F5-4CF6-BA03-4214EA77EF46}
+	EndGlobalSection
+EndGlobal

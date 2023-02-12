@@ -1,0 +1,9 @@
+@import 'mixins';
+@import 'variables';
+
+@include pageHostStretch;
+
+:host {
+  flex-direction: column;
+  display: flex;
+}

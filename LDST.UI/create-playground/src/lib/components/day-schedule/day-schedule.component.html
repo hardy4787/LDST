@@ -1,0 +1,59 @@
+<ng-container *ngIf="isClosedControl">
+  <form [formGroup]="form">
+    <div class="field-label-container">
+      <span class="field-label">{{ form.get('dayOfWeek')?.value }} </span>
+    </div>
+    <div class="form-subgroup">
+      <label
+        class="ldst-mat-time-picker-container"
+        [ngClass]="{
+          invalid: openingTimeControl.touched && openingTimeControl.invalid
+        }"
+      >
+        <div class="label-container">
+          <span
+            class="ldst-mat-time-picker-label-text required"
+            for="openingTime"
+            >Choose a opening time</span
+          >
+        </div>
+        <div class="ldst-mat-time-picker-wrapper">
+          <input
+            required
+            class="ldst-mat-time-picker"
+            id="openingTime"
+            type="time"
+            formControlName="openingTime"
+          />
+        </div>
+      </label>
+
+      <label
+        class="ldst-mat-time-picker-container"
+        [ngClass]="{
+          invalid: closingTimeControl.touched && closingTimeControl.invalid
+        }"
+      >
+        <div class="label-container">
+          <span
+            class="ldst-mat-time-picker-label-text required"
+            for="closingTime"
+            >Choose a closing time</span
+          >
+        </div>
+        <div class="ldst-mat-time-picker-wrapper">
+          <input
+            required
+            class="ldst-mat-time-picker"
+            id="closingTime"
+            type="time"
+            formControlName="closingTime"
+          />
+        </div>
+      </label>
+      <div class="flex justify-content-center align-items-center">
+        <mat-checkbox formControlName="isClosed">Closed</mat-checkbox>
+      </div>
+    </div>
+  </form>
+</ng-container>

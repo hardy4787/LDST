@@ -1,0 +1,31 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2022",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ldst/authentication": ["authentication/src/index.ts"],
+      "@ldst/create-playground": ["create-playground/src/index.ts"],
+      "@ldst/organisms": ["organisms/src/index.ts"],
+      "@ldst/playground-overview": ["playground-overview/src/index.ts"],
+      "@ldst/playground-search": ["playground-search/src/index.ts"],
+      "@ldst/playground-selector": ["playground-selector/src/index.ts"],
+      "@ldst/privacy": ["privacy/src/index.ts"],
+      "@ldst/profile": ["profile/src/index.ts"],
+      "@ldst/shared": ["shared/src/index.ts"],
+      "@ldst/utils": ["utils/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

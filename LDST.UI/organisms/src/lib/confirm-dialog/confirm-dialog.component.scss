@@ -1,0 +1,33 @@
+.pre-formatted-content {
+  white-space: pre-wrap;
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.warning-container {
+  display: flex;
+  align-items: center;
+  background: #fdf5ef;
+
+  border: 1px solid #f4dbc9;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.warning-icon {
+  margin-right: 16px;
+  color: #c14c00;
+}
+
+.warning-text {
+  color: #c14c00;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 20px;
+}

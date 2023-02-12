@@ -1,0 +1,18 @@
+@import 'variables';
+@import 'mixins';
+
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
+  padding: 10px;
+  max-height: $footer-height;
+  display: flex;
+  color: #4b5563;
+  flex-direction: column;
+  flex-wrap: wrap; /*flex items will wrap onto multiple lines, from top to bottom.*/
+}

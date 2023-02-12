@@ -1,0 +1,40 @@
+<div
+  class="picture-wrapper"
+  [ngClass]="{ 'no-image': !fileInfo.fileUrl }"
+  ldstDragAndDrop
+  (click)="onBrowseFile()"
+  (fileDropped)="onFileDropped($event)"
+>
+  <div class="positioning-container">
+    <img
+      class="picture"
+      [src]="fileInfo.fileUrl"
+      *ngIf="fileInfo.fileUrl"
+      alt=""
+    />
+
+    <div class="drag-drop-message" *ngIf="!fileInfo.fileUrl">
+      <mat-icon>photo_size_select_actual</mat-icon>
+      <div class="message-label">Drag photo file here</div>
+    </div>
+
+    <button
+      type="button"
+      *ngIf="fileInfo.fileUrl"
+      mat-icon-button
+      class="delete-photo"
+      title="Delete Photo"
+      (click)="onDeletePhoto($event)"
+    >
+      <mat-icon>image_not_supported</mat-icon>
+    </button>
+  </div>
+</div>
+
+<input
+  hidden
+  type="file"
+  #fileDropRef
+  id="fileDropRef"
+  (change)="onUpload($event)"
+/>

@@ -1,0 +1,35 @@
+<div class="p-05 playground-day-container">
+  <ul class="playground-day">
+    <li>
+      <div>
+        <div
+          class="playground-title-image-wrapper"
+          (click)="onSelectPlaygroundOverview()"
+        >
+          <img
+            class="playground-title-image"
+            [src]="playground.titlePhotoPath"
+            [alt]="playground.name"
+          />
+          <span class="title-image-tooltip"
+            ><mat-icon>arrow_forward</mat-icon> More</span
+          >
+        </div>
+      </div>
+      <div>{{ playground.name }}</div>
+      <ul>
+        <ng-container *ngFor="let timeSlot of playground.timeSlots">
+          <li class="time-slot-wrapper">
+            <a href="/">
+              <div class="time">
+                {{ timeSlot.startTime | timeFormat }} -
+                {{ timeSlot.endTime | timeFormat }}
+              </div>
+              <div class="price">{{ timeSlot.price }} USD</div>
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </li>
+  </ul>
+</div>

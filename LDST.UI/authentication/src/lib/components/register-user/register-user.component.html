@@ -1,0 +1,88 @@
+<div class="register-card stretch-page">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Register</mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="registerForm" autocomplete="off" (ngSubmit)="onSave()">
+      <mat-card-content>
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>First Name</mat-label>
+            <input formControlName="firstName" required matInput />
+            <mat-error *ngIf="firstNameControl.hasError('required')">
+              <mat-icon>error</mat-icon>
+              {{ validationConstants.REQUIRED_MESSAGE }}
+            </mat-error>
+            <mat-error *ngIf="firstNameControl.hasError('maxlength')">
+              <mat-icon>error</mat-icon>
+              {{ validationConstants.maxCharLimitMessage(firstNameTextLimit) }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Last Name</mat-label>
+            <input formControlName="lastName" required matInput />
+            <mat-error *ngIf="lastNameControl.hasError('required')">
+              <mat-icon>error</mat-icon>
+              {{ validationConstants.REQUIRED_MESSAGE }}
+            </mat-error>
+            <mat-error *ngIf="lastNameControl.hasError('maxlength')">
+              <mat-icon>error</mat-icon>
+              {{ validationConstants.maxCharLimitMessage(lastNameTextLimit) }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input formControlName="email" required matInput />
+            <mat-error *ngIf="emailControl.hasError('required')">
+              <mat-icon>error</mat-icon>
+              {{ validationConstants.REQUIRED_MESSAGE }}
+            </mat-error>
+            <mat-error *ngIf="emailControl.hasError('email')">
+              <mat-icon>error</mat-icon>
+              {{ validationConstants.INCORRECT_EMAIL_MESSAGE }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input
+              type="password"
+              formControlName="password"
+              required
+              matInput
+            />
+            <mat-error *ngIf="passwordControl.hasError('required')">
+              <mat-icon>error</mat-icon>
+              {{ validationConstants.REQUIRED_MESSAGE }}
+            </mat-error>
+            <mat-error *ngIf="passwordControl.hasError('maxlength')">
+              <mat-icon>error</mat-icon>
+              {{ validationConstants.maxCharLimitMessage(passwordTextLimit) }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Confirm Password</mat-label>
+            <input type="password" formControlName="confirmPassword" matInput />
+            <mat-error *ngIf="confirmPasswordControl.hasError('notEqual')">
+              <mat-icon>error</mat-icon>
+              {{ validationConstants.PASSWORDS_MUST_MATCH_MESSAGE }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          type="submit"
+          mat-raised-button
+          [disabled]="registerForm.invalid || registerForm.pristine"
+          color="primary"
+        >
+          Register
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+  <div class="text-center mt-2">
+    Already have an account?
+    <a [routerLink]="['/authentication/login']">Log in</a>
+  </div>
+</div>

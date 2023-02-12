@@ -1,0 +1,14 @@
+.create-playground-card {
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 20px;
+}
+:host ::ng-deep {
+  .mat-step-label {
+    display: none;
+  }
+
+  .mat-horizontal-stepper-header .mat-step-icon {
+    margin-right: 0;
+  }
+}

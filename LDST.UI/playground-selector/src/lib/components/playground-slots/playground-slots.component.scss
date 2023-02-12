@@ -1,0 +1,55 @@
+.playground-title-image {
+  height: 150px;
+  width: 100%;
+}
+
+.playground-day {
+  min-width: 200px;
+  text-align: center;
+}
+
+.time-slot-wrapper {
+  background-color: rgb(247, 247, 247);
+  margin-bottom: 5px;
+  padding: 5px;
+  transition: 0.5s;
+
+  &:hover {
+    box-shadow: rgb(0 0 0 / 18%) 0 5px 11px 0, rgb(0 0 0 / 14.9%) 0 4px 15px 0;
+  }
+}
+
+.price {
+  color: green;
+}
+
+.playground-day-container {
+  max-height: 500px;
+}
+
+.playground-title-image-wrapper {
+  position: relative;
+  transition: all 200ms linear;
+
+  &:hover {
+    opacity: 0.5;
+
+    .title-image-tooltip {
+      opacity: 1;
+    }
+  }
+}
+
+.title-image-tooltip {
+  opacity: 0;
+  position: absolute;
+  top: 65px;
+  left: 65px;
+  color: white;
+  font-size: 16px;
+
+  .mat-icon {
+    color: orange;
+    vertical-align: middle;
+  }
+}

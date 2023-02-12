@@ -1,0 +1,20 @@
+@import 'mixins';
+@import 'variables';
+
+@include cardHostComponentStretch;
+
+:host {
+  justify-content: center;
+  align-items: center;
+}
+
+.playground-search-card {
+  padding: 20px;
+  max-width: 500px;
+}
+
+@include mobile-only {
+  .form-group {
+    flex-direction: column;
+  }
+}
