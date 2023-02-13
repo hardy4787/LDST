@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ldstapi
+spec:
+  selector:
+    matchLabels:
+      app: ldstapi
+  template:
+    metadata:
+      labels:
+        app: ldstapi
+    spec:
+      containers:
+        - name: ldstapi-container
+          image: hardy4787/ldstapi
+          imagePullPolicy: Always
+          env:
+            - name: POSTGRES_USER
+              value: appuser
+            - name: POSTGRES_PASSWORD
+              value: strongpasswordapp
+            - name: POSTGRES_DB
+              value: appdb
+          ports:
+            - containerPort: 80
