@@ -257,6 +257,8 @@ namespace LDST.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasAlternateKey("Name");
+
                     b.HasIndex("CityId");
 
                     b.HasIndex("HostId");
@@ -359,19 +361,19 @@ namespace LDST.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "12f67b23-b231-4631-bf46-6761d2b447df",
+                            Id = "4259ef33-c0bc-4d80-8a09-3c204fb0ef6d",
                             Name = "Guest",
                             NormalizedName = "GUEST"
                         },
                         new
                         {
-                            Id = "752ded75-1ddd-4686-98fb-abcff568464a",
+                            Id = "38ccfdb6-f3ef-411a-8673-56b4ac931c11",
                             Name = "Host",
                             NormalizedName = "HOST"
                         },
                         new
                         {
-                            Id = "c11f9eed-9ffd-4e69-8aeb-01e01894b703",
+                            Id = "d3a1f9ec-b054-493c-86b3-7bbab5df5e40",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
