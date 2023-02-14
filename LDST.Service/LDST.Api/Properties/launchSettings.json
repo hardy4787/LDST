@@ -2,10 +2,11 @@
   "profiles": {
     "LDST.Api": {
       "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:5101"
     },
     "Docker": {
