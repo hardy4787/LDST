@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ldstapi
+  name: ldstapi-deployment
 spec:
   selector:
     matchLabels:
-      app: ldstapi
+      app: ldstapi-pod
   template:
     metadata:
       labels:
-        app: ldstapi
+        app: ldstapi-pod
     spec:
       containers:
         - name: ldstapi-container
-          image: hardy4787/ldstapi
-          imagePullPolicy: Always
+          image: hardy4787/ldstapi:latest
+          imagePullPolicy: IfNotPresent
           env:
             - name: POSTGRES_USER
               value: appuser

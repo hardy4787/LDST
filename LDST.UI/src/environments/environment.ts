@@ -1,4 +1,4 @@
 export const environment = {
-  baseURL: 'https://localhost:5101',
+  baseURL: 'http://backend.minikube.local',
   production: false,
 };

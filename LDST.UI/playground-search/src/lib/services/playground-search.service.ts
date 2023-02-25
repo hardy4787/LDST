@@ -12,8 +12,9 @@ export class PlaygroundSearchService {
   ) {}
 
   getCitySports$(countryId: number = 1): Observable<CitySport[]> {
+    console.log('kek');
     return this.httpClient.get<CitySport[]>(
-      `https://localhost:5100/Sports/citysports/${countryId}`
+      `${this.appConfig.baseURL}/Sports/citysports/${countryId}`
     );
   }
 }

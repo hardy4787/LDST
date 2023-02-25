@@ -2,5 +2,9 @@ kubectl delete -f postgres-deployment.yaml
 kubectl delete -f postgres-configmap.yaml 
 kubectl delete -f postgres-service.yaml 
 kubectl delete -f postgres-pvc-pv.yaml 
-kubectl delete -f deployment.yaml 
-kubectl delete -f service.yaml 
+kubectl delete -f backend-deployment.yaml 
+kubectl delete -f backend-service.yaml 
+kubectl delete -f ingress-api.yaml 
+kubectl delete -f frontend-deployment.yaml 
+kubectl delete -f frontend-service.yaml
+kubectl delete -f ingress-ui.yaml 
