@@ -6,7 +6,6 @@ spec:
   selector:
     matchLabels:
       app: ldstui-pod
-  replicas: 1
   template:
     metadata:
       labels:
@@ -18,4 +17,3 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
-              protocol: TCP
