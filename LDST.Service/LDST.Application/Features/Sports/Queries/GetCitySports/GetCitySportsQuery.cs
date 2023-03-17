@@ -24,6 +24,7 @@ public sealed class GetCitySportsQuery : IQuery<List<CitySportDto>>
 
         public async Task<ErrorOr<List<CitySportDto>>> Handle(GetCitySportsQuery query, CancellationToken cancellationToken)
         {
+            System.Console.WriteLine("test");
             return await _context.Cities
                 .Include(x => x.CitySports)
                 .ThenInclude(x => x.Sport)
