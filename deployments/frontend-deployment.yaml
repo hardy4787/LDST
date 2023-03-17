@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ldstui-deployment
+spec:
+  selector:
+    matchLabels:
+      app: ldstui-pod
+  template:
+    metadata:
+      labels:
+        app: ldstui-pod
+    spec:
+      containers:
+        - name: ldstui-container
+          image: hardy4787/ldstui:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80

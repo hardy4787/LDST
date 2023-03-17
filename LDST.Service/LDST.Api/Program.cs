@@ -17,13 +17,14 @@ var app = builder.Build();
     app.UseCors("AllowAllOrigins");
     app.UseAuthentication();
     app.UseAuthorization();
+    app.UseRouting();
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
         app.UseSwaggerUI();
     }
     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-    app.UseHttpsRedirection();
+    //app.UseHttpsRedirection();
     app.MapControllers();
     app.Run();
 }
