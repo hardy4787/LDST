@@ -1,14 +1,21 @@
-name: Reusable .NET Build/Test Workflow
+name: Reusable workflow example
+
 on:
   workflow_call:
     inputs:
-      source:
+      config-path:
         required: true
-        description: "Path to the MS directory"
         type: string
+    secrets:
+      token:
+        required: true
 jobs:
-  my-job:
+  triage:
     runs-on: ubuntu-latest
     steps:
       - name: my-step
         run: echo "Hello Worldfdfdsf!"
+      - uses: actions/labeler@v4
+        with:
+          repo-token: ${{ secrets.token }}
+          configuration-path: ${{ inputs.config-path }}
