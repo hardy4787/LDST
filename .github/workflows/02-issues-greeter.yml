@@ -11,7 +11,6 @@ jobs:
           REPO: ${{ github.event.repository.name }}
           OWNER: ${{ github.event.repository.owner.login }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           curl -s -X POST "https://api.github.com/repos/$OWNER/$REPO/issues/$ISSUE_NUMBER/comments" \
           -H "Authorization: token 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" \
