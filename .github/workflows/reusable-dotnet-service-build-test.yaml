@@ -3,21 +3,31 @@ name: Reusable workflow example
 on: push
 
 jobs:
-  dot_net_build_and_test:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ github.repository }}
-          path: .
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Read .NET versions from config file
-        id: read-dotnet-versions
-        run: |
-          echo "::set-output name=dotnet-versions::$(tail dotnet-versions.txt)"
+    - name: Setup multiple .NET versions
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ matrix.dotnet }}
 
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ steps.read-dotnet-versions.outputs.dotnet-versions }}
+    - name: Read .NET versions from config file
+      id: read-dotnet-versions
+      run: |
+        echo "::set-output name=dotnet-versions::$(echo $(cat dotnet-versions.txt) | tr ' ' ',')"
+
+    - name: Setup .NET Core
+      run: |
+        for version in $(cat dotnet-versions.txt); do
+          echo "Setting up .NET version $version"
+          echo $version | xargs -I {} echo "::add-path::/opt/hostedtoolcache/dncs/{}*/x64"
+          echo $version | xargs -I {} echo "::add-path::/Users/runner/hostedtoolcache/dncs/{}*/x64"
+        done
+
+    - name: Build and test
+      run: |
+        dotnet build
+        dotnet test
