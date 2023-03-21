@@ -27,7 +27,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ fromJson(steps.configuration.outputs.dotnet-version) }}
+          dotnet-version: ${{ steps.configuration.outputs.dotnet-version }}
 
       - name: Debug
         run: |
