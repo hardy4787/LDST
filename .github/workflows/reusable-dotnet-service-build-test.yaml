@@ -1,0 +1,31 @@
+name: Reusable workflow example
+
+on:
+  pull_request:
+    types:
+      - edited
+
+jobs:
+  dot_net_build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository }}
+          path: .
+
+      - name: List of files
+        run: |
+          ls ${{ github.workspace }}/
+
+      - name: Read Configuration
+        id: configuration
+        uses: CumulusDS/get-yaml-paths-action@v1.0.1
+        with:
+          file: ${{ github.workspace }}/sln.build.config.yml
+          dotnet-version: '"dotnet-version"[]'
+
+      - name: Debug
+        run: |
+          echo "kek"
