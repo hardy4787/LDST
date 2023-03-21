@@ -4,6 +4,7 @@ on:
   pull_request:
     types:
       - edited
+
 jobs:
   dot_net_build_and_test:
     runs-on: ubuntu-latest
