@@ -13,7 +13,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: ${{ github.repository }}
-          token: ${{ secrets.BACKEND_SERVICES_REPO_TOKEN }}
           path: .
 
       - name: List of files
