@@ -5,6 +5,9 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '3.1.x', '6.0.x' ]
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -12,22 +15,8 @@ jobs:
     - name: Setup multiple .NET versions
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: ${{ matrix.dotnet }}
+        dotnet-version: ${{ matrix.dotnet-version }}
 
-    - name: Read .NET versions from config file
-      id: read-dotnet-versions
+    - name: Debug
       run: |
-        echo "::set-output name=dotnet-versions::$(echo $(cat dotnet-versions.txt) | tr ' ' ',')"
-
-    - name: Setup .NET Core
-      run: |
-        for version in $(cat dotnet-versions.txt); do
-          echo "Setting up .NET version $version"
-          echo $version | xargs -I {} echo "::add-path::/opt/hostedtoolcache/dncs/{}*/x64"
-          echo $version | xargs -I {} echo "::add-path::/Users/runner/hostedtoolcache/dncs/{}*/x64"
-        done
-
-    - name: Build and test
-      run: |
-        dotnet build
-        dotnet test
+        echo "kek"
