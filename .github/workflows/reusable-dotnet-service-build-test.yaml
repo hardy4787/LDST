@@ -1,7 +1,6 @@
 name: Reusable workflow example
 
-on:
-  push
+on: push
 
 jobs:
   dot_net_build_and_test:
@@ -13,22 +12,12 @@ jobs:
           repository: ${{ github.repository }}
           path: .
 
-      - name: List of files
+      - name: Read .NET versions from config file
+        id: read-dotnet-versions
         run: |
-          ls ${{ github.workspace }}/
-
-      - name: Read Configuration
-        id: configuration
-        uses: CumulusDS/get-yaml-paths-action@v1.0.1
-        with:
-          file: ${{ github.workspace }}/sln.build.config.yml
-          dotnet-version: '"dotnet-version"[]'
+          echo "::set-output name=dotnet-versions::$(cat dotnet-versions.txt)"
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: ${{ steps.configuration.outputs.dotnet-version }}
-
-      - name: Debug
-        run: |
-          echo "kek"
+          dotnet-version: ${{ steps.read-dotnet-versions.outputs.dotnet-versions }}
