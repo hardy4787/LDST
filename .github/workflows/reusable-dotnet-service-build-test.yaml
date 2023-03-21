@@ -18,12 +18,7 @@ jobs:
 
       - name: create string
         run: |
-          MY_STRING=$(cat << EOF
-          6.0.x
-          3.1.x
-          7.0.x
-          EOF
-          )
+          MY_STRING="DOTNET_VERSIONS=$(echo ["6.0.x","3.1.x","7.0.x"] | egrep "[0-9]" | tr -d "[]" | tr ',' '\n')"
           echo "MY_STRING<<EOF" >> $GITHUB_ENV
           echo "$MY_STRING" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
@@ -38,8 +33,6 @@ jobs:
         with:
           file: ${{ github.workspace }}/sln.build.config.yml
           dotnet-version: '"dotnet-version"'
-      - run: |
-          echo "DOTNET_VERSIONS=$(echo ["6.0.x","3.1.x"] | egrep "[0-9]" | tr -d "[]" | tr ',' ' ')" >> $GITHUB_ENV
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
