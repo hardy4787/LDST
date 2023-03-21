@@ -15,7 +15,7 @@ jobs:
       - name: Read .NET versions from config file
         id: read-dotnet-versions
         run: |
-          echo "::set-output name=dotnet-versions::$(cat dotnet-versions.txt)"
+          echo "::set-output name=dotnet-versions::$(tail dotnet-versions.txt)"
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
