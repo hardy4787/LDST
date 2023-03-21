@@ -21,7 +21,6 @@ jobs:
           MY_STRING=$(cat << EOF
           |
           6.0.x
-          third line
           3.1.x
           )
           MY_STRING="${MY_STRING//'%'/'%25'}"
