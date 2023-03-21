@@ -18,7 +18,7 @@ jobs:
 
       - name: create string
         run: |
-          MY_STRING="DOTNET_VERSIONS=$(echo ["6.0.x","3.1.x","7.0.x"] | egrep "[0-9]" | tr -d "[]" | tr ',' '\n')"
+          MY_STRING="$(echo ["6.0.x","3.1.x"] | egrep "[0-9]" | tr -d "[]" | tr ',' '\n')"
           echo "MY_STRING<<EOF" >> $GITHUB_ENV
           echo "$MY_STRING" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
