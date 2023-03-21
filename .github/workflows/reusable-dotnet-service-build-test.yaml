@@ -1,9 +1,7 @@
 name: Reusable workflow example
 
 on:
-  pull_request:
-    types:
-      - edited
+  push
 
 jobs:
   dot_net_build_and_test:
