@@ -23,8 +23,7 @@ jobs:
           file: ${{ github.workspace }}/sln.build.config.yml
           dotnet-version: '"dotnet-version"'
       - run: |
-          DOTNET_VERSIONS='["6.0.2", "3.1.3"]'
-          echo "DOTNET_VERSIONS=$versions" >> $GITHUB_ENV
+          echo "DOTNET_VERSIONS='["6.0.2", "3.1.3"]' >> $GITHUB_ENV
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
