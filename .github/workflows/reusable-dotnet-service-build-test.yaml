@@ -26,6 +26,11 @@ jobs:
           file: ${{ github.workspace }}/sln.build.config.yml
           dotnet-version: '"dotnet-version"[]'
 
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ steps.configuration.outputs.dotnet-version }}
+
       - name: Debug
         run: |
           echo "kek"
