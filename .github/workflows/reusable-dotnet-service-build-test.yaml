@@ -16,6 +16,13 @@ jobs:
         run: |
           ls ${{ github.workspace }}/
 
+      - name: Read Configuration
+        id: configuration
+        uses: CumulusDS/get-yaml-paths-action@v1.0.1
+        with:
+          file: ${{ github.workspace }}/sln.build.config.yml
+          dotnet-version: '"dotnet-version"'
+
       - name: create string
         run: |
           MY_STRING="$(echo ${{ steps.configuration.outputs.dotnet-version }} | egrep "[0-9]" | tr -d "[]" | tr ',' '\n')"
@@ -26,13 +33,6 @@ jobs:
       - name: display string
         run: |
           echo "The string is: ${{ steps.my_string.outputs.content }}"
-
-      - name: Read Configuration
-        id: configuration
-        uses: CumulusDS/get-yaml-paths-action@v1.0.1
-        with:
-          file: ${{ github.workspace }}/sln.build.config.yml
-          dotnet-version: '"dotnet-version"'
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
