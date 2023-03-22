@@ -25,6 +25,7 @@ jobs:
           dotnet-version: '"dotnet-version"[]'
 
       - name: Parse .NET versions
+        if: false
         run: |
           DOTNET_VERSIONS="$(echo ${{ steps.configuration.outputs.dotnet-version }} | egrep "[0-9]" | tr -d "[]" | tr ',' '\n')"
           echo "DOTNET_VERSIONS<<EOF" >> $GITHUB_ENV
@@ -32,6 +33,7 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
 
       - name: Setup .NET Core
+        if: false
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSIONS }}
