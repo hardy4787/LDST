@@ -35,6 +35,4 @@ jobs:
             my_array+=("release/$project_name")
           done
 
-          for element in "${my_array[@]}"; do
-            echo "$element"
-          done
+          echo "kek $my_array"
