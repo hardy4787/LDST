@@ -22,7 +22,7 @@ jobs:
         with:
           file: ${{ github.workspace }}/sln.build.config.yml
           dotnet-services: '"dotnet-services"[]'
-          dotnet-version: '"dotnet-version"'
+          dotnet-version: '"dotnet-version"[]'
 
       - name: Parse .NET versions
         run: |
@@ -37,7 +37,6 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSIONS }}
 
       - name: Publish Services
-        if: false
         run: |
           SERVICES='${{ steps.configuration.outputs.dotnet-services }}'
           SERVICES_LENGTH=$(echo "$SERVICES" | jq length)
@@ -50,3 +49,6 @@ jobs:
           done
 
           echo "kek $my_array"
+
+          json_array=$(printf '%s\n' "${my_array[@]}" | jq -R . | jq -s .)
+          echo "kek $json_array"
