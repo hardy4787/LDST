@@ -1,3 +1,17 @@
-dotnet-version: |
-  6.0.x
-  3.1.x
+dotnet-services:
+  - name: document-service
+    project: Document.Service/Document.Service.csproj
+    helm-chart: charts/document-service
+    integration: Document.IntegrationTests/Document.IntegrationTests.csproj
+    client-nuget-package: Document.Service.Client/Document.Service.Client.csproj
+    documentation:
+      service-display-name: "Document Microservice"
+      service-description: "Document microservice endpoints"
+  - name: kek-service
+    project: kek.Service/kek.Service.csproj
+    helm-chart: charts/kek-service
+    integration: kek.IntegrationTests/kek.IntegrationTests.csproj
+    client-nuget-package: kek.Service.Client/kek.Service.Client.csproj
+    documentation:
+      service-display-name: "kek Microservice"
+      service-description: "kek microservice endpoints"

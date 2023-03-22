@@ -21,9 +21,20 @@ jobs:
         uses: CumulusDS/get-yaml-paths-action@v1.0.1
         with:
           file: ${{ github.workspace }}/sln.build.config.yml
-          dotnet-version: '"dotnet-version"'
+          dotnet-services: '"dotnet-services"[]'
 
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ steps.configuration.outputs.dotnet-version }}
+      - name: Publish Services
+        run: |
+          SERVICES='${{ steps.configuration.outputs.dotnet-services }}'
+          SERVICES_LENGTH=$(echo "$SERVICES" | jq length)
+          my_array=()
+          for ((i=0; i<$SERVICES_LENGTH; i++)); do
+            project_path=$(echo "$SERVICES" | jq -r ".[$i].project")
+            project_name=$(echo "$SERVICES" | jq -r ".[$i].name")
+            echo "Publishing $project_path"
+            my_array+=("release/$project_name")
+          done
+
+          for element in "${my_array[@]}"; do
+            echo "$element"
+          done
