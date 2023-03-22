@@ -17,7 +17,7 @@ jobs:
         uses: CumulusDS/get-yaml-paths-action@v1.0.1
         with:
           file: ${{ github.workspace }}/sln.build.config.yml
-          dotnet-services: '"dotnet-version"'
+          dotnet-services: '"dotnet-version"[]'
 
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v3
