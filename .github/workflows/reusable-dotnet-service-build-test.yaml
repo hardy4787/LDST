@@ -22,21 +22,6 @@ jobs:
         with:
           file: ${{ github.workspace }}/sln.build.config.yml
           dotnet-services: '"dotnet-services"[]'
-          dotnet-version: '"dotnet-version"[]'
-
-      - name: Parse .NET versions
-        if: false
-        run: |
-          DOTNET_VERSIONS="$(echo ${{ steps.configuration.outputs.dotnet-version }} | egrep "[0-9]" | tr -d "[]" | tr ',' '\n')"
-          echo "DOTNET_VERSIONS<<EOF" >> $GITHUB_ENV
-          echo "$DOTNET_VERSIONS" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-      - name: Setup .NET Core
-        if: false
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSIONS }}
 
       - name: Publish Services
         run: |
@@ -54,3 +39,13 @@ jobs:
 
           json_array=$(printf '%s\n' "${my_array[@]}" | jq -R . | jq -s .)
           echo "kek $json_array"
+
+          DOTNET_VERSIONS="$(echo ${{ steps.configuration.outputs.dotnet-version }} | tr -d "[]" | tr ',' '\n')"
+          echo "DOTNET_VERSIONS<<EOF" >> $GITHUB_ENV
+          echo "$DOTNET_VERSIONS" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          path: ${{ env.DOTNET_VERSIONS }}
