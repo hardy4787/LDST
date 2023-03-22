@@ -16,7 +16,7 @@ dotnet-services:
       service-display-name: "kek Microservice"
       service-description: "kek microservice endpoints"
 
-dotnet-version:
-  - 6.0.x
-  - 3.1.x
-  - 7.0.x
+dotnet-version: |
+  6.0.x 
+  3.1.x 
+  7.0.x
