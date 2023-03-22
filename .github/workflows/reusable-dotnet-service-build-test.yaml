@@ -40,7 +40,7 @@ jobs:
           json_array=$(printf '%s\n' "${my_array[@]}" | jq -R . | jq -s .)
           echo "kek $json_array"
 
-          DOTNET_VERSIONS="$(echo ${{ steps.configuration.outputs.dotnet-version }} | tr -d "[]" | tr ',' '\n')"
+          DOTNET_VERSIONS="$(echo $json_array | tr -d "[]" | tr ',' '\n')"
           echo "DOTNET_VERSIONS<<EOF" >> $GITHUB_ENV
           echo "$DOTNET_VERSIONS" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
