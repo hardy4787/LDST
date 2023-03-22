@@ -12,40 +12,14 @@ jobs:
           repository: ${{ github.repository }}
           path: .
 
-      - name: List of files
-        run: |
-          ls ${{ github.workspace }}/
-
       - name: Read Configuration
         id: configuration
         uses: CumulusDS/get-yaml-paths-action@v1.0.1
         with:
           file: ${{ github.workspace }}/sln.build.config.yml
-          dotnet-services: '"dotnet-services"[]'
+          dotnet-services: '"dotnet-version"'
 
-      - name: Publish Services
-        run: |
-          SERVICES='${{ steps.configuration.outputs.dotnet-services }}'
-          SERVICES_LENGTH=$(echo "$SERVICES" | jq length)
-          my_array=()
-          for ((i=0; i<$SERVICES_LENGTH; i++)); do
-            project_path=$(echo "$SERVICES" | jq -r ".[$i].project")
-            project_name=$(echo "$SERVICES" | jq -r ".[$i].name")
-            echo "Publishing $project_path"
-            my_array+=("release/$project_name")
-          done
-
-          echo "kek $my_array"
-
-          json_array=$(printf '%s\n' "${my_array[@]}" | jq -R . | jq -s .)
-          echo "kek $json_array"
-
-          DOTNET_VERSIONS="$(echo $json_array | tr -d '[]"' | tr ',' '\n')"
-          echo "DOTNET_VERSIONS<<EOF" >> $GITHUB_ENV
-          echo "$DOTNET_VERSIONS" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
         with:
-          path: ${{ env.DOTNET_VERSIONS }}
+          dotnet-version: ${{ steps.configuration.outputs.dotnet-version }}
