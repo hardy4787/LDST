@@ -19,7 +19,12 @@ jobs:
           file: ${{ github.workspace }}/sln.build.config.yml
           dotnet-version: '"dotnet-version"'
 
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ steps.configuration.outputs.dotnet-version }}
+      - name: Extract Service Name
+        run: |
+          KEK='src/Services.Document'
+          SERVICE_NAME=${KEK##*.}
+          echo "SERVICE_NAME=$SERVICE_NAME" >> $GITHUB_ENV
+
+      - name: Debug
+        run: |
+          echo "${{ env.SERVICE_NAME }}"
