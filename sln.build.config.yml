@@ -18,6 +18,3 @@ dotnet-services:
 
 solution-name: |
   src/Services.Document
-
-dotnet-version: |
-  6.0.x
