@@ -22,8 +22,7 @@ jobs:
 
       - name: Extract Service Name
         run: |
-          KEK="${{ steps.configuration.outputs.solution-name }}"
-          SERVICE_NAME=${KEK##*.}
+          SERVICE_NAME=${${{ steps.configuration.outputs.solution-name }}##*.}
           echo "SERVICE_NAME=$SERVICE_NAME" >> $GITHUB_ENV
 
       - name: Debug
