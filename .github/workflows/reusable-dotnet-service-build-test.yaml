@@ -18,7 +18,7 @@ jobs:
         with:
           file: ${{ github.workspace }}/sln.build.config.yml
           dotnet-version: '"dotnet-version"'
-          solution-name: '"solution-name'
+          solution-name: '"solution-name"'
 
       - name: Extract Service Name
         run: |
