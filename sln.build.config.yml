@@ -16,5 +16,7 @@ dotnet-services:
       service-display-name: "kek Microservice"
       service-description: "kek microservice endpoints"
 
+solution-name: src/Services.Document
+
 dotnet-version: |
   6.0.x
