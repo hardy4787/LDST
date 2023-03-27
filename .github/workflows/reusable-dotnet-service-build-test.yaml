@@ -17,14 +17,20 @@ jobs:
         uses: CumulusDS/get-yaml-paths-action@v1.0.1
         with:
           file: ${{ github.workspace }}/sln.build.config.yml
-          dotnet-version: '"dotnet-version"'
+          dotnet-version: '"dotnet-services"[]'
           solution-name: '"solution-name"'
 
-      - name: Extract Service Name
-        run: |
-          SERVICE_NAME=${${{ steps.configuration.outputs.solution-name }}##*.}
-          echo "SERVICE_NAME=$SERVICE_NAME" >> $GITHUB_ENV
-
       - name: Debug
+        if: steps.configuration.outputs.dotnet-services != 'null'
         run: |
-          echo "${{ env.SERVICE_NAME }}"
+          SERVICES='${{ steps.configuration.outputs.dotnet-services }}'
+          SERVICES_LENGTH=$(echo "$SERVICES" | jq length)
+          for ((i=0; i<$SERVICES_LENGTH; i++)); do
+            DOCKER=$(echo "$SERVICES" | jq -r ".[$i].docker")
+            ENTRYPONT_VALUE=$(echo "$DOCKER" | jq -r '.entrypoint')
+            echo "entrypoint_value=$ENTRYPONT_VALUE" >> $GITHUB_ENV
+          done
+
+      - name: Use entrypoint value
+        run: |
+          echo "Entrypoint value: ${{ env.entrypoint_value }}"

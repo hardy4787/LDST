@@ -1,20 +1,40 @@
+dotnet-version: |
+  6.0.x
+dotnet-build-configuration: Release
+dotnet-build-platform: x64
+nuget-version: 5.x
+nuget-config: nuget.config
+
+unit-tests:
+  projects:
+    - Document.Tests/Document.Tests.csproj
+  coverage-required: false
+  coverage-threshold: "94"
+  coverage-exclude: "[Document.Service.Client]*"
+  coverage-exclude-by-attribute: '"\"CompilerGeneratedAttribute,GeneratedCodeAttribute"'
+  coverage-threshold-type: line
+  has-pull-request-api-tests: false
+
 dotnet-services:
-  - name: document-service
+  - name: services-document
     project: Document.Service/Document.Service.csproj
-    helm-chart: charts/document-service
-    integration: Document.IntegrationTests/Document.IntegrationTests.csproj
+    helm-chart: charts/services-document
+    integration-test: Document.IntegrationTests/Document.IntegrationTests.csproj
     client-nuget-package: Document.Service.Client/Document.Service.Client.csproj
+    entrypoint: Document.Service.dll
     documentation:
       service-display-name: "Document Microservice"
       service-description: "Document microservice endpoints"
-  - name: kek-service
-    project: kek.Service/kek.Service.csproj
-    helm-chart: charts/kek-service
-    integration: kek.IntegrationTests/kek.IntegrationTests.csproj
-    client-nuget-package: kek.Service.Client/kek.Service.Client.csproj
-    documentation:
-      service-display-name: "kek Microservice"
-      service-description: "kek microservice endpoints"
+    docker:
+      repository: backend/services-document
+      entrypoint: Document.Service.dll
 
-solution-name: |
-  src/Services.Document
+dotnet-processors:
+  - name: processors-document
+    project: Document.Processor/Document.Processor.csproj
+    helm-chart: charts/processors-document
+
+dotnet-azure-functions:
+  - name: azure-functions-document
+    project: Document.FunctionProcessor/Document.FunctionProcessor.csproj
+    helm-chart:
