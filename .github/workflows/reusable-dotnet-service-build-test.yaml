@@ -17,7 +17,7 @@ jobs:
         uses: CumulusDS/get-yaml-paths-action@v1.0.1
         with:
           file: ${{ github.workspace }}/sln.build.config.yml
-          dotnet-version: '"dotnet-services"[]'
+          dotnet-services: '"dotnet-services"[]'
           solution-name: '"solution-name"'
 
       - name: Debug
