@@ -2,7 +2,7 @@
 name: hello-world
 on:
   schedule:
-    - cron: '1 * * * *' # Run every minute
+    - cron: '5 * * * *' # Run every minute
 jobs:
   my-job:
     runs-on: ubuntu-latest
