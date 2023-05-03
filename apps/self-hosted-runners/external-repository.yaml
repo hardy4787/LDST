@@ -1,0 +1,18 @@
+images:
+  - name: actions-runner-controller
+    source: summerwind/actions-runner-controller
+    tag: latest
+    valuePath: actions-runner-controller:image:tag
+    targetNamespace: external
+
+  - name: kube-rbac-proxy
+    source: quay.io/brancz/kube-rbac-proxy
+    tag: v0.10.0
+    valuePath: actions-runner-controller:metrics:proxy:image:tag
+    targetNamespace: external
+
+  - name: dex
+    source: ghcr.io/dexidp/dex
+    tag: v2.36.0
+    valuePath: dex:image:tag
+    targetNamespace: external
