@@ -5,9 +5,9 @@ CONFIG_PATH="${GITHUB_WORKSPACE}/apps/self-hosted-runners/external-repository.ya
 VALUES_IMAGE_PATH="${GITHUB_WORKSPACE}/apps/self-hosted-runners/values.image.yaml"
 
 # Read the images, valuePaths, and tags from the external-repository.yaml file
-IMAGES=($(yq '.images[].name' -r "${CONFIG_PATH}"))
-VALUE_PATHS=($(yq '.images[].valuePath' -r "${CONFIG_PATH}"))
-TAGS=($(yq '.images[].tag' -r "${CONFIG_PATH}"))
+IMAGES=($(yq r "${CONFIG_PATH}" 'images[].name'))
+VALUE_PATHS=($(yq r "${CONFIG_PATH}" 'images[].valuePath'))
+TAGS=($(yq r "${CONFIG_PATH}" 'images[].tag'))
 
 # Loop through each image, update the values.image.yaml with the new tag according to the valuePath
 for i in "${!IMAGES[@]}"; do
@@ -15,7 +15,7 @@ for i in "${!IMAGES[@]}"; do
   TAG="${TAGS[$i]}"
 
   # Update the values.image.yaml file with the new tag
-  yq eval -i ".${VALUE_PATH} = \"${TAG}\"" "${VALUES_IMAGE_PATH}"
+  yq w -i "${VALUES_IMAGE_PATH}" "${VALUE_PATH}" "${TAG}"
 done
 
 # Check if any changes were made
