@@ -7,12 +7,12 @@ images:
 
   - name: kube-rbac-proxy
     source: quay.io/brancz/kube-rbac-proxy
-    tag: v0.10.0
+    tag: v2.10.5
     valuePath: actions-runner-controller.metrics.proxy.image.tag
     targetNamespace: external
 
   - name: dex
     source: ghcr.io/dexidp/dex
-    tag: v2.36.0
+    tag: v4.32.0
     valuePath: dex.image.tag
     targetNamespace: external
