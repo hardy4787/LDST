@@ -18,7 +18,7 @@ for i in "${!IMAGES[@]}"; do
   echo ".${VALUE_PATH}"
   echo "${TAG}"
   echo ${VALUES_IMAGE_PATH}
-  yq e ".${VALUE_PATH}" = "${TAG}" ${VALUES_IMAGE_PATH}
+  yq e '.${VALUE_PATH} = "${TAG}"' ${VALUES_IMAGE_PATH}
 done
 
 # Check if any changes were made
