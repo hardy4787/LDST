@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Paths to the YAML configuration files
-CONFIG_PATH="apps/self-hosted-runners/external-repository.yaml"
-VALUES_IMAGE_PATH="apps/self-hosted-runners/values.image.yaml"
+CONFIG_PATH="${GITHUB_WORKSPACE}/apps/self-hosted-runners/external-repository.yaml"
+VALUES_IMAGE_PATH="${GITHUB_WORKSPACE}/apps/self-hosted-runners/values.image.yaml"
 
 # Read the images, valuePaths, and tags from the external-repository.yaml file
 IMAGES=($(yq e '.images[].name' "${CONFIG_PATH}"))
