@@ -1,0 +1,11 @@
+actions-runner-controller:
+  image:
+    tag: "latest"
+  metrics:
+    proxy:
+      image:
+        tag: v0.7.0
+
+dex:
+  image: 
+    tag: v2.35.0

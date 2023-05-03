@@ -1,0 +1,36 @@
+name: Update Values Image Tags
+
+on:
+  push:
+    branches:
+      - main
+      jobs:
+        update_values_image:
+          runs-on: ubuntu-latest
+      
+          steps:
+          - name: Git - Checkout
+            uses: actions/checkout@v3
+      
+          - name: Setup Python
+            uses: actions/setup-python@v2
+            with:
+              python-version: '3.x'
+      
+          - name: Install yq
+            run: |
+              pip install yq
+      
+          - name: Update Values Image Tags
+            run: |
+              chmod +x ./.github/workflows_scripts/update_values_image_tags.sh
+              bash ./.github/workflows_scripts/update_values_image_tags.sh
+      
+          - name: Git - Commit and Push
+            run: |
+              git config --local user.email "action@github.com"
+              git config --local user.name "GitHub Action"
+              git add apps/self-hosted-runners/values.image.yaml
+              git commit -m "Update values.image.yaml with new tags"
+              git push
+      
