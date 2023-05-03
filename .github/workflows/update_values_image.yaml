@@ -3,7 +3,7 @@ name: Update Values Image Tags
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   update_values_image:
