@@ -6,7 +6,7 @@ VALUES_IMAGE_PATH="${GITHUB_WORKSPACE}/apps/self-hosted-runners/values.image.yam
 ls
 ls ${GITHUB_WORKSPACE}
 ls ${GITHUB_WORKSPACE}/apps
-ls ${GITHUB_WORKSPACE}/apps/self-hosted-runners
+cat ${GITHUB_WORKSPACE}/apps/self-hosted-runners/external-repository.yaml
 # Read the images, valuePaths, and tags from the external-repository.yaml file
 IMAGES=($(yq e '.images[].name' "${CONFIG_PATH}"))
 VALUE_PATHS=($(yq e '.images[].valuePath' "${CONFIG_PATH}"))
