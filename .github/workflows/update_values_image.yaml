@@ -1,9 +1,12 @@
 name: Update Values Image Tags
 
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
+  pull_request:
+    types:
+      - synchronize
 
 jobs:
   update_values_image:
@@ -12,11 +15,13 @@ jobs:
     steps:
     - name: Git - Checkout
       uses: actions/checkout@v3
-
-    - name: Setup Python
-      uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        ref: workflow-test-1
+
+    # - name: Setup Python
+    #   uses: actions/setup-python@v2
+    #   with:
+    #     python-version: '3.x'
 
     - name: Update Values Image Tags
       run: |
