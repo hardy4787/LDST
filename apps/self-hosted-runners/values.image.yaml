@@ -4,8 +4,7 @@ actions-runner-controller:
   metrics:
     proxy:
       image:
-        tag: v0.7.0
-
+        tag: v2.10.5
 dex:
-  image: 
-    tag: v2.35.0
+  image:
+    tag: v4.32.0

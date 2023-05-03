@@ -1,9 +1,13 @@
-name: Update Values Image Tags
+name: Update Values Image Tags1
 
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
+  pull_request:
+    types:
+      - opened
+      - synchronize
 
 jobs:
   update_values_image:
@@ -12,17 +16,41 @@ jobs:
     steps:
     - name: Git - Checkout
       uses: actions/checkout@v3
-
-    - name: Setup Python
-      uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        ref: workflow-test-1
+
+    # - name: Setup Python
+    #   uses: actions/setup-python@v2
+    #   with:
+    #     python-version: '3.x'
 
     - name: Update Values Image Tags
       run: |
-        chmod +x ./.github/workflows_scripts/update_values_image_tags.py
-        chmod +x ./.github/workflows_scripts/update_values_image_tags.sh
-        bash ./.github/workflows_scripts/update_values_image_tags.sh
+        CONFIG_PATH="${GITHUB_WORKSPACE}/apps/self-hosted-runners/external-repository.yaml"
+        VALUES_IMAGE_PATH="${GITHUB_WORKSPACE}/apps/self-hosted-runners/values.image.yaml"
+
+        IMAGES=($(yq e '.images[].name' "${CONFIG_PATH}"))
+        VALUE_PATHS=($(yq e '.images[].valuePath' "${CONFIG_PATH}"))
+        TAGS=($(yq e '.images[].tag' "${CONFIG_PATH}"))
+
+        for i in "${!IMAGES[@]}"; do
+          VALUE_PATH="${VALUE_PATHS[$i]}"
+          TAG="${TAGS[$i]}"
+
+          # Update the values.image.yaml file with the new tag
+          yq e -i ".${VALUE_PATH} = \"${TAG}\"" ${VALUES_IMAGE_PATH}
+          echo ${VALUES_IMAGE_PATH}
+        done
+
+        if git diff --quiet "${VALUES_IMAGE_PATH}"; then
+          echo "No changes were made to the values.image.yaml file"
+        else
+          echo "The values.image.yaml file was updated with new tags"
+        fi
+      # run: |
+      #   chmod +x ./.github/workflows_scripts/update_values_image_tags.py
+      #   chmod +x ./.github/workflows_scripts/update_values_image_tags.sh
+      #   bash ./.github/workflows_scripts/update_values_image_tags.sh
 
     - name: Git - Commit and Push
       run: |
