@@ -29,7 +29,3 @@ jobs:
         if: ${{ !github.event.inputs.integration-tests-only }}
         run: |
           echo "Hello world 4"
-      - name: Echo - Test5
-        if: !github.event.inputs.integration-tests-only
-        run: |
-          echo "Hello world 5"
