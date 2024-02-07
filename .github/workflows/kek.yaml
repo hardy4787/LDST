@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       integration-tests-only:
-        description: 'True to run only Integration Tests, False to build & deploy app & run Integration Tests.'
+        description: 'True to run only Integration Tests, False to build & deploy app & run Integration Tests'
         required: false
         type: boolean
   push:
