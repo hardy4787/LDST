@@ -8,6 +8,9 @@ on:
         description: 'True to run only Integration Tests, False to build & deploy app & run Integration Tests.'
         required: false
         type: boolean
+  push:
+    branches: [main]
+
 jobs:
   build:
     name: Build
