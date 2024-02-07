@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       integration-tests-only:
-        description: 'True to run only Integration Tests, False to build & deploy app & run Integration Tests.'
+        description: 'True to run only Integration Tests, False to build & deploy app & run Integration Testsd'
         required: false
         type: boolean
   push:
@@ -16,15 +16,19 @@ jobs:
     name: Build
     runs-on: [ubuntu-latest]
     steps:
-      - name: Echo - Test1
-        if: ${{ github.event.inputs.integration-tests-only != 'true' }}
-        run: |
-          echo "Hello world 1"
+      # - name: Echo - Test1
+      #   if: ${{ inputs.integration-tests-only }}
+      #   run: |
+      #     echo "Hello world 1"
+      # - name: Echo - Test3
+      #   if: ${{ !inputs.integration-tests-only}}
+      #   run: |
+      #     echo "Hello world 3"
       - name: Echo - Test4
-        if: ${{ !github.event.inputs.integration-tests-only }}
+        if: ${{ github.event_name != 'pull_request' && inputs.integration-tests-only }}
         run: |
           echo "Hello world 4"
       - name: Echo - Test5
-        if: ${{ github.event_name != 'pull_request' && !github.event.inputs.integration-tests-only }}
+        if: ${{ github.event_name != 'pull_request' && !inputs.integration-tests-only }}
         run: |
-          echo "Hello world 5
+          echo "Hello world 5"
