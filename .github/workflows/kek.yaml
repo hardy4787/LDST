@@ -25,7 +25,3 @@ jobs:
         if: ${{ github.event_name != 'pull_request' && !github.event.inputs.integration-tests-only }}
         run: |
           echo "Hello world 5
-      - name: Echo - Test6
-        if: ${{ github.event_name != 'pull_request' && github.event.inputs.integration-tests-only }}
-        run: |
-          echo "Hello world 6
