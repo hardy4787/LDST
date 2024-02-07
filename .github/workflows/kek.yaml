@@ -1,0 +1,30 @@
+name: DocumentMS CI-CD
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+    inputs:
+      integration-tests-only:
+        description: 'True to run only Integration Tests, False to build & deploy app & run Integration Tests.'
+        required: false
+        type: boolean
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Echo - Test1
+        if: ${{ github.event.inputs.integration-tests-only != 'true' }}
+        run: |
+          echo "Hello world 1"
+      - name: Echo - Test4
+        if: ${{ !github.event.inputs.integration-tests-only }}
+        run: |
+          echo "Hello world 4"
+      - name: Echo - Test5
+        if: ${{ github.event_name != 'pull_request' && !github.event.inputs.integration-tests-only }}
+        run: |
+          echo "Hello world 5
