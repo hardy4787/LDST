@@ -21,7 +21,7 @@ jobs:
         run: |
           echo "Hello world 1"
       - name: Echo - Test3
-        if: ${{ github.event.inputs.integration-tests-only == 'true '}}
+        if: ${{ github.event.inputs.integration-tests-only == 'true'}}
         run: |
           echo "Hello world 3"
       - name: Echo - Test4
