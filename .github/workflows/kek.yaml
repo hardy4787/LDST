@@ -11,9 +11,17 @@ on:
 jobs:
   build:
     name: Build
-    if: ${{ github.event.inputs.integration-tests-only != 'true' }}
     runs-on: [ubuntu-latest]
     steps:
-      - name: Echo - Test
+      - name: Echo - Test1
+        if: ${{ github.event.inputs.integration-tests-only != 'true' }}
         run: |
-          echo "Hello world"
+          echo "Hello world 1"
+      - name: Echo - Test2
+        if: github.event.inputs.integration-tests-only != true
+        run: |
+          echo "Hello world 2"
+      - name: Echo - Test3
+        if: ${{ github.event.inputs.integration-tests-only != true }}
+        run: |
+          echo "Hello world 3"
